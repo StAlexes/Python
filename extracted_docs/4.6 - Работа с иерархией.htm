@@ -1,0 +1,273 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Работа с иерархией</title>
+    <meta name="Microsoft.Help.Id" content="2152c584-1690-4920-a990-71a3b6876dfb" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена процедура подключения объекта к родителю в справочнике со сложной иерархией. Ниже показано, как использовать метод M:TFlex.DOCs.Model.References.ReferenceObject.CreateChildLink(TFlex.DOCs.Model.References." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Работа с иерархией</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="WorkingWithHierarchy">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример создания и подключения объекта к родителю в справочнике со сложной иерархией.</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					В данном примере рассмотрена процедура подключения объекта к родителю в справочнике со сложной иерархией.<br />
+					Ниже показано, как использовать метод
+					<a href="B535F805.htm">CreateChildLink</a>
+					класса
+					<a href="85856F0C.htm">ReferenceObject</a>
+					для создания подключения к дочернему объекту.
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Desktop;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Nomenclature;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> nomenclatureReference = <span class="highlight-keyword">new</span> NomenclatureReference(Context.Connection); <span class="highlight-comment">// Справочник "Электронная структура изделий"</span>
+        ReferenceObject parentObject = CreateNewNomenclatureObject(nomenclatureReference); <span class="highlight-comment">// Создаем родительский объект</span>
+
+        <span class="highlight-keyword">if</span> (parentObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">int</span> childObjectsCount = <span class="highlight-number">3</span>;
+        List&lt;ReferenceObject&gt; newObjects = <span class="highlight-keyword">new</span> List&lt;ReferenceObject&gt;(childObjectsCount + <span class="highlight-number">1</span>) { parentObject };
+
+        <span class="highlight-comment">// Создаем дочерние объекты</span>
+        <span class="highlight-keyword">for</span> (<span class="highlight-keyword">int</span> i = <span class="highlight-number">1</span>; i &lt;= childObjectsCount; i++)
+        {
+            ReferenceObject newChild = CreateNewNomenclatureObject(nomenclatureReference); <span class="highlight-comment">// Создаем дочерний объект</span>
+
+            <span class="highlight-keyword">if</span> (newChild <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">continue</span>;
+
+            newObjects.Add(newChild);
+
+            <span class="highlight-comment">// Создаем подключение от родительского объекта к дочернему</span>
+            NomenclatureHierarchyLink hLink = parentObject.CreateChildLink(newChild) <span class="highlight-keyword">as</span> NomenclatureHierarchyLink;
+
+            <span class="highlight-keyword">if</span> (hLink <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">continue</span>;
+
+            hLink.Amount.Value = i; <span class="highlight-comment">// Устанавливаем параметры подключения (Количество)</span>
+            hLink.EndChanges(); <span class="highlight-comment">// Фиксируем изменения</span>
+        }
+
+        Desktop.CheckIn(newObjects, <span class="highlight-literal">"Применение изменений"</span>, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Применяем изменения</span>
+    }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Создает объект "Сборочная единица" в справочнике ЭСИ&lt;/summary&gt;</span>
+    <span class="highlight-comment">/// &lt;returns&gt;Созданный объект ЭСИ&lt;/returns&gt;</span>
+    <span class="highlight-keyword">public</span> ReferenceObject CreateNewNomenclatureObject(NomenclatureReference nomenclatureReference)
+    {
+        <span class="highlight-keyword">if</span> (nomenclatureReference <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span> <span class="highlight-keyword">null</span>;
+
+        <span class="highlight-comment">// Создаем новый объект "Сборочная единица"</span>
+        <span class="highlight-keyword">var</span> classAssembly = nomenclatureReference.Classes.Assembly; <span class="highlight-comment">// Получаем тип "Сборочная единица"</span>
+        NomenclatureObject newNomenclature = nomenclatureReference.CreateReferenceObject(classAssembly) <span class="highlight-keyword">as</span> NomenclatureObject;
+
+        <span class="highlight-comment">// Устанавливаем параметры объекта</span>
+        newNomenclature.Name.Value = <span class="highlight-literal">"Сборочная единица от "</span> + DateTime.Now.ToShortDateString();
+        newNomenclature.Denotation.Value = <span class="highlight-literal">"СЕ"</span> + <span class="highlight-keyword">new</span> Random().Next();
+
+        _ = newNomenclature.EndChanges(); <span class="highlight-comment">// Фиксируем изменения</span>
+
+        <span class="highlight-keyword">return</span> newNomenclature;
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="mediaNear">
+            <div class="caption">Результат работы макроса:</div>
+            <img alt="Create Child Link Example" src="../media/CreateChildLinkExample.png" />
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion" id="WorkingWithHierarchyOld">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример создания и подключения объекта к родителю в ЭСИ при использовании механизма связанных справочников</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Данный пример работает на устаревшем механизме, основанном на взаимодействии справочника ЭСИ со связанными справочниками (Документы, Материалы, Электронные компоненты и т.д.)<br /></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Documents;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Nomenclature;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">readonly</span> DocumentReference _documentReference; <span class="highlight-comment">// Справочник Документы</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">readonly</span> NomenclatureReference _nomenclatureReference; <span class="highlight-comment">// Справочник "Электронная структура изделий"</span>
+
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    {
+        _documentReference = <span class="highlight-keyword">new</span> DocumentReference(Context.Connection);
+        _nomenclatureReference = <span class="highlight-keyword">new</span> NomenclatureReference(Context.Connection);
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ReferenceObject parentObject = CreateNewNomenclatureObject(); <span class="highlight-comment">// Создаем родительский объект</span>
+
+        <span class="highlight-keyword">if</span> (parentObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">for</span> (<span class="highlight-keyword">int</span> i = <span class="highlight-number">1</span>; i &lt; <span class="highlight-number">5</span>; i++)
+        {
+            ReferenceObject newChild = CreateNewNomenclatureObject(); <span class="highlight-comment">// Создаем дочерний объект</span>
+
+            <span class="highlight-keyword">if</span> (newChild <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">continue</span>;
+
+            NomenclatureHierarchyLink hLink = parentObject.CreateChildLink(newChild) <span class="highlight-keyword">as</span> NomenclatureHierarchyLink; <span class="highlight-comment">// Создаем подключение к дочернему объекту</span>
+
+            <span class="highlight-keyword">if</span> (hLink <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">continue</span>;
+
+            hLink.Amount.Value = i; <span class="highlight-comment">// Устанавливаем параметры подключения (Количество)</span>
+            hLink.EndChanges(); <span class="highlight-comment">// Сохраним изменения</span>
+        }
+    }
+
+    <span class="highlight-comment">/// &lt;summary&gt;</span>
+    <span class="highlight-comment">/// Создает объект "Сборочная единица" в справочнике Документы и подключает его к ЭСИ</span>
+    <span class="highlight-comment">/// &lt;/summary&gt;</span>
+    <span class="highlight-comment">/// &lt;returns&gt;Объект ЭСИ&lt;/returns&gt;</span>
+    <span class="highlight-keyword">public</span> ReferenceObject CreateNewNomenclatureObject()
+    {
+        <span class="highlight-keyword">if</span> (_documentReference <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span> || _nomenclatureReference <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span> <span class="highlight-keyword">null</span>;
+
+        <span class="highlight-comment">// Создаем новый объект "Сборочная единица"</span>
+        EngineeringDocumentObject newDocument =
+            _documentReference.CreateReferenceObject(_documentReference.Classes.Assembly) <span class="highlight-keyword">as</span> EngineeringDocumentObject;
+
+        <span class="highlight-keyword">if</span> (newDocument <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span> <span class="highlight-keyword">null</span>;
+
+        newDocument.Name = <span class="highlight-literal">"Сборочная единица от "</span> + DateTime.Now.ToShortDateString(); <span class="highlight-comment">// Устанавливаем параметры объекта</span>
+        newDocument.Denotation = <span class="highlight-literal">"СЕ"</span> + <span class="highlight-keyword">new</span> Random().Next();
+
+        _ = newDocument.EndChanges(); <span class="highlight-comment">// Сохраняем изменения</span>
+
+        NomenclatureObject newNomenclature = _nomenclatureReference.CreateNomenclatureObject(newDocument); <span class="highlight-comment">// Подключаем к ЭСИ</span>
+
+        <span class="highlight-comment">// Если связанный объект ЭСИ (newDocument) сохранен, то и объект ЭСИ, созданный при помощи CreateNomenclatureObject, тоже будет сохранен.</span>
+        <span class="highlight-comment">// Если к связанному объекту ЭСИ не были применены изменения (EndChanges()), то объект ЭСИ добавляется в набор сохранения объектов вместе со связанным объектом.</span>
+        <span class="highlight-comment">// В этом случае надо сохранить изменения в наборе:</span>
+
+        <span class="highlight-comment">//if (newNomenclature.SaveSet is not null)</span>
+        <span class="highlight-comment">//    newNomenclature.SaveSet.EndChanges();</span>
+
+        <span class="highlight-keyword">return</span> newNomenclature;
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LST1F8C4C88_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+          </div>
+          <div>
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LST1F8C4C88_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+          </div>
+          <div>
+            <a href="E67A9C1B.htm">TFlex.DOCs.Model.References.Documents<span id="LST1F8C4C88_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>DocumentReference</a>
+          </div>
+          <div>
+            <a href="5AD4E07.htm">TFlex.DOCs.Model.References.Nomenclature<span id="LST1F8C4C88_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>NomenclatureReference</a>
+          </div>
+          <div>
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST1F8C4C88_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </div>
+          <div>
+            <a href="9227668F.htm">TFlex.DOCs.Model.References.Documents<span id="LST1F8C4C88_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>EngineeringDocumentObject</a>
+          </div>
+          <div>
+            <a href="B0967D0C.htm">TFlex.DOCs.Model.References.Nomenclature<span id="LST1F8C4C88_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>NomenclatureObject</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

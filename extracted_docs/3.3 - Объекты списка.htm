@@ -1,0 +1,145 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Объекты списка</title>
+    <meta name="Microsoft.Help.Id" content="B1A51214-2E7B-4193-AA6E-0F8CC8F02467" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Список объектов является аналогом связи внутри объекта. Работа со объектами списка во многом схожа с работой с объектами справочника." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Объекты списка</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Список объектов является аналогом связи внутри объекта.<br />
+				Работа со объектами списка во многом схожа с работой с объектами справочника.
+				Отличительной особенностью является тот факт, что объект списка не представляет собой самостоятельный элемент и
+				его использование имеет смысл только в отношении объекта, внутри которого он был создан (объект-владелец).<br />
+				В связи с этим, объект списка создается исключительно от объекта-владельца, редактируется и удаляется в рамках изменения объекта-владельца
+			</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>Порядок операций при создании/редактировании объекта списка:</p>
+          <ul>
+            <li>
+              <p>Создание объекта-владельца или взятие на редактирование</p>
+              <p>    - Создание объекта списка или взятие на редактирование</p>
+              <p>    - Редактирование параметров и/или связей объекта списка</p>
+              <p>    - Сохранение объекта списка или отмена изменений</p>
+            </li>
+            <li>
+              <p>Сохранение объекта-владельца или отмена изменений</p>
+            </li>
+          </ul>
+          <p>При удалении порядок операций аналогичный:</p>
+          <ul>
+            <li>
+              <p>Создание объекта-владельца или взятие на редактирование</p>
+              <p>    - Удаление объекта списка (объект списка не должен находиться в режиме редактирования)</p>
+            </li>
+            <li>
+              <p>Сохранение объекта-владельца или отмена изменений</p>
+            </li>
+          </ul>
+          <p>
+					Код по редактированию и сохранению объектов списка аналогичен коду для объектов справочника, подробности в соответствующем <a href="458f2560-c2d9-4615-ae01-fe575141692d.htm#EditObjectSection">разделе</a></p>
+          <p>
+            <a href="20D310D3.htm">Объект.СоздатьОбъектСписка("(Имя списка объектов)", "(Имя типа объекта)")</a>
+					- создает объект списка для текущего объекта (владельца).
+				</p>
+          <div id="IDGABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDGABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDGABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDGABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDGABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ТекущийОбъект.Изменить();
+
+Объект новыйЭлемент = ТекущийОбъект.СоздатьОбъектСписка(<span class="highlight-literal">"Химический состав"</span>, <span class="highlight-literal">"Элемент химического состава"</span>);
+новыйЭлемент.Параметр[<span class="highlight-literal">"Химический элемент"</span>] = <span class="highlight-number">26</span>; <span class="highlight-comment">// Fe</span>
+новыйЭлемент.Сохранить();
+
+ТекущийОбъект.Сохранить();</pre>
+              </div>
+            </div>
+          </div>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>Идентификатор (Id) созданного объекта списка равен нулю до сохранения объекта-владельца</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="63B6CCBA.htm">Объект.СвязанныеОбъекты</a>
+            <a href="619B56AA.htm">["(Имя или Guid списка объектов)"]</a>
+					- возвращает объекты списка.
+				</p>
+          <div id="IDKABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDKABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDKABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDKABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDKABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ТекущийОбъект.Изменить();
+Объекты комментарии = ТекущийОбъект.СвязанныеОбъекты[<span class="highlight-literal">"Комментарии"</span>];
+
+<span class="highlight-keyword">foreach</span> (Объект комментарий <span class="highlight-keyword">in</span> комментарии)
+{
+    <span class="highlight-comment">// Обработка объекта списка</span>
+}
+
+ТекущийОбъект.Сохранить();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

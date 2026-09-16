@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Диалог выбора типов</title>
+    <meta name="Microsoft.Help.Id" content="e812ce92-1747-48ca-a8a1-c6499d83cceb" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Для получения типов справочника доступен упрощенный вариант, позволяющий получить один выбранный в диалоге тип: «Упрощенное получение типа»." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Диалог выбора типов</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Для получения типов справочника доступен упрощенный вариант, позволяющий получить один выбранный в диалоге тип: <a href="e812ce92-1747-48ca-a8a1-c6499d83cceb.htm#Section1">«Упрощенное получение типа»</a>.<br />
+			    Также имеется возможность создания настраиваемого диалога: <a href="e812ce92-1747-48ca-a8a1-c6499d83cceb.htm#Section2">«Пример работы с диалогом выбора типа»</a></p>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Упрощенное получение типа</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="7E82F563.htm">ПоказатьДиалогВыбораТипа(Имя или Guid справочника[, заголовок])</a>
+					- Отображает диалог выбора типа объекта справочника. Возвращает тип объекта справочника, если диалог был закрыт нажатием на кнопку "OК" в противном случае - значение null
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ТипОбъекта тип = ПоказатьДиалогВыбораТипа(<span class="highlight-literal">"Файлы"</span>, <span class="highlight-literal">"Выбор типа справочника 'Файлы'"</span>);
+
+<span class="highlight-keyword">if</span> (тип <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+    Сообщение(<span class="highlight-literal">"Тип"</span>, <span class="highlight-literal">"Выбранный тип: "</span> + тип.Имя);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <div class="mediaNear">
+            <div class="caption">Результат:</div>
+            <img alt="Class Object Selection Dialog Sample" src="../media/ClassObjectSelectionDialogSample.png" />
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section2">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с диалогом выбора типа</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+            <a href="7E82F563.htm">ПоказатьДиалогВыбораТипа(Имя или Guid справочника[, заголовок])</a>
+					- Отображает диалог выбора типа объекта справочника. Возвращает тип объекта справочника, если диалог был закрыт нажатием на кнопку "OК" в противном случае - значение null
+				</p>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Nomenclature;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">readonly</span> Guid[] _разрешенныеТипы =
+    [
+        <span class="highlight-comment">// Можно указывать явно Guid'ы типов, либо воспользоваться определенными в системе:</span>
+        <span class="highlight-keyword">new</span>(<span class="highlight-literal">"87078af0-d5a1-433a-afba-0aaeab7271b5"</span>), <span class="highlight-comment">// Стандартное изделие</span>
+        NomenclatureTypes.Keys.Assembly, <span class="highlight-comment">// Сборочная единица</span>
+        NomenclatureTypes.Keys.Detail, <span class="highlight-comment">// Деталь</span>
+        NomenclatureTypes.Keys.StandardItem
+    ];
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> ВыбратьТипыИзДиалога()
+    {
+        <span class="highlight-keyword">var</span> диалог = СоздатьДиалогВыбораТипов(<span class="highlight-literal">"Электронная структура изделий"</span>); <span class="highlight-comment">// Создаем диалог выбора типов из справочника 'Электронная структура изделий'</span>
+        диалог.ВыборАбстрактныхТипов = <span class="highlight-keyword">false</span>; <span class="highlight-comment">// Отключаем выбор абстрактных типов</span>
+        диалог.ВыборФлажками = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Включаем выбор флажками</span>
+        диалог.АвтоВыборФлажками = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Устанавливаем возможность автоматической простановки флажков для дочерних объектов. Автовыбор флажками возможен только в случае, когда ВыборФлажками = true</span>
+        диалог.РазрешенныеТипы = _разрешенныеТипы; <span class="highlight-comment">// Устанавливаем набор типов для выбора</span>
+        <span class="highlight-comment">// Задаем типы, которые будут выбраны по умолчанию при открытии диалога</span>
+        ТипОбъекта[] заранееВыбранныеТипы = ПолучитьТипыОбъектов(<span class="highlight-literal">"Электронная структура изделий"</span>, [<span class="highlight-literal">"Деталь"</span>, <span class="highlight-literal">"Сборочная единица"</span>]);
+        диалог.ВыбранныеТипы = заранееВыбранныеТипы;
+
+        <span class="highlight-keyword">if</span> (!диалог.Показать()) <span class="highlight-comment">// Отображаем диалог</span>
+            <span class="highlight-keyword">return</span>;
+
+        ТипОбъекта[] выбранныеТипы = диалог.ВыбранныеТипы; <span class="highlight-comment">// Получаем выбранные в диалоге типы</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

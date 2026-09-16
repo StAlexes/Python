@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Замечания</title>
+    <meta name="Microsoft.Help.Id" content="bbe4f2a9-3248-4893-b4a4-01e30fb55594" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Замечание может быть добавлено к любому объекту справочника." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Замечания</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример создания и получения замечаний</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+          Замечание может быть добавлено к любому объекту справочника.
+        </p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Documents;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Remarks;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> RemarksMacro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> RemarksMacro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Находим документ, для которого получим замечания</span>
+        <span class="highlight-keyword">var</span> documentReference = <span class="highlight-keyword">new</span> DocumentReference(Context.Connection);
+        <span class="highlight-keyword">var</span> document = documentReference.Find(<span class="highlight-number">1</span>);
+
+        <span class="highlight-keyword">if</span> (document <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> remarkReference = <span class="highlight-keyword">new</span> RemarksReference(Context.Connection);
+        IReadOnlyCollection&lt;RemarkReferenceObject&gt; remarks = document.GetRemarks(); <span class="highlight-comment">// Получаем замечания по документу</span>
+        PdfRemarkObject pdfRemark = remarks.OfType&lt;PdfRemarkObject&gt;().FirstOrDefault(); <span class="highlight-comment">// Получаем pdf-замечание</span>
+
+        <span class="highlight-keyword">if</span> (pdfRemark <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> text = pdfRemark.Text; <span class="highlight-comment">// Получаем текст замечания</span>
+        <span class="highlight-keyword">var</span> status = pdfRemark.StatusType; <span class="highlight-comment">// Получаем статус замечания</span>
+
+        <span class="highlight-comment">// Добавляем текстовое замечание</span>
+        remarkReference.AddTextRemark(document, <span class="highlight-literal">"Текст замечания"</span>);
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="D7468E18.htm">TFlex.DOCs.Model.References.Remarks<span id="LSTDAD9EAB_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RemarksReference</a>
+            <br />
+            <a href="E5D8258D.htm">TFlex.DOCs.Model.References.Remarks<span id="LSTDAD9EAB_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>RemarkReferenceObject</a>
+            <br />
+            <a href="2DDB73E9.htm">TFlex.DOCs.Model.References.Remarks<span id="LSTDAD9EAB_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>PdfRemarkObject</a>
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

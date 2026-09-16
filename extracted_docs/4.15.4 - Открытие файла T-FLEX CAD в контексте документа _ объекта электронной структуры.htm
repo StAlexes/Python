@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Открытие файла T-FLEX CAD в контексте документа / объекта электронной структуры</title>
+    <meta name="Microsoft.Help.Id" content="89A723E9-A97D-4BDB-80B8-35D2093730BD" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена возможность открытия документа CAD-системы в контексте документа или объекта электронной структуры" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Открытие файла T-FLEX CAD в контексте документа / объекта электронной структуры</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В данном примере рассмотрена возможность открытия документа CAD-системы в контексте документа или объекта электронной структуры
+			</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDAABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDAABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDAABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDAABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.FilePreview.CADService;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Documents;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Files;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Nomenclature;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> OpeningFileInDocumentContext(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> currentNomenclature = Context.ReferenceObject <span class="highlight-keyword">as</span> NomenclatureObject; <span class="highlight-comment">// Проверяем, является ли текущий объект объектом справочника "Электронная структура изделий"</span>
+        <span class="highlight-keyword">var</span> document = currentNomenclature?.LinkedObject <span class="highlight-keyword">as</span> EngineeringDocumentObject; <span class="highlight-comment">// Проверяем, является ли связанный объект объектом справочника "Документы"</span>
+        <span class="highlight-keyword">var</span> file = document?.GetFiles()
+            .FirstOrDefault(f =&gt; f.Class.Extension.Equals(<span class="highlight-literal">"grb"</span>, StringComparison.OrdinalIgnoreCase)); <span class="highlight-comment">// Находим связанный с документом grb-файл</span>
+
+        <span class="highlight-keyword">if</span> (file <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        file.GetHeadRevision(); <span class="highlight-comment">// Загружаем последнюю версию файла</span>
+        FileObject.SetOpenningDocumentId(file.LocalPath, document.SystemFields.Id, document.Reference.Id); <span class="highlight-comment">// Задаем объект, в контексте которого будет открыт файл</span>
+        CadDocumentProvider provider = CadDocumentProvider.Connect(Context.Connection, <span class="highlight-literal">".grb"</span>); <span class="highlight-comment">// Подключаемся к CAD-системе </span>
+
+        <span class="highlight-keyword">using</span> CadDocument cadDocument = provider.OpenDocument(file.LocalPath, <span class="highlight-keyword">true</span>); <span class="highlight-comment">// Открываем документ в режиме чтения</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="9047C8F0.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LST818959C8_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CadDocumentProvider</a>
+          </div>
+          <div>
+            <a href="13D564EA.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LST818959C8_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CadDocument</a>
+          </div>
+          <div>
+            <a href="6C1D1140.htm">TFlex.DOCs.Model.References.Files<span id="LST818959C8_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FileObject</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Поиск объектов</title>
+    <meta name="Microsoft.Help.Id" content="7B18164A-A27B-4EBB-B594-0FF284FD9695" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.MacroProvider.НайтиОбъект(System.String,System.String,System.Object) - выполняет поиск объекта в заданном справочнике по значению параметра. Возвращает объект или null, если объект не найден." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Поиск объектов</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Поиск объектов и прототипов</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="DF56BCC7.htm">НайтиОбъект("(Имя справочника)", "(Имя параметра)", "(Значение параметра)")</a>
+					- выполняет поиск объекта в заданном справочнике по значению параметра. Возвращает объект или null, если объект не найден.
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект файл = НайтиОбъект(<span class="highlight-literal">"Файлы"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Мой документ.pdf"</span>);
+<span class="highlight-keyword">if</span> (файл <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+    ТекущийОбъект.СвязанныйОбъект[<span class="highlight-literal">"Файл"</span>] = файл;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="DF56BCC7.htm">НайтиОбъект("(Имя справочника)", "(Условие)")</a>
+					- выполняет поиск объекта в заданном справочнике по условию. Возвращает объект или null, если объект не найден.
+				</p>
+          <div id="IDEBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект макрос = НайтиОбъект(<span class="highlight-literal">"Макросы"</span>, <span class="highlight-literal">"[Наименование] = Договоры"</span>);
+
+<span class="highlight-keyword">if</span> (макрос <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+{
+    <span class="highlight-keyword">string</span> result = макрос.Параметр[<span class="highlight-literal">"Комментарий"</span>];
+    Сообщение(<span class="highlight-literal">"Сообщение"</span>, <span class="highlight-literal">"Комментарий макроса: {0}"</span>, result);
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="3D2E4777.htm">НайтиОбъекты("Имя справочника", "Имя параметра", "Значение параметра")</a>
+					- выполняет поиск объектов в заданном справочнике по значению параметра. Возвращает список объектов.
+				</p>
+          <div id="IDHBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объекты сборочныеЧертежи = НайтиОбъекты(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Сборочный чертёж"</span>);
+
+<span class="highlight-keyword">foreach</span> (Объект чертеж <span class="highlight-keyword">in</span> сборочныеЧертежи)
+{
+    <span class="highlight-comment">// ...</span>
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="4D6126C4.htm">НайтиОбъекты("(Имя справочника)", "(Условие)")</a>
+					- выполняет поиск объектов в заданном справочнике по условию. Возвращает список объектов.
+				</p>
+          <p>
+            <a href="70AB4846.htm">Условие(параметр, оператор[, значение])</a>
+					- условие для формирования фильтра справочника.
+				</p>
+          <div id="IDLBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDLBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDLBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDLBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDLBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объекты сотрудники = НайтиОбъекты(<span class="highlight-literal">"Группы и пользователи"</span>, Условие(<span class="highlight-literal">"[Руководитель]-&gt;[Тип]"</span>, <span class="highlight-literal">"!="</span>, <span class="highlight-literal">"Администратор"</span>));
+Объекты сотрудникиБезРуководителя = НайтиОбъекты(<span class="highlight-literal">"Группы и пользователи"</span>, Условие(<span class="highlight-literal">"[Руководитель]"</span>, <span class="highlight-literal">"не содержит данных"</span>));
+<span class="highlight-keyword">string</span>[] типы = [<span class="highlight-literal">"Сотрудник"</span>, <span class="highlight-literal">"Администратор"</span>];
+Объекты пользователи = НайтиОбъекты(<span class="highlight-literal">"Группы и пользователи"</span>, Условие(<span class="highlight-literal">"[Тип]"</span>, <span class="highlight-literal">"Входит в список"</span>, типы));</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="6BF64657.htm">НайтиПрототип("(Имя справочника)", "(Условие)")</a>
+					- выполняет поиск прототипа в заданном справочнике по условию. Возвращает прототип или null, если прототип не найден.
+				</p>
+          <div id="IDOBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDOBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDOBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDOBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDOBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект прототип = НайтиПрототип(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"[Тип] = 'Деталь'"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,183 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Стадии</title>
+    <meta name="Microsoft.Help.Id" content="F0CC05C2-9C58-48EF-A7BF-4262F2D8C906" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Стадия описывает состояние объекта, связанное с правами доступа пользователей на его просмотр и редактирование" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Стадии</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Стадия описывает состояние объекта, связанное с правами доступа пользователей на его просмотр и редактирование
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Изменение стадии объектов</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Stages;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> selectedObjects = Context.GetSelectedObjects(); <span class="highlight-comment">// Для примера изменим стадию у выбранных объектов</span>
+
+        <span class="highlight-keyword">if</span> (selectedObjects.Length == <span class="highlight-number">0</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">if</span> (!selectedObjects[<span class="highlight-number">0</span>].Reference.ParameterGroup.SupportsStages) <span class="highlight-comment">// Определяем, поддерживает ли справочник механизм стадий</span>
+            <span class="highlight-keyword">return</span>;
+
+        Stage stage = Stage.Find(Context.Connection, Guid.Empty); <span class="highlight-comment">// Находим стадию по Guid'у.</span>
+        <span class="highlight-comment">// Поиск стадии по имени: Stage stage = Stage.Find(Context.Connection, "Разработка");</span>
+
+        stage?.Change(selectedObjects, <span class="highlight-literal">"Комментарий к изменению стадии"</span>); <span class="highlight-comment">//  Изменяем стадию (если такой переход допустим по схеме)</span>
+        <span class="highlight-comment">//stage?.Set(selectedObjects); // Изменяем стадию, игнорируя схему переходов. Если пользователь не является администратором, стадия устанавливается только у объектов, у которых она не задана</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="87F2D859.htm">TFlex.DOCs.Model.Stages<span id="LSTFFE8431A_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Stage</a>
+          </p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						При изменении стадии переводить объекты в режим редактирования не нужно
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Получение стадий, допустимых для объектов заданного справочника</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Stages;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Находим описание справочника по его Guid'у</span>
+        ReferenceInfo referenceInfo = Context.Connection.ReferenceCatalog.Find(Guid.Empty);
+        <span class="highlight-comment">// Если имеется экземпляр справочника, то получить его описание можно следующим образом:</span>
+        <span class="highlight-comment">// ReferenceInfo referenceInfo = Context.Reference.ParameterGroup.ReferenceInfo;</span>
+
+        <span class="highlight-keyword">if</span> (referenceInfo <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Получаем стадии справочника по его описанию</span>
+        List&lt;Stage&gt; referenceStages = Stage.GetStages(referenceInfo);
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Получение всех стадий в системе</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div id="IDABDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Stages;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        List&lt;Stage&gt; allStages = Stage.GetStages(Context.Connection); <span class="highlight-comment">// Получаем все стадии в системе</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

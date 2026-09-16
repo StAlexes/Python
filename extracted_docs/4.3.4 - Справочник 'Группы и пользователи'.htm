@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Справочник "Группы и пользователи"</title>
+    <meta name="Microsoft.Help.Id" content="1EF48997-C5F5-4F41-8BB7-B8500406E9FC" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Справочник &quot;Группы и пользователи&quot; предназначен для управления параметрами учетных записей системы и содержит сведения о пользователях." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Справочник "Группы и пользователи"</h1>
+            </td>
+          </tr>
+        </table>
+        <div id="IDAABSection" class="collapsibleSection">
+          <p>
+					Справочник "Группы и пользователи" предназначен для управления параметрами учетных записей системы и содержит сведения о пользователях.
+				</p>
+          <div id="IDBAAAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBAAAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBAAAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBAAAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBAAAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> userReference = <span class="highlight-keyword">new</span> UserReference(Context.Connection); <span class="highlight-comment">// Создаем экземпляр справочника</span>
+
+        List&lt;User&gt; allUsers = userReference.GetAllUsers(); <span class="highlight-comment">// Получаем всех пользователей</span>
+
+        User employee = userReference.FindUser(<span class="highlight-literal">"Сотрудник"</span>); <span class="highlight-comment">// Находим пользователя по полному имени</span>
+        employee.LockAccount(); <span class="highlight-comment">// Отключаем учетную запись</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="979C59C9.htm">TFlex.DOCs.Model.References.Users<span id="LST7A750B20_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>UserReference</a>
+            <br />
+            <a href="DAC89B56.htm">TFlex.DOCs.Model.References.Users<span id="LST7A750B20_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>User</a>
+            <br />
+          </p>
+        </div>
+        <p>&nbsp;</p>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

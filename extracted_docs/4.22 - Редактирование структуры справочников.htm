@@ -1,0 +1,180 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Редактирование структуры справочников</title>
+    <meta name="Microsoft.Help.Id" content="B0C31566-75E5-4A1E-93A8-DEB3FFC824AC" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Для редактирования структуры справочников необходимо использовать специальные классы-строители, находящиеся в пространстве имен N:TFlex.DOCs.Model.Structure." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Редактирование структуры справочников</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Для редактирования структуры справочников необходимо использовать специальные классы-строители, находящиеся в пространстве имен
+				<a href="45E2B622.htm">TFlex.DOCs.Model.Structure.Builders</a></p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание нового типа с дополнительной группой параметров и связью</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.Common.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Common;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Classes;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure.Builders;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> StructureBuilders(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> referenceBuilder = GetReferenceBuilder(<span class="highlight-keyword">true</span>); <span class="highlight-comment">// Получаем экземпляр класса для редактирования структуры справочника </span>
+
+        <span class="highlight-keyword">if</span> (referenceBuilder <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">if</span> (referenceBuilder.IsActive) <span class="highlight-comment">// Если редактируемый справочник активирован, то деактивируем его</span>
+            referenceBuilder.Deactivate();
+
+        <span class="highlight-keyword">var</span> newClass = <span class="highlight-keyword">new</span> ClassObjectBuilder(referenceBuilder.ParameterGroup.Classes) { Name = <span class="highlight-literal">"Новый тип"</span> }; <span class="highlight-comment">// Создаем новый тип </span>
+        newClass.Save(); <span class="highlight-comment">// Сохраняем новый тип</span>
+
+        ClassObject newClassObject = newClass.Class; <span class="highlight-comment">// Получаем из класса-строителя типа непосредственно сам тип</span>
+
+        <span class="highlight-comment">// Создаем новую группу параметров</span>
+        <span class="highlight-keyword">var</span> newGroupBuilder = <span class="highlight-keyword">new</span> ParameterGroupBuilder(ParameterGroupType.TableOneToOne, referenceBuilder.ParameterGroup, newClassObject)
+        { Name = <span class="highlight-literal">"Новая группа параметров"</span> };
+
+        newGroupBuilder.Save(); <span class="highlight-comment">// Сохраняем новую группу параметров</span>
+
+        <span class="highlight-comment">// Если справочник уже существует и имеется существующая группа параметров, то подключить ее к типу можно следующим образом:</span>
+        ParameterGroup pluggableParameterGroup = referenceBuilder.ParameterGroup.GetAllGroups().Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid подключаемой группы параметров"</span>));
+
+        <span class="highlight-keyword">if</span> (pluggableParameterGroup <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+        {
+            newClass.ParameterGroups.Add(pluggableParameterGroup);
+            newClass.Save();
+        }
+
+        <span class="highlight-keyword">var</span> parameterGroup = newGroupBuilder.ParameterGroup; <span class="highlight-comment">// Получаем группу из класса-строителя группы параметров</span>
+        <span class="highlight-keyword">string</span> newParameterName = <span class="highlight-literal">"Новый параметр"</span>;
+
+        <span class="highlight-keyword">var</span> newParameter = <span class="highlight-keyword">new</span> ParameterInfoBuilder(parameterGroup) <span class="highlight-comment">// Создаем параметр</span>
+        {
+            FieldName = Transliterator.TransliterateString(newParameterName), <span class="highlight-comment">// Вместо автоматически сгенерированного имени поля в БД можно задать имя на английском, либо воспользовавшись транслитерацией</span>
+            Name = newParameterName,
+            Type = ParameterType.Int,
+            IsVisible = <span class="highlight-keyword">true</span>
+        };
+
+        newParameter.Save(); <span class="highlight-comment">// Сохраняем параметр</span>
+
+        <span class="highlight-keyword">var</span> userReference = <span class="highlight-keyword">new</span> UserReference(Context.Connection); <span class="highlight-comment">// Создаем экземпляр справочника "Группы и пользователи"</span>
+
+        <span class="highlight-keyword">var</span> newLink = <span class="highlight-keyword">new</span> LinkGroupBuilder(referenceBuilder.ParameterGroup, newClassObject) <span class="highlight-comment">// Создаем связь "Список со списком" (N к N)</span>
+        {
+            SlaveGroup = userReference.ParameterGroup,
+            TableName = <span class="highlight-literal">"LinkToUsers"</span>,
+            LinkType = LinkType.ManyToMany,
+            Name = <span class="highlight-literal">"Связь на пользователей"</span>
+        };
+
+        newLink.Save();<span class="highlight-comment">// Сохраняем связь</span>
+
+        referenceBuilder.Save(); <span class="highlight-comment">// Сохраняем справочник</span>
+        referenceBuilder.Activate(); <span class="highlight-comment">// Активируем справочник</span>
+    }
+
+    <span class="highlight-keyword">private</span> ReferenceBuilder GetReferenceBuilder(<span class="highlight-keyword">bool</span> createReference)
+    {
+        <span class="highlight-keyword">if</span> (createReference) <span class="highlight-comment">// Создаем справочник</span>
+        {
+            ReferenceCatalogFolder folder = Context.Connection.ReferenceCatalog.FindFolderByName(<span class="highlight-literal">"Все справочники"</span>); <span class="highlight-comment">// Находим папку, в которой будет создан справочник</span>
+
+            <span class="highlight-keyword">if</span> (folder <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">return</span> <span class="highlight-keyword">null</span>;
+
+            <span class="highlight-keyword">var</span> referenceBuilder = <span class="highlight-keyword">new</span> ReferenceBuilder(folder); <span class="highlight-comment">// Создаем экземпляр класса для редактирования структуры справочника </span>
+            referenceBuilder.Save(); <span class="highlight-comment">// Сохраняем</span>
+
+            <span class="highlight-keyword">return</span> referenceBuilder;
+        }
+        <span class="highlight-keyword">else</span> <span class="highlight-comment">// Редактирование структуры существующего справочника</span>
+        {
+            ReferenceInfo referenceInfo = Context.Connection.ReferenceCatalog.Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid справочника"</span>)); <span class="highlight-comment">// Находим описание справочника</span>
+            <span class="highlight-keyword">return</span> referenceInfo <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span> ? <span class="highlight-keyword">null</span> : <span class="highlight-keyword">new</span> ReferenceBuilder(referenceInfo); <span class="highlight-comment">// Создаем экземпляр класса для редактирования структуры справочника </span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="45E2B622.htm">TFlex.DOCs.Model.Structure.Builders</a>
+            <br />
+            <a href="DE341CFE.htm">ReferenceBuilder</a>
+            <br />
+            <a href="1A2E3A5F.htm">ParameterGroupBuilder</a>
+            <br />
+            <a href="EF161375.htm">ParameterInfoBuilder</a>
+            <br />
+            <a href="637DB2B8.htm">ClassObjectBuilder</a>
+            <br />
+            <a href="CA282DEE.htm">LinkGroupBuilder</a>
+            <br />
+            <a href="500E85A8.htm">ReferenceCatalogFolder</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

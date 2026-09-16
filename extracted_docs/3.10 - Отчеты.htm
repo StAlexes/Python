@@ -1,0 +1,144 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Отчеты</title>
+    <meta name="Microsoft.Help.Id" content="5dabc4a9-aeaa-4957-b9bf-1ce2149c3665" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.ObjectModel.ReportReferenceAccessor.Найти(System.String,System.String) - находит отчет по наименованию или Guid'у. Второй аргумент отвечает за справочник, для которого формируется отчет." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Отчеты</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для работы с отчетами.</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="7B1B2C2.htm">Отчёты.Найти("(Наименование или Guid отчета)", "(Наименование или Guid справочника)")</a>
+					- находит отчет по наименованию или Guid'у. Второй аргумент отвечает за справочник, для которого формируется отчет.
+					Если справочник указан, то он проверяется на соответствие значениям параметра "Справочник" найденных отчетов (в случае, если система нашла несколько отчетов с одинаковым наименованием, вернется первый отчет с соответствующим значением параметра "Справочник")
+				</p>
+          <p>
+            <a href="851857AE.htm">Отчёт.Сформировать()</a>
+					-  формирует отчет для справочника.
+				</p>
+          <p>
+            <a href="851857AE.htm">Отчёт.Сформировать("(Объект)")</a>
+					- формирует отчет для указанного объекта.
+				</p>
+          <p>
+            <a href="851857AE.htm">Отчёт.Сформировать("(Объекты)")</a>
+					- формирует отчет для указанных объектов.
+				</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример настройки и формирования отчета</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Изменения настроек отчета в макросе у найденного объекта типа 'Отчёт', не влияют на основные настройки отчета в справочнике 'Отчёты'.
+						Данные настройки являются копией настроек отчета справочника.
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context) { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        Отчёт отчет = Отчёты.Найти(<span class="highlight-literal">"Наименование или Guid отчета"</span>, <span class="highlight-literal">"Наименование или Guid справочника"</span>); <span class="highlight-comment">// Находим отчет</span>
+
+        <span class="highlight-keyword">if</span> (отчет <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Если отчет не найден, выходим</span>
+            <span class="highlight-keyword">return</span>;
+
+        ПользовательскийДиалог пользовательскийДиалог = отчет.ПользовательскийДиалог; <span class="highlight-comment">// Получаем пользовательский диалог отчета</span>
+
+        <span class="highlight-keyword">if</span> (пользовательскийДиалог <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Редактируем параметры пользовательского диалога</span>
+        {
+            пользовательскийДиалог[<span class="highlight-literal">"Параметр"</span>] = <span class="highlight-literal">"Значение"</span>;
+            пользовательскийДиалог.Сохранить();
+        }
+
+        отчет.ОткрытьФайл = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Задаем значение, указывающее, требуется ли открывать файл отчета после создания во внешней программе</span>
+        <span class="highlight-comment">// отчет.ОткрытьФайлВоВкладке = true; // Задаем значение, указывающее, требуется ли открывать файл отчета на отдельной вкладке после генерации</span>
+
+        отчет.ИмяФайлаОтчёта = <span class="highlight-literal">"ИмяФайлаОтчета"</span>; <span class="highlight-comment">// задаем имя файла отчета</span>
+        отчет.ПутьКПапке = <span class="highlight-literal">"ПутьКПапке"</span>; <span class="highlight-comment">// Задаем путь к папке, содержащей отчет</span>
+
+        <span class="highlight-comment">// РезультатОтчёта содержит данные о результате генерации отчета</span>
+        РезультатОтчёта результатОтчёта = отчет.Сформировать(ТекущийОбъект); <span class="highlight-comment">// Формируем отчет для выбранного объекта справочника</span>
+
+        <span class="highlight-comment">// РезультатОтчёта результатОтчёта = отчет.Сформировать(ВыбранныеОбъекты); // Формируем отчет для выбранных объектов справочника</span>
+        <span class="highlight-comment">// РезультатОтчёта результатОтчёта = отчет.Сформировать(); // Формируем отчет для справочника</span>
+
+        <span class="highlight-keyword">string</span> путьКФайлу = результатОтчёта.ПутьКФайлу; <span class="highlight-comment">// Получаем путь к файлу сформированного отчета</span>
+        Объект файлОтчёта = результатОтчёта.ФайлОтчёта; <span class="highlight-comment">// Получаем файл отчёта</span>
+
+        <span class="highlight-keyword">if</span> (результатОтчёта.СодержитОшибки) <span class="highlight-comment">// Обрабатываем ошибки, возникшие при генерации отчета</span>
+        {
+            <span class="highlight-keyword">string</span> описаниеОшибок = результатОтчёта.ОписаниеОшибок; <span class="highlight-comment">// Получаем описание ошибок, возникших при генерации отчета</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

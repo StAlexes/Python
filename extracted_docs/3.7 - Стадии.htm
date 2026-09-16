@@ -1,0 +1,128 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Стадии</title>
+    <meta name="Microsoft.Help.Id" content="07EFB6BB-9CE0-45EA-B3DF-F06352B57CAC" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.ObjectModel.ObjectAccessor.ИзменитьСтадию(System.String,System.Boolean) - изменяет стадию объекта с возможностью игнорирования схемы переходов. Возвращает True, если стадия успешно изменена, иначе возвращает False." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Стадии</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для работы со стадиями.</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="8748915.htm">Объект.ИзменитьСтадию("(Стадия)"[, (Игнорировать схему переходов)])</a>
+					- изменяет стадию объекта с возможностью игнорирования схемы переходов. Возвращает True, если стадия успешно изменена, иначе возвращает False.
+				</p>
+          <p>
+            <a href="4A7314BF.htm">Объект.ИзменитьСтадию("(Стадия)", "(Комментарий)"[, (Игнорировать схему переходов)])</a>
+					- изменяет стадию объекта с возможностью добавления комментария и игнорирования схемы переходов. Возвращает True, если стадия успешно изменена, иначе возвращает False.
+				</p>
+          <div id="IDCBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ТекущийОбъект.ИзменитьСтадию(<span class="highlight-literal">"Хранение"</span>, <span class="highlight-literal">"Комментарий к изменению стадии"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="B77AF34.htm">ИзменитьСтадиюОбъектов((Объекты), "(Стадия)"[, (Игнорировать схему переходов)]</a>
+					- изменяет стадию объектов с возможностью игнорирования схемы переходов.
+				</p>
+          <p>
+            <a href="B9EF0E96.htm">ИзменитьСтадиюОбъектов((Объекты), "(Стадия)", "(Комментарий)"[, (Игнорировать схему переходов)]</a>
+					- изменяет стадию объектов с возможностью добавления комментария и игнорирования схемы переходов.
+				</p>
+          <div id="IDGBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDGBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDGBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDGBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDGBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объекты выбранныеОбъекты = ВыбранныеОбъекты;
+ИзменитьСтадиюОбъектов(выбранныеОбъекты, <span class="highlight-literal">"Утверждение"</span>, <span class="highlight-literal">"Комментарий к изменению стадии"</span>, <span class="highlight-keyword">true</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Игнорирование схемы переходов доступно администратору.<br />
+						Если пользователь не является администратором, стадия устанавливается только у объектов, у которых она не задана.
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						При изменении стадии переводить объекты в режим редактирования не нужно
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

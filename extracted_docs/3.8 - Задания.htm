@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Задания</title>
+    <meta name="Microsoft.Help.Id" content="d0d90704-7b15-4005-bd5d-d68cfad0ea9b" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.MacroProvider.СоздатьЗадание - Создает задание." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Задания</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для работы с заданиями</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="63D7AF0C.htm">СоздатьЗадание()</a>
+          - Создает задание.
+        </p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> СозданиеЗадания()
+    {
+        Задание задание = СоздатьЗадание();
+        задание.Тема = <span class="highlight-literal">"Тема задания"</span>; <span class="highlight-comment">// Заголовок</span>
+        задание.Текст = <span class="highlight-literal">"Текст задания"</span>; <span class="highlight-comment">// Текст задания</span>
+        задание.ДатаНачала = DateTime.Now; <span class="highlight-comment">// Устанавливаем дату и время начала задания</span>
+        задание.ДатаЗавершения = DateTime.Today; <span class="highlight-comment">// Устанавливаем срок завершения задания</span>
+
+        задание.ДобавитьФайлВложения(<span class="highlight-literal">@"C:\TFLEX\users.txt"</span>); <span class="highlight-comment">// Добавляем файл вложения</span>
+        <span class="highlight-comment">// bool результатУдаленияВложенногоФайла = задание.УдалитьФайлВложения(@"C:\TFLEX\users.txt"); // Удаляем файл вложения</span>
+
+        <span class="highlight-comment">// Добавляем объект вложения</span>
+        Объект документ = НайтиОбъект(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"[ID]"</span>, <span class="highlight-number">5</span>);
+        <span class="highlight-keyword">bool</span> результатДобавленияВложения = задание.ДобавитьОбъектВложения(документ);
+        <span class="highlight-comment">// bool результатУдаленияВложения = задание.УдалитьОбъектВложения(документ); // Удаляем объект вложения</span>
+
+        <span class="highlight-keyword">bool</span> результатДобавленияИсполнителя = задание.ДобавитьИсполнителя(<span class="highlight-literal">"Иванов Иван Иванович"</span>); <span class="highlight-comment">// Добавляем исполнителя по его наименованию пользователя</span>
+        _ = задание.ДобавитьИсполнителя(ТекущийПользователь); <span class="highlight-comment">// Добавляем пользователя в качестве исполнителя</span>
+        <span class="highlight-comment">// bool результатУдаленияИсполнителя = задание.УдалитьИсполнителя(ТекущийПользователь); // Удаляем исполнителя</span>
+
+        задание.Сохранить(); <span class="highlight-comment">// Сохраняем задание</span>
+        задание.Отправить(); <span class="highlight-comment">// Отправляем задание</span>
+
+        List&lt;<span class="highlight-keyword">string</span>&gt; файлыВложения = задание.ФайлыВложения; <span class="highlight-comment">// Получаем вложенные файлы</span>
+        Объекты объектыВложения = задание.ОбъектыВложения; <span class="highlight-comment">// Получаем вложенные объекты</span>
+
+        <span class="highlight-keyword">string</span> ссылкаНаЗапись = задание.СсылкаНаЗапись; <span class="highlight-comment">// Получаем ссылку на запись</span>
+        <span class="highlight-keyword">string</span> ссылкаНаСвойства = задание.СсылкаНаСвойства; <span class="highlight-comment">// Получаем ссылку на свойства</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="D5E2599B.htm">Канцелярия.СоздатьЗадание()</a>
+          - Создает задание канцелярии.
+        </p>
+          <div id="IDEBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ЗаданиеКанцелярии задание = Канцелярия.СоздатьЗадание();
+задание.Тема = <span class="highlight-literal">"Тема задания"</span>; <span class="highlight-comment">// Заголовок</span>
+задание.Комментарий = <span class="highlight-literal">"Комментарий задания"</span>; 
+задание.Ответственный = ТекущийПользователь;
+задание.Текст = <span class="highlight-literal">"Текст задания"</span>; <span class="highlight-comment">// Текст задания</span>
+задание.ДатаНачала = DateTime.Now; <span class="highlight-comment">// Установить дату и время начала задания</span>
+задание.ДатаЗавершения = DateTime.Today; <span class="highlight-comment">// Установить срок завершения задания</span>
+задание.ДобавитьФайлВложения(<span class="highlight-literal">@"C:\TFLEX\users.txt"</span>); <span class="highlight-comment">// Добавляет файл вложения</span>
+задание.ДобавитьИсполнителя(<span class="highlight-literal">"Иванов Иван Иванович"</span>); <span class="highlight-comment">// Добавляет исполнителя по его наименованию пользователя</span>
+задание.ДобавитьОбъектВложения(ТекущийПользователь); <span class="highlight-comment">// Добавляет объект вложения</span>
+задание.Сохранить(); <span class="highlight-comment">// Сохраняет задание</span>
+задание.Отправить(); <span class="highlight-comment">// Отправляет задание</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

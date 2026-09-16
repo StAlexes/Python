@@ -1,0 +1,244 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Экспорт grb в другой формат</title>
+    <meta name="Microsoft.Help.Id" content="0f8b81b4-15c7-4edd-90b6-8100d35ba2d3" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере демонстрируется возможность экспорта cad-документов (*.grb) в другие форматы." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Экспорт grb в другой формат</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В данном примере демонстрируется возможность экспорта cad-документов (*.grb) в другие форматы.
+			</p>
+          <p>
+            <span class="ui">Поддерживаемые форматы:</span>
+          </p>
+          <ul>
+            <li>
+              <p>Файлы PDF ("pdf")</p>
+            </li>
+            <li>
+              <p>Растровые ("bmp", "jpg", "gif", "tiff", "png", "tga")</p>
+            </li>
+            <li>
+              <p>Метафайлы ("bmf", "emf", "wmf")</p>
+            </li>
+            <li>
+              <p>Файлы AutoCAD ("dwg", "dxb", "dxf")</p>
+            </li>
+            <li>
+              <p>Файлы IGES 3D ("igs", "iges")</p>
+            </li>
+            <li>
+              <p>Файлы Parasolid ("xmt_bin", "xmt_txt", "x_t", "x_b")</p>
+            </li>
+            <li>
+              <p>Файлы Inventor ("iv")</p>
+            </li>
+            <li>
+              <p>Файлы STEP AP203/AP214 3D ("stp", "step")</p>
+            </li>
+            <li>
+              <p>Файлы "3dm", "x3d", "stl", "wrl"</p>
+            </li>
+          </ul>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDAABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDAABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDAABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDAABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.IO;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.FilePreview.CADService;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ExportCadDocument : MacroProvider
+{
+    <span class="highlight-keyword">public</span> ExportCadDocument(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Расширение экспортируемого документа</span>
+        <span class="highlight-keyword">string</span> extensionDoc = <span class="highlight-literal">"pdf"</span>;
+        <span class="highlight-comment">// Путь к grb документу</span>
+        <span class="highlight-keyword">string</span> grbPath = <span class="highlight-literal">"Документ.grb"</span>;
+        <span class="highlight-comment">// Путь к экспортируемому документу</span>
+        <span class="highlight-keyword">string</span> exportPath = Path.ChangeExtension(<span class="highlight-literal">"Документ"</span>, extensionDoc);
+
+        <span class="highlight-comment">// Вызвать функцию экспорта и получить результат о выполнении</span>
+        <span class="highlight-keyword">bool</span> exportResult = Export(grbPath, exportPath);
+    }
+
+    <span class="highlight-comment">// Экспортирует grb документ в другой формат</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">bool</span> Export(<span class="highlight-keyword">string</span> grbPath, <span class="highlight-keyword">string</span> exportPath)
+    {
+        <span class="highlight-comment">// Подключаемся к CAD-системе</span>
+        CadDocumentProvider provider = CadDocumentProvider.Connect(Context.Connection, <span class="highlight-literal">".grb"</span>);
+
+        <span class="highlight-comment">// Создаем настройки экспорта документа CAD-системы в другой формат</span>
+        ExportContext exContext = <span class="highlight-keyword">new</span> ExportContext(exportPath);
+        exContext.Page = <span class="highlight-number">2</span>; <span class="highlight-comment">// При необходимости можем экспортировать конкретную страницу, указав ее индекс</span>
+        <span class="highlight-comment">// exContext.Pages = new List&lt;int&gt;() { 1, 3, 5 }; // Можно определить список экспортируемых страниц</span>
+
+        <span class="highlight-comment">// Возвращает имя файла и расширение указанной строки пути</span>
+        <span class="highlight-keyword">string</span> fileName = Path.GetFileName(grbPath);
+
+        <span class="highlight-comment">// Открываем документ в режиме чтения.</span>
+        <span class="highlight-keyword">using</span> (CadDocument document = provider.OpenDocument(grbPath, <span class="highlight-keyword">true</span>))
+        {
+            <span class="highlight-comment">// Проверяем, был ли открыт документ</span>
+            <span class="highlight-keyword">if</span> (document <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            {
+                Error(<span class="highlight-literal">"Ошибка экспорта"</span>, <span class="highlight-literal">"Файл '{0}' не может быть открыт"</span>, fileName);
+                <span class="highlight-keyword">return</span> <span class="highlight-keyword">false</span>;
+            }
+
+            <span class="highlight-comment">// Экспортируем документ на основе заданных настроек экспорта</span>
+            <span class="highlight-comment">// Получаем полный путь до экспортированного файла для дальнейшей проверки экспорта</span>
+            <span class="highlight-keyword">string</span> path = document.Export(exContext);
+
+            <span class="highlight-keyword">if</span> (String.IsNullOrEmpty(path))
+            {
+                Error(<span class="highlight-literal">"Ошибка экспорта"</span>, <span class="highlight-literal">"Файл '{0}' не может быть экспортирован"</span>, fileName);
+                <span class="highlight-keyword">return</span> <span class="highlight-keyword">false</span>;
+            }
+
+            document.Close(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Закрываем документ без сохранения</span>
+        }
+
+        <span class="highlight-keyword">return</span> <span class="highlight-keyword">true</span>;
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Экспорт в 3D PDF</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>Для экспорта в 3D PDF необходимо установить соответствующее свойство контекста экспорта</p>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ExportContext exportContext = <span class="highlight-keyword">new</span> ExportContext(fileName);
+exportContext[<span class="highlight-literal">"PDF3D"</span>] = <span class="highlight-keyword">true</span>;</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Установка размеров и разрешения изображения</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div id="IDABDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ExportContext exportContext = <span class="highlight-keyword">new</span> ExportContext(fileName);
+exportContext[<span class="highlight-literal">"width"</span>] = <span class="highlight-number">270</span>; <span class="highlight-comment">// В мм</span>
+exportContext[<span class="highlight-literal">"height"</span>] = <span class="highlight-number">150</span>;
+exportContext[<span class="highlight-literal">"resolution"</span>] = <span class="highlight-number">50</span>;</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Выбор алгоритма сжатия при экспорте в многостраничный TIFF</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <div id="IDABEAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABEAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABEAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABEAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABEAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ExportContext exportContext = <span class="highlight-keyword">new</span> ExportContext(fileName);
+exportContext[<span class="highlight-literal">"TiffCompression"</span>] = TFlex.DOCs.Model.FilePreview.CADService.TiffCompressOption.Lzw.ToString(); <span class="highlight-comment">// Указываем алгоритм сжатия</span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="9047C8F0.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LST7975808E_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CadDocumentProvider</a>
+          </div>
+          <div>
+            <a href="77B9F1C3.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LST7975808E_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ExportContext</a>
+          </div>
+          <div>
+            <a href="13D564EA.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LST7975808E_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CadDocument</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

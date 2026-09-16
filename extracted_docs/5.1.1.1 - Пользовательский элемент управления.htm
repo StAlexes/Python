@@ -1,0 +1,340 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Пользовательский элемент управления</title>
+    <meta name="Microsoft.Help.Id" content="818df4b5-09c5-48ff-8b90-48e2abe53405" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В T-FLEX DOCs есть возможность создавать пользовательские элементы управления для использования в диалогах и пользовательских страницах. Ниже приведен пример создания такого элемента управления." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Пользовательский элемент управления</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+        В T-FLEX DOCs есть возможность создавать пользовательские элементы управления для использования в диалогах и пользовательских страницах. Ниже приведен пример создания такого элемента управления.
+      </p>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример элемента управления пользователя</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div class="mediaNear">
+            <div class="caption">Элемент управления</div>
+            <img alt="Example Layout Control User Control" src="../media/ExampleLayoutControlUserControl.png" />
+          </div>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/* Дополнительные библиотеки
+System.Drawing.dll
+System.Windows.Forms.dll
+TFlex.DOCs.Model.dll
+TFlex.DOCs.UI.Common.dll
+TFlex.DOCs.UI.Controls.dll
+TFlex.DOCs.UI.Objects.dll
+TFlex.DOCs.UI.Types.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.ComponentModel;
+<span class="highlight-keyword">using</span> System.Windows.Forms;
+<span class="highlight-keyword">using</span> System.Xml.Serialization;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Configuration;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Common;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Controls.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Objects.ReferenceModel;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Objects.ReferenceModel.VisualRepresentation;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Objects.Settings;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">namespace</span> TFlex.DOCs.UI.Controls.LayoutControls
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ExampleLayoutControlUserControl :
+        <span class="highlight-comment">// Наследуемся от BaseUserControl т.к. там реализован интерфейс IControl, т.е. чтение/сохранение настроек</span>
+        Templates.BaseUserControl,
+        IUserLayoutControlItem
+    {
+        <span class="highlight-keyword">private</span> Label _settingsLabel;
+        <span class="highlight-keyword">private</span> Panel _usersGroupControl;
+        <span class="highlight-keyword">private</span> Button _showUsersButton;
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">readonly</span> IContainer components = <span class="highlight-keyword">null</span>;
+
+        <span class="highlight-keyword">public</span> ExampleLayoutControlUserControl()
+        {
+            <span class="highlight-comment">// Добавляем описание настроек для работы сериализатора</span>
+            XmlSerializerManager.RegisterTypes(<span class="highlight-keyword">new</span>[]
+            {
+                <span class="highlight-keyword">typeof</span>(ExampleLayoutControlUserControlSettingsData)
+            });
+
+            InitializeComponent();
+            CreateVisualRepresentationControl();
+        }
+
+        <span class="highlight-comment">// Обработчик события нажатия на кнопку. Создает элемент управления со справочными данными</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> _showUsersButton_Click(<span class="highlight-keyword">object</span> sender, EventArgs e)
+        {
+            UserSettingsFlag = !UserSettingsFlag;
+            _settingsLabel.Text = UserSettingsFlag.ToString();
+        }
+
+        <span class="highlight-comment">// Создает элемент управления со справочными данными</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> CreateVisualRepresentationControl()
+        {
+            VisualRepresentationControl = <span class="highlight-keyword">new</span> ReferenceVisualRepresentationControl();
+            _usersGroupControl.Controls.Add(VisualRepresentationControl);
+        }
+
+        <span class="highlight-comment">// Инициализирует элемент управления со справочными данными</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> InitializeVisualRepresentationControl()
+        {
+            <span class="highlight-keyword">if</span> (VisualRepresentationControl == <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">return</span>;
+
+            VisualRepresentationControl.Dock = DockStyle.Fill;
+            VisualRepresentationControl.SupportAsyncImplement = <span class="highlight-keyword">false</span>;
+            VisualRepresentationControl.SetApplicationFormView(Application);
+            VisualRepresentationControl.CreateTreeVisualRepresentation(ServerGateway.Connection.References.Users, GetCurrentParentObject());
+
+            VisualRepresentation.IsReadOnlyControl = VisualRepresentation.IsReadOnlyObjects = ReadOnly;
+            VisualRepresentationControl.Initialize();
+        }
+
+        <span class="highlight-comment">// Возвращает элемент управления со справочными данными</span>
+        <span class="highlight-keyword">public</span> ReferenceVisualRepresentationControl VisualRepresentationControl { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">private</span> <span class="highlight-keyword">set</span>; }
+
+        <span class="highlight-comment">// Возвращает визуальное представление справочника</span>
+        <span class="highlight-keyword">public</span> IReferenceCompositeVisualRepresentation VisualRepresentation
+        {
+            <span class="highlight-keyword">get</span>
+            {
+                <span class="highlight-keyword">return</span> VisualRepresentationControl == <span class="highlight-keyword">null</span> ? <span class="highlight-keyword">null</span> : VisualRepresentationControl.VisualRepresentation;
+            }
+        }
+
+        <span class="highlight-comment">// Возвращает первую группу пользователей, в которую входит автор редактируемого объекта</span>
+        <span class="highlight-keyword">private</span> ReferenceObject GetCurrentParentObject()
+        {
+            ReferenceObject parentObject = <span class="highlight-keyword">null</span>;
+
+            <span class="highlight-keyword">if</span> (ReferenceUIObject != <span class="highlight-keyword">null</span>)
+            {
+                User author = ReferenceUIObject.ReferenceObject.SystemFields.Author;
+                parentObject = author.Parent;
+            }
+
+            <span class="highlight-keyword">return</span> parentObject;
+        }
+
+        <span class="highlight-comment">// Вызывается при изменении редактируемого объекта для обновления данных в элементе управления</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> OnChangedParent()
+        {
+            <span class="highlight-keyword">if</span> (VisualRepresentation == <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">return</span>;
+
+            VisualRepresentation.SetRootObject(GetCurrentParentObject());
+            VisualRepresentation.IsReadOnlyControl = VisualRepresentation.IsReadOnlyObjects = ReadOnly;
+            VisualRepresentation.Refresh(<span class="highlight-keyword">true</span>);
+        }
+
+        <span class="highlight-keyword">protected</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Dispose(<span class="highlight-keyword">bool</span> disposing)
+        {
+            <span class="highlight-keyword">if</span> (disposing)
+            {
+                <span class="highlight-keyword">if</span> (components != <span class="highlight-keyword">null</span>)
+                    components.Dispose();
+
+                <span class="highlight-keyword">if</span> (VisualRepresentationControl != <span class="highlight-keyword">null</span>)
+                {
+                    VisualRepresentationControl.Dispose();
+                    VisualRepresentationControl = <span class="highlight-keyword">null</span>;
+                }
+            }
+            <span class="highlight-keyword">base</span>.Dispose(disposing);
+        }
+
+        <span class="highlight-preprocessor">#region</span> IUserLayoutControlItem Members
+
+        <span class="highlight-comment">// Возвращает или задает главное окно приложения</span>
+        <span class="highlight-keyword">public</span> IApplicationFormView Application { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+
+        <span class="highlight-comment">// Возвращает или задает объект, для которого отображаются свойства в элементе управления</span>
+        <span class="highlight-keyword">public</span> IReferenceUIObject ReferenceUIObject { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+
+        <span class="highlight-comment">// Возвращает или задает значение, указывающее, является ли элемент управления доступным только для чтения</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">bool</span> ReadOnly { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+
+        <span class="highlight-comment">// Выполняется при инициализации элемента управления</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> Initialize()
+        {
+            InitializeVisualRepresentationControl();
+            _settingsLabel.Text = UserSettingsFlag.ToString();
+        }
+
+        <span class="highlight-preprocessor">#endregion</span>
+
+        <span class="highlight-preprocessor">#region</span> ILayoutControlSupportReload Members
+
+        <span class="highlight-comment">// Вызывается при обновлении объекта, свойства которого отображаются в элементе управления</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> RefreshData()
+        {
+            <span class="highlight-keyword">if</span> (VisualRepresentation != <span class="highlight-keyword">null</span>)
+                VisualRepresentation.Refresh(<span class="highlight-keyword">true</span>);
+        }
+
+
+        <span class="highlight-comment">// Вызывается при изменении объекта, свойства которого отображаются в элементе управления</span>
+        <span class="highlight-comment">// changeUiObject - Измененный объект</span>
+        <span class="highlight-comment">// context - Контекст вызова. Содержит данные о строке в списке или узле в дереве, который отображает данный объект</span>
+        <span class="highlight-comment">// isReadOnly - Значение, указывающее, является ли элемент управления доступным только для чтения</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> Reload(IDesktopUIObject changeUiObject, Templates.ControlActionContext context, <span class="highlight-keyword">bool</span> isReadOnly)
+        {
+            ReferenceUIObject = changeUiObject <span class="highlight-keyword">as</span> IReferenceUIObject;
+            ReadOnly = isReadOnly;
+            OnChangedParent();
+        }
+
+        <span class="highlight-preprocessor">#endregion</span>
+
+        <span class="highlight-preprocessor">#region</span> Пример работы с настройками
+
+        <span class="highlight-comment">// Флаг для сохранения в настройках элемента управления</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">bool</span> UserSettingsFlag { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">private</span> <span class="highlight-keyword">set</span>; }
+
+        <span class="highlight-keyword">protected</span> <span class="highlight-keyword">override</span> IControlSettings CreateSettings()
+        {
+            <span class="highlight-keyword">return</span> <span class="highlight-keyword">new</span> PersistControlSettings&lt;ExampleLayoutControlUserControlSettingsData&gt;(<span class="highlight-keyword">this</span>);
+        }
+
+        <span class="highlight-comment">// Возвращает экземпляр класса для работы с настройками элемента управления</span>
+        [Browsable(<span class="highlight-keyword">false</span>), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">new</span> ExampleLayoutControlUserControlSettingsData SettingsData
+        {
+            <span class="highlight-keyword">get</span> { <span class="highlight-keyword">return</span> Settings.Data <span class="highlight-keyword">as</span> ExampleLayoutControlUserControlSettingsData; }
+        }
+
+        <span class="highlight-comment">// Сохраняет настройки элемента управления</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> SaveSettings()
+        {
+            SettingsData.UserFlag = UserSettingsFlag;
+            <span class="highlight-keyword">base</span>.SaveSettings();
+        }
+
+        <span class="highlight-comment">// Загружает настройки элемента управления</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> LoadSettings()
+        {
+            <span class="highlight-keyword">base</span>.LoadSettings();
+            UserSettingsFlag = SettingsData.UserFlag;
+        }
+
+
+        <span class="highlight-comment">// Класс для сохранения настроек элемента управления</span>
+        [XmlType(<span class="highlight-literal">"ExampleLayoutControlUserControlSettings"</span>)]
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ExampleLayoutControlUserControlSettingsData : PersistControlSettingsData
+        {
+            <span class="highlight-keyword">public</span> ExampleLayoutControlUserControlSettingsData()
+            {
+                UserFlag = <span class="highlight-keyword">true</span>;
+            }
+
+            [XmlAttribute]
+            [DefaultValue(<span class="highlight-keyword">true</span>)]
+            <span class="highlight-keyword">public</span> <span class="highlight-keyword">bool</span> UserFlag { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+
+        }
+
+        <span class="highlight-preprocessor">#endregion</span>
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> InitializeComponent()
+        {
+            _showUsersButton = <span class="highlight-keyword">new</span> Button();
+            _settingsLabel = <span class="highlight-keyword">new</span> Label();
+            _usersGroupControl = <span class="highlight-keyword">new</span> Panel();
+            SuspendLayout();
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// _showUsersButton</span>
+            <span class="highlight-comment">// </span>
+            _showUsersButton.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">0</span>, <span class="highlight-number">0</span>);
+            _showUsersButton.Name = <span class="highlight-literal">"_showUsersButton"</span>;
+            _showUsersButton.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">175</span>, <span class="highlight-number">23</span>);
+            _showUsersButton.TabIndex = <span class="highlight-number">0</span>;
+            _showUsersButton.Text = <span class="highlight-literal">"Изменить флаг"</span>;
+            _showUsersButton.UseVisualStyleBackColor = <span class="highlight-keyword">true</span>;
+            _showUsersButton.Click += _showUsersButton_Click;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// _settingsLabel</span>
+            <span class="highlight-comment">// </span>
+            _settingsLabel.AutoSize = <span class="highlight-keyword">true</span>;
+            _settingsLabel.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">181</span>, <span class="highlight-number">10</span>);
+            _settingsLabel.Name = <span class="highlight-literal">"_settingsLabel"</span>;
+            _settingsLabel.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">35</span>, <span class="highlight-number">13</span>);
+            _settingsLabel.TabIndex = <span class="highlight-number">0</span>;
+            _settingsLabel.Text = <span class="highlight-literal">"label1"</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// _usersGroupControl</span>
+            <span class="highlight-comment">// </span>
+            _usersGroupControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            _usersGroupControl.AutoSize = <span class="highlight-keyword">true</span>;
+            _usersGroupControl.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">0</span>, <span class="highlight-number">30</span>);
+            _usersGroupControl.Name = <span class="highlight-literal">"_usersGroupControl"</span>;
+            _usersGroupControl.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">285</span>, <span class="highlight-number">233</span>);
+            _usersGroupControl.TabIndex = <span class="highlight-number">0</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// ExampleLayoutControlUserControl</span>
+            <span class="highlight-comment">// </span>
+            ClientSize = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">284</span>, <span class="highlight-number">262</span>);
+            Controls.Add(_showUsersButton);
+            Controls.Add(_settingsLabel);
+            Controls.Add(_usersGroupControl);
+            Name = <span class="highlight-literal">"ExampleLayoutControlUserControl"</span>;
+            ResumeLayout(<span class="highlight-keyword">false</span>);
+            PerformLayout();
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

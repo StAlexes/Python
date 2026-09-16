@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Пользовательский диалог</title>
+    <meta name="Microsoft.Help.Id" content="6050D08E-F9B9-465A-83DC-121C218A9067" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Пользовательские диалоги T-FLEX DOCs позволяют создавать пользовательские диалоговые окна, которые могут содержать связи с различными справочниками либо использоваться для ввода значений, не связанных с данными какого-либо справочника." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Пользовательский диалог</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Пользовательские диалоги T-FLEX DOCs позволяют создавать пользовательские диалоговые окна, которые могут содержать связи с различными справочниками либо использоваться для ввода значений, не связанных с данными какого-либо справочника.<br />
+				Особенность пользовательских диалогов заключается в том, что для каждого пользователя в системе создается только один диалог конкретного типа.<br />
+				Метод ПолучитьПользовательскийДиалог() при первом обращении создает для пользователя диалог указанного типа, а при последующих вызовах возвращает этот созданный диалог.
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с пользовательским диалогом</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div class="mediaNear">
+            <div class="caption">Пользовательский диалог</div>
+            <img alt="User Dialog Settings" src="../media/UserDialogSettings.png" />
+          </div>
+          <p>Код</p>
+          <div id="IDCBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context) { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Получаем пользовательский диалог по наименованию типа</span>
+        ПользовательскийДиалог пользовательскийДиалог = ПолучитьПользовательскийДиалог(<span class="highlight-literal">"Тестовый диалог"</span>, вернутьПустойДиалог: <span class="highlight-keyword">true</span>);
+        <span class="highlight-comment">// Пользовательский диалог является объектом справочника, поэтому при каждом сохранении диалога значения параметров и объекты связей фиксируются.</span>
+        <span class="highlight-comment">// Если необходимо сбрасывать значения при каждом открытии по аналогии с диалогом ввода, то для аргумента 'вернутьПустойДиалог' нужно задать значение 'true'</span>
+
+        <span class="highlight-keyword">if</span> (пользовательскийДиалог <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Если пользовательский диалог не был найден, выходим</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Редактируем параметры пользовательского диалога</span>
+        пользовательскийДиалог.Изменить();
+
+        пользовательскийДиалог.Заголовок = <span class="highlight-literal">"Новый заголовок"</span>; <span class="highlight-comment">// Устанавливаем новый заголовок пользовательского диалога</span>
+        пользовательскийДиалог.ПоказыватьПодтверждениеПриОтмене = <span class="highlight-keyword">false</span>; <span class="highlight-comment">// Скрываем подтверждение действия при отмене как в диалоге ввода</span>
+        пользовательскийДиалог[<span class="highlight-literal">"Тестовый параметр"</span>] = <span class="highlight-literal">"Тестовое значение"</span>; <span class="highlight-comment">// Устанавливаем значение параметра</span>
+
+        пользовательскийДиалог.Подключить(<span class="highlight-literal">"Тестовая связь к n"</span>, ТекущийПользователь); <span class="highlight-comment">// Подключаем объект по связи к N</span>
+        пользовательскийДиалог.СвязанныйОбъект[<span class="highlight-literal">"Тестовая связь к 1"</span>] = ТекущийПользователь; <span class="highlight-comment">// Задаем объект по связи к 1</span>
+
+        <span class="highlight-comment">// Пользовательский диалог можно сохранить также, как и любой другой объект справочника:</span>
+        <span class="highlight-comment">//пользовательскийДиалог.Сохранить();</span>
+
+        <span class="highlight-comment">// Можно отобразить диалог свойств пользовательского диалога, завершить в нем редактирование и сохранить:</span>
+        <span class="highlight-keyword">if</span> (пользовательскийДиалог.ПоказатьДиалог()) <span class="highlight-comment">// Если изменения в диалоге сохранены (нажата кнопка "Ок"), то выполняем необходимую логику</span>
+        {
+            <span class="highlight-comment">// Получаем данные из диалога:</span>
+            <span class="highlight-keyword">string</span> тестовыйПараметр = пользовательскийДиалог[<span class="highlight-literal">"Тестовый параметр"</span>];
+            Объекты объекты = пользовательскийДиалог.СвязанныеОбъекты[<span class="highlight-literal">"Тестовая связь к N"</span>];
+            Объект объект = пользовательскийДиалог.СвязанныйОбъект[<span class="highlight-literal">"Тестовая связь к 1"</span>];
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="mediaNear">
+            <div class="caption">Результат отображения диалога</div>
+            <img alt="User Dialog" src="../media/UserDialog.png" />
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="1CCB5C33.htm">ПолучитьПользовательскийДиалог(String, Boolean)</a>
+          </div>
+          <div>
+            <a href="413AD5A3.htm">ПользовательскийДиалог</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

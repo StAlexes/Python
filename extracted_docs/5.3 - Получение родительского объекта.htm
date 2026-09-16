@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Получение родительского объекта</title>
+    <meta name="Microsoft.Help.Id" content="46D386C6-26F1-4DB3-A0AB-6FFD9021FA94" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Пример получения конкретного родительского объекта для выделенного объекта в справочнике со сложной иерархией" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Получение родительского объекта</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Пример получения конкретного родительского объекта для выделенного объекта в справочнике со сложной иерархией
+			</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div class="mediaNear">
+            <img alt="Get Parent FromUI" src="../media/GetParentFromUI.png" />
+          </div>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.IoC.Infrastructure.dll
+TFlex.DOCs.UI.Client.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.IoC.Infrastructure.Interfaces.ViewModels.Base;
+<span class="highlight-keyword">using</span> TFlex.DOCs.IoC.Infrastructure.Interfaces.ViewModels.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ParentFromUI(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">if</span> (Context <span class="highlight-keyword">is</span> not UIMacroContext uiMacroContext) <span class="highlight-comment">// Проверяем, выполняется ли макрос в графическом интерфейсе пользователя</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Если необходимо обработать текущий выбранный объект справочника, то получаем из контекста макроса его модель представления</span>
+        <span class="highlight-comment">// if (uiMacroContext?.ReferenceObjectViewModel is not IReferenceObjectViewModel referenceObjectViewModel)</span>
+        <span class="highlight-comment">//    return;</span>
+
+        <span class="highlight-keyword">if</span> (uiMacroContext.OwnerViewModel <span class="highlight-keyword">is</span> not ISupportSelection supportSelectionViewModel) <span class="highlight-comment">// Проверяем, поддерживает ли текущее окно выделение объектов</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> selectedObjectViewModels = supportSelectionViewModel.SelectedObjects.OfType&lt;IReferenceObjectViewModel&gt;(); <span class="highlight-comment">// Получаем модели представления выбранных объектов</span>
+
+        <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> selectedObjectViewModel <span class="highlight-keyword">in</span> selectedObjectViewModels)
+        {
+            <span class="highlight-comment">// Получаем модель представления родительского объекта (на скриншоте - СЕ11 - СЕ11 - A.1)</span>
+            <span class="highlight-keyword">var</span> parentVewModel = selectedObjectViewModel.Parent <span class="highlight-keyword">as</span> IReferenceObjectViewModel;
+
+            <span class="highlight-comment">// Если необходимо для выбранного объекта получить корневой объект(на скриншоте - СЕ1 - СЕ1 - A.1):</span>
+            <span class="highlight-keyword">while</span> (parentVewModel <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+            {
+                <span class="highlight-keyword">if</span> (parentVewModel.Parent <span class="highlight-keyword">is</span> IReferenceObjectViewModel nextParent)
+                    parentVewModel = nextParent;
+                <span class="highlight-keyword">else</span>
+                    <span class="highlight-keyword">break</span>;
+            }
+
+            <span class="highlight-keyword">if</span> (parentVewModel <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+            {
+                ReferenceObject parentObject = parentVewModel.ReferenceObject; <span class="highlight-comment">// Из модели представления получаем объект справочника</span>
+                <span class="highlight-comment">// Выполняем действия над родительским объектом</span>
+            }
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Настройки конфигурации</title>
+    <meta name="Microsoft.Help.Id" content="93173163-30B6-4D71-AFE8-E4A00C52A121" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Для дополнительной фильтрации иерархической структуры объектов справочника (например, по применяемости в изделиях, дате, контексте проектирования) выполняется настройка конфигурации, которая доступна для любого справочника системы" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Настройки конфигурации</h1>
+            </td>
+          </tr>
+        </table>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					Для дополнительной фильтрации иерархической структуры объектов справочника (например, по применяемости в изделиях, дате, контексте проектирования) выполняется настройка конфигурации, которая доступна для любого справочника системы
+				</p>
+          <div id="IDBABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.References.StructureTypes;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-comment">// Пример получения и создания настроек конфигурации</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> WorkWithConfigurationSettings()
+    {
+        <span class="highlight-comment">// Получаем единые настройки конфигурации</span>
+        ConfigurationSettings connectionSettings = Context.Connection.ConfigurationSettings;
+
+        <span class="highlight-comment">// Получаем особую конфигурацию справочника</span>
+        ConfigurationSettings specialReferenceSettings = Context.Reference.SpecialConfigurationSettings;
+
+        <span class="highlight-comment">// Создаем пустые настройки</span>
+        ConfigurationSettings emptySettings = <span class="highlight-keyword">new</span> ConfigurationSettings(Context.Connection);
+
+        <span class="highlight-comment">// Копируем существующие настройки</span>
+        ConfigurationSettings clonedSettings = <span class="highlight-keyword">new</span> ConfigurationSettings(connectionSettings);
+
+        <span class="highlight-comment">// Осуществляем поиск типа структуры "Конструкторская" по короткому имени "К"</span>
+        StructureTypesReferenceObject structureType = Context.Connection.References.StructureTypes.Find(<span class="highlight-literal">"К"</span>);
+
+        <span class="highlight-comment">// Создаем настройки с указанным активным типом структуры</span>
+        ConfigurationSettings settingsWithDesignStructure = <span class="highlight-keyword">new</span> ConfigurationSettings(Context.Connection, structureType);
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

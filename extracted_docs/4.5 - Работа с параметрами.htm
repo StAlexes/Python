@@ -1,0 +1,323 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Работа с параметрами</title>
+    <meta name="Microsoft.Help.Id" content="71837294-B2E3-4AC0-A540-716B78185C1E" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Ниже приводятся примеры работы с параметрами объектов справочника (работа с параметрами подключений аналогична) посредством API T-FLEX DOCs." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Работа с параметрами</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>Ниже приводятся примеры работы с параметрами объектов справочника (работа с параметрами подключений аналогична) посредством API T-FLEX DOCs.</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Получение наименования значения из списка значений параметра</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Parameter parameter = referenceObject[<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid параметра"</span>)]; <span class="highlight-comment">// Получаем конкретный параметр объекта</span>
+ParameterValueList valueList = parameter.ParameterInfo.ValueList; <span class="highlight-comment">// Получаем список значений параметра</span>
+<span class="highlight-keyword">string</span> name = valueList.GetName(parameter.Value); <span class="highlight-comment">// Получаем наименование по значению</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="E103A72D.htm">TFlex.DOCs.Model.Structure<span id="LSTAD4761FB_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ParameterInfo</a>
+            <br />
+            <a href="BB51C080.htm">TFlex.DOCs.Model.Parameters<span id="LSTAD4761FB_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Parameter</a>
+            <br />
+            <a href="12D9E8B7.htm">TFlex.DOCs.Model.Structure<span id="LSTAD4761FB_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ParameterValueList</a>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LSTAD4761FB_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+            <br />
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Получение параметра из конкретной группы параметров</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> referenceInfo = Context.Connection.ReferenceCatalog.Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid справочника"</span>)); <span class="highlight-comment">// Находим описание справочника</span>
+
+<span class="highlight-keyword">if</span> (referenceInfo <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+    <span class="highlight-keyword">return</span>;
+
+<span class="highlight-keyword">var</span> parameterGroup = referenceInfo.Description.OneToOneTables.Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid группы параметров"</span>)); <span class="highlight-comment">// Находим группу параметров</span>
+<span class="highlight-comment">// Если имеется экземпляр справочника, то поиск группы можно осуществить следующим образом:</span>
+<span class="highlight-comment">// var reference = referenceInfo.CreateReference(); // Создаем экземпляр справочника</span>
+<span class="highlight-comment">// ParameterGroup parameterGroup = reference.ParameterGroup.OneToOneTables.Find(new Guid("Guid группы параметров")); // Находим группу параметров</span>
+
+<span class="highlight-keyword">if</span> (parameterGroup <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+    <span class="highlight-keyword">return</span>;
+
+<span class="highlight-keyword">var</span> paramInfo = parameterGroup.Parameters.Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid параметра"</span>)); <span class="highlight-comment">// Находим описание параметра в группе параметров</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="D99B90CD.htm">TFlex.DOCs.Model<span id="LSTAD4761FB_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceInfo</a>
+            <br />
+            <a href="E103A72D.htm">TFlex.DOCs.Model.Structure<span id="LSTAD4761FB_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ParameterInfo</a>
+            <br />
+            <a href="854A9D9F.htm">TFlex.DOCs.Model.Structure<span id="LSTAD4761FB_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ParameterGroup</a>
+            <br />
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Работа с параметрами типа "Иконка" и "Растровое изображение"</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div id="IDABDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Drawing;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Icons;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Получаем изображение и иконку из справочника "Изображения"</span>
+        <span class="highlight-keyword">var</span> imageReference = <span class="highlight-keyword">new</span> ImageReference(Context.Connection);
+        <span class="highlight-keyword">var</span> imageObject = imageReference.Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid объекта"</span>)); <span class="highlight-comment">// Находим объект справочника "Изображения" с типом 'Растровое изображение' </span>
+        <span class="highlight-keyword">var</span> iconObject = imageReference.Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid объекта"</span>)); <span class="highlight-comment">// Находим объект справочника "Изображения" с типом 'Иконка' </span>
+
+        <span class="highlight-keyword">if</span> (imageObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span> || iconObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        Image image = <span class="highlight-keyword">null</span>;
+        <span class="highlight-keyword">if</span> (imageObject.IsImage) <span class="highlight-comment">// Проверяем, является ли полученный объект изображением</span>
+            image = imageObject.Image.GetImage(); <span class="highlight-comment">// Получаем изображение из параметра</span>
+
+        <span class="highlight-keyword">if</span> (iconObject.IsIcon) <span class="highlight-comment">// Проверяем, является ли полученный объект иконкой</span>
+        {
+            IconImage iconImage = iconObject.Icon.Value; <span class="highlight-comment">// Получаем иконку T-FLEX DOCs</span>
+
+            <span class="highlight-keyword">if</span> (iconImage.IsSvgImage) <span class="highlight-comment">// Проверяем, является ли иконка векторной</span>
+            {
+                <span class="highlight-keyword">byte</span>[] svgIcon = iconImage.SvgSource;
+            }
+            <span class="highlight-keyword">else</span>
+            {
+                Icon icon = iconImage.InternalIcon; <span class="highlight-comment">// Получаем иконку типа Icon</span>
+                Image mediumIcon = iconImage.MediumImage; <span class="highlight-comment">// Получаем иконку среднего размера</span>
+            }
+        }
+
+        <span class="highlight-comment">// Сохраняем в текущий объект изображение из справочника "Изображения"</span>
+        <span class="highlight-keyword">if</span> (Context.ReferenceObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span> || image <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">bool</span> changingObject = Context.ReferenceObject.Changing;
+        <span class="highlight-keyword">try</span>
+        {
+            <span class="highlight-keyword">if</span> (!changingObject)
+                Context.ReferenceObject.BeginChanges(<span class="highlight-keyword">false</span>);
+
+            <span class="highlight-keyword">var</span> converter = <span class="highlight-keyword">new</span> ImageConverter(); <span class="highlight-comment">// Получаем конвертер изображений</span>
+            <span class="highlight-comment">// Запись иконки или изображения в параметр требует преобразования в массив байт</span>
+            Context.ReferenceObject[<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid параметра с типом 'Растровое изображение'"</span>)].Value = (<span class="highlight-keyword">byte</span>[])converter.ConvertTo(image, <span class="highlight-keyword">typeof</span>(<span class="highlight-keyword">byte</span>[]));
+
+            <span class="highlight-keyword">if</span> (!changingObject)
+                Context.ReferenceObject.EndChanges();
+        }
+        <span class="highlight-keyword">catch</span>
+        {
+            <span class="highlight-keyword">if</span> (!changingObject)
+                Context.ReferenceObject.CancelChanges();
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="ADBE7A36.htm">TFlex.DOCs.Model<span id="LSTAD4761FB_7" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>IconImage</a>
+            <br />
+            <a href="45F28E0B.htm">TFlex.DOCs.Model.References.Icons<span id="LSTAD4761FB_8" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ImageReference</a>
+            <br />
+            <a href="BB15905.htm">TFlex.DOCs.Model.References.Icons<span id="LSTAD4761FB_9" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ImageReferenceObject</a>
+            <br />
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Работа со строковыми параметрами, содержащими текст в формате html и rtf</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <div id="IDABEAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABEAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABEAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABEAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABEAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/* Ссылки
+DevExpress.Data.v24.2.dll
+DevExpress.Printing.v24.2.Core.dll
+DevExpress.RichEdit.v24.2.Core.dll
+TFlex.DOCs.Common.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> DevExpress.XtraRichEdit;
+<span class="highlight-keyword">using</span> DevExpress.XtraRichEdit.API.Native;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Common;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> RtfHtmlEditor : MacroProvider
+{
+    <span class="highlight-keyword">private</span> Guid _parameterGuid = <span class="highlight-keyword">new</span>(<span class="highlight-literal">"Guid параметра"</span>); <span class="highlight-comment">// Глобальный идентификатор параметра, содержащего форматированный текст</span>
+
+    <span class="highlight-keyword">public</span> RtfHtmlEditor(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Конвертирует текст в различные форматы&lt;/summary&gt;</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> ConvertText()
+    {
+        <span class="highlight-keyword">if</span> (Context.ReferenceObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Проверяем наличие текущего объекта</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">string</span> textValue = Context.ReferenceObject[_parameterGuid].GetString(); <span class="highlight-comment">// Получаем значение текстового параметра</span>
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> reDocServer = <span class="highlight-keyword">new</span> RichEditDocumentServer(); <span class="highlight-comment">// Создаем класс, предоставляющий функции обработки форматированного текста</span>
+
+        <span class="highlight-comment">// Задаем текст для компонента RichEditDocumentServer в зависимости от формата</span>
+        <span class="highlight-keyword">if</span> (RtfHtmlManager.IsHtmlString(textValue)) <span class="highlight-comment">// Проверяем, хранится ли текст в html-формате</span>
+            reDocServer.HtmlText = textValue;
+        <span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (RtfHtmlManager.IsRtfString(textValue)) <span class="highlight-comment">// Проверяем, хранится ли текст в rtf-формате</span>
+            reDocServer.RtfText = textValue;
+        <span class="highlight-keyword">else</span>
+            reDocServer.Text = textValue;
+
+        <span class="highlight-comment">// RichEditDocumentServer умеет конвертировать текст в различные форматы. Для этого достаточно обратиться к свойству, отвечающему за необходимый формат</span>
+
+        <span class="highlight-keyword">string</span> html = reDocServer.HtmlText; <span class="highlight-comment">// Получаем текст в html-формате</span>
+        <span class="highlight-keyword">string</span> rtf = reDocServer.RtfText; <span class="highlight-comment">// Получаем текст в rtf-формате</span>
+        <span class="highlight-keyword">string</span> text = reDocServer.Text; <span class="highlight-comment">// Получаем обычный текст</span>
+    }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Изменяет значение параметра заданного формата&lt;/summary&gt;</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> ModifyParameterValue()
+    {
+        <span class="highlight-keyword">if</span> (Context.ReferenceObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Проверяем наличие текущего объекта</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">string</span> textValue = Context.ReferenceObject[_parameterGuid].GetString(); <span class="highlight-comment">// Получаем значение текстового параметра</span>
+
+        <span class="highlight-comment">// Для примера считаем, что нам необходимо обработать текст в формате rtf</span>
+        <span class="highlight-keyword">if</span> (!RtfHtmlManager.IsRtfString(textValue))
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> reDocServer = <span class="highlight-keyword">new</span> RichEditDocumentServer() { RtfText = textValue }; <span class="highlight-comment">// Создаем класс, предоставляющий функции обработки форматированного текста</span>
+
+        reDocServer.Document.BeginUpdate(); <span class="highlight-comment">// Начинаем редактирование</span>
+        reDocServer.Document.AppendText(<span class="highlight-literal">"\r\nНовая строка"</span>); <span class="highlight-comment">// Добавляем текст</span>
+
+        <span class="highlight-comment">// Для добавления уже размеченного текста можно воспользоваться методами AppendHtmlText и AppendRtfText</span>
+        <span class="highlight-comment">// Находим все вхождения заданной строки c учетом регистра. Каждое вхождение представляет собой диапазон с начальной и конечной позициями в документе</span>
+        DocumentRange[] documentRanges = reDocServer.Document.FindAll(<span class="highlight-literal">"Текст1"</span>, SearchOptions.CaseSensitive);
+
+        <span class="highlight-keyword">if</span> (documentRanges.Length &gt; <span class="highlight-number">0</span>) <span class="highlight-comment">// Заменяем первое вхождение</span>
+            reDocServer.Document.Replace(documentRanges[<span class="highlight-number">0</span>], <span class="highlight-literal">"Текст2"</span>);
+
+        reDocServer.Document.EndUpdate(); <span class="highlight-comment">// Завершаем редактирование</span>
+
+        <span class="highlight-comment">// Обновляем значение параметра</span>
+        Context.ReferenceObject.Modify(ro =&gt; ro[_parameterGuid].Value = reDocServer.RtfText);
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Другие ресурсы</h4>
+          <div>
+            <a href="7afcb607-4b46-4d52-b1df-a96aecc8a79e.htm">Работа с параметрами средствами макроязыка</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

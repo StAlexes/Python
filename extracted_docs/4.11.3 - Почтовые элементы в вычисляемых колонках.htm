@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Почтовые элементы в вычисляемых колонках</title>
+    <meta name="Microsoft.Help.Id" content="8657019E-C9EC-4BF1-A62B-52C2CF1B6C6C" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере описан метод, который возвращает строку с вложениями почтовых элементов для вычисляемой колонки" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Почтовые элементы в вычисляемых колонках</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Работа с почтовыми элементами в вычисляемых колонках окна почты</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>В данном примере описан метод, который возвращает строку с вложениями почтовых элементов для вычисляемой колонки</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.UI.Client.dll
+TFlex.DOCs.UI.Client.Common.dll
+TFlex.DOCs.IoC.Infrastructure.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Mail;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.Mail;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> GetAttachments()
+    {
+        <span class="highlight-keyword">if</span> (Context <span class="highlight-keyword">is</span> not UIMacroContext uIMacroContext) <span class="highlight-comment">// Получаем UI контекст выполнения макроса</span>
+            <span class="highlight-keyword">return</span> String.Empty;
+
+        <span class="highlight-comment">// Из контекста получаем модель представления текущего почтового элемента, если это не сообщение/задание, выходим</span>
+        <span class="highlight-keyword">if</span> (uIMacroContext.ObjectViewModel <span class="highlight-keyword">is</span> not MailItemViewModel mailMessageVm)
+            <span class="highlight-keyword">return</span> String.Empty;
+
+        MailItem mailItem = mailMessageVm.Model; <span class="highlight-comment">// Получаем почтовый элемент</span>
+        AttachmentCollection attachments = mailItem.Attachments; <span class="highlight-comment">// Получаем вложения</span>
+
+        <span class="highlight-comment">// Если необходимо проверить, является ли текущий почтовый элемент сообщением и обработать его</span>
+        <span class="highlight-comment">//if (mailItem is MailMessage message)</span>
+        <span class="highlight-comment">//{</span>
+        <span class="highlight-comment">//    // ...</span>
+        <span class="highlight-comment">//}</span>
+
+        <span class="highlight-comment">// Если необходимо обработать текущее задание</span>
+        <span class="highlight-comment">//if (mailItem is MailTask task)</span>
+        <span class="highlight-comment">//{</span>
+        <span class="highlight-comment">//    // ...</span>
+        <span class="highlight-comment">//}</span>
+
+        <span class="highlight-keyword">return</span> String.Join(<span class="highlight-literal">"; "</span>, attachments); <span class="highlight-comment">// Возвращаем вложения в строковом представлении</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

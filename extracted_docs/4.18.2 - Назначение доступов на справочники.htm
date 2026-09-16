@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Назначение доступов на справочники</title>
+    <meta name="Microsoft.Help.Id" content="a0d5cb62-8ce7-4d5f-802b-0e37afa8ad3e" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Назначение доступов на справочники</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример назначения доступов на справочники в коде макроса</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.Common.dll
+TFlex.DOCs.IoC.Infrastructure.dll
+TFlex.DOCs.UI.Client.dll
+TFlex.DOCs.UI.Client.Common.dll
+TFlex.DOCs.UI.Utils.Common.dll
+WindowsBase.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Client;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Access;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.Base;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.References.SelectionDialogs;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> SetAccessMacro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> SetAccessMacro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Назначает доступ на справочники&lt;/summary&gt;</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> НазначитьДоступНаСправочники()
+    {
+        <span class="highlight-keyword">if</span> (Context <span class="highlight-keyword">is</span> not UIMacroContext uiContext) <span class="highlight-comment">// Проверяем, выполняется ли макрос в графическом интерфейсе пользователя</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Выбираем справочники, для которых будет назначаться доступ</span>
+        <span class="highlight-keyword">var</span> selectReferenceVM = <span class="highlight-keyword">new</span> SelectReferenceViewModel(Context.Connection, <span class="highlight-keyword">true</span>);
+
+        <span class="highlight-keyword">if</span> (!ApplicationManager.OpenDialog(selectReferenceVM, uiContext.OwnerViewModel <span class="highlight-keyword">as</span> LayoutViewModel))
+            <span class="highlight-keyword">return</span>;
+
+        List&lt;AccessGroup&gt; allAccesses = AccessGroup.GetGroups(Context.Connection); <span class="highlight-comment">// Получаем все доступы в системе</span>
+        AccessGroup[] referencesAccesses = allAccesses.FindAll(a =&gt; a.Type.IsReference).ToArray(); <span class="highlight-comment">// Получаем доступы для справочника</span>
+        AccessGroup[] objectsAccesses = allAccesses.FindAll(a =&gt; a.Type.IsObject).ToArray(); <span class="highlight-comment">// Получаем доступы для объектов справочника</span>
+
+        <span class="highlight-comment">// Выводим диалог ввода для выбора доступов и владельца прав доступов</span>
+        <span class="highlight-keyword">const</span> <span class="highlight-keyword">string</span> fieldReferencesAccess = <span class="highlight-literal">"Доступ на справочники"</span>;
+        <span class="highlight-keyword">const</span> <span class="highlight-keyword">string</span> fieldObjectsAccess = <span class="highlight-literal">"Доступ на объекты"</span>;
+        <span class="highlight-keyword">const</span> <span class="highlight-keyword">string</span> fieldOwnerAccess = <span class="highlight-literal">"Доступ для"</span>;
+
+        InputDialog inputDialog = CreateInputDialog(<span class="highlight-literal">"Выбор устанавливаемых доступов"</span>);
+        inputDialog.Height = <span class="highlight-number">160</span>;
+        inputDialog.AddSelectFromList(fieldReferencesAccess, <span class="highlight-keyword">null</span>, <span class="highlight-keyword">true</span>, referencesAccesses);
+        inputDialog.AddSelectFromList(fieldObjectsAccess, <span class="highlight-keyword">null</span>, <span class="highlight-keyword">true</span>, objectsAccesses);
+        inputDialog.AddSelectFromReference(fieldOwnerAccess, <span class="highlight-literal">"Группы и пользователи"</span>);
+
+        <span class="highlight-keyword">if</span> (!inputDialog.Show())
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Получаем доступы из диалога</span>
+        <span class="highlight-keyword">var</span> referenceAccess = (AccessGroup)inputDialog.GetValue(fieldReferencesAccess);
+        <span class="highlight-keyword">var</span> objectsAccess = (AccessGroup)inputDialog.GetValue(fieldObjectsAccess);
+        <span class="highlight-keyword">var</span> accessOwner = (UserReferenceObject)inputDialog.GetValue(fieldOwnerAccess);
+        <span class="highlight-comment">// Если необходимо установить доступ для всех пользователей, то значение accessOwner должно быть null</span>
+
+        WaitingDialog.Show(<span class="highlight-literal">"Установка доступов"</span>, <span class="highlight-keyword">true</span>);
+
+        ReferenceInfo[] references = selectReferenceVM.SelectedObjects; <span class="highlight-comment">// Получаем из диалога выбранные справочники</span>
+
+        <span class="highlight-keyword">foreach</span> (ReferenceInfo reference <span class="highlight-keyword">in</span> references)
+        {
+            <span class="highlight-keyword">if</span> (!WaitingDialog.NextStep(String.Format(<span class="highlight-literal">"Установка доступов на справочник '{0}'"</span>, reference)))
+                <span class="highlight-keyword">return</span>;
+
+            AccessManager allReferenceAccesses = AccessManager.GetAllReferenceAccesses(reference); <span class="highlight-comment">// Получаем все установленные доступы указанного справочника</span>
+
+            SetAccess(allReferenceAccesses, accessOwner, referenceAccess, AccessType.Reference); <span class="highlight-comment">// Задаем доступ для группы пользователей на справочник</span>
+            SetAccess(allReferenceAccesses, accessOwner, objectsAccess, AccessType.Object); <span class="highlight-comment">// Задаем доступ для группы пользователей на объекты справочника</span>
+        }
+
+        WaitingDialog.Hide();
+    }
+
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> SetAccess(AccessManager accessManager, UserReferenceObject accessOwner, AccessGroup accessGroup, AccessType type)
+    {
+        <span class="highlight-comment">// Находим доступ для заданной группы пользователей. Если он задан, то обновляем его, в противном случае - создаем</span>
+        AccessInfo userAccess = accessManager.FirstOrDefault(a =&gt; a.Owner == accessOwner &amp;&amp; a.Access != <span class="highlight-keyword">null</span> &amp;&amp; a.Access.Type == type);
+
+        <span class="highlight-keyword">if</span> (userAccess <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+        {
+            accessManager.SetAccess(accessOwner, accessGroup);
+        }
+        <span class="highlight-keyword">else</span>
+        {
+            <span class="highlight-comment">// Данная перегрузка используется для обновления доступа у указанного владельца.</span>
+            accessManager.SetAccess(<span class="highlight-number">0</span>, userAccess.Owner, accessGroup, userAccess.Access, <span class="highlight-keyword">null</span>,
+                userAccess.CommandType, userAccess.AccessTypeID, userAccess.AccessDirection, <span class="highlight-keyword">null</span>);
+        }
+
+        accessManager.Save(); <span class="highlight-comment">// Сохраняем изменения</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

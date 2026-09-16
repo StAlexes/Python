@@ -1,0 +1,190 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Ревизии</title>
+    <meta name="Microsoft.Help.Id" content="82F97484-145C-4E50-A36E-1B8F39CDC47F" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Ревизия - это копия объекта, имеющая логическую связь с исходным объектом. При этом различные ревизии одного и того же объекта могут использоваться независимо друг от друга." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Ревизии</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Ревизия - это копия объекта, имеющая логическую связь с исходным объектом. При этом различные ревизии одного и того же объекта могут использоваться независимо
+				друг от друга. Ревизии позволяют внести изменения в объект, не затрагивая его существующую версию.
+				<br />
+				Более подробное описание ревизий приведено в разделе "Специальные возможности системы при работе с данными" документа "T-FLEX DOCs - Руководство пользователя"
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример создания ревизии</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Revisions;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ReferenceObject referenceObject = Context.ReferenceObject; <span class="highlight-comment">// Для примера создадим ревизию у текущего объекта</span>
+
+        <span class="highlight-keyword">if</span> (referenceObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">if</span> (!referenceObject.Reference.ParameterGroup.SupportsRevisions) <span class="highlight-comment">// Определяем, поддерживает ли справочник механизм ревизий</span>
+            <span class="highlight-keyword">return</span>;
+
+        IList&lt;RevisionLevelObject&gt; revisionLevels = referenceObject.Class.RevisionNamingRule.RevisionLevels.AsList; <span class="highlight-comment">// Получаем уровни ревизии</span>
+
+        <span class="highlight-keyword">if</span> (revisionLevels.Count == <span class="highlight-number">0</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Находим минорную ревизию (объект из списка объектов "Уровни ревизии" правила именования ревизий)</span>
+        RevisionLevelObject revisionLevel = revisionLevels
+            .FirstOrDefault(rl =&gt; rl.Name.GetString().Equals(<span class="highlight-literal">"Минорная"</span>)) ?? revisionLevels.First();
+
+        <span class="highlight-comment">// Определяем родительский объект</span>
+        ReferenceObject parent = referenceObject.Reference.ParameterGroup.HierarchyType == TFlex.DOCs.Model.Structure.ReferenceHierarchyType.Simple
+            ? referenceObject.Parent
+            : <span class="highlight-keyword">null</span>;
+
+        ReferenceObject revision = referenceObject.CreateRevision(revisionLevel, parent, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Создаем ревизию</span>
+
+        <span class="highlight-comment">// У созданных ревизий уже зафиксированы изменения, вызывать EndChanges() не нужно, но если включена поддержка истории изменений, то можно применить изменения на рабочем столе</span>
+
+        <span class="highlight-keyword">if</span> (revision.CanCheckIn)
+            revision.CheckIn(<span class="highlight-literal">"Применение изменений"</span>, <span class="highlight-keyword">false</span>);
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="25EFD65F.htm">RevisionLevelObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример получения ревизий объекта и установки уникальности</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Search;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ReferenceObject referenceObject = Context.ReferenceObject; <span class="highlight-comment">// Для примера получим ревизии текущего объекта</span>
+
+        <span class="highlight-keyword">if</span> (referenceObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">if</span> (!referenceObject.Reference.ParameterGroup.SupportsRevisions) <span class="highlight-comment">// Определяем, поддерживает ли справочник механизм ревизий</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Через системные параметры можно получить информацию о ревизиях</span>
+        <span class="highlight-keyword">string</span> revisionName = referenceObject.SystemFields.RevisionName; <span class="highlight-comment">// Имя ревизии</span>
+        <span class="highlight-keyword">bool</span> revisionIsActual = referenceObject.SystemFields.IsActualRevision; <span class="highlight-comment">// Актуальность ревизии</span>
+        <span class="highlight-keyword">string</span> lastRevisionName = referenceObject.SystemFields.LastRevisionName; <span class="highlight-comment">// Имя последней ревизии</span>
+        <span class="highlight-keyword">string</span> sourceRevisionName = referenceObject.SystemFields.SourceRevisionName; <span class="highlight-comment">// Имя исходной ревизии. У исходной ревизии возвращается пустая строка</span>
+
+        <span class="highlight-comment">// Получаем копию параметров загрузки и указываем загрузку без учета настроек конфигурирования</span>
+        <span class="highlight-keyword">var</span> settings = referenceObject.Reference.LoadSettings.Clone();
+        settings.UseConfigurationSettings = <span class="highlight-keyword">false</span>;
+
+        <span class="highlight-comment">// Создаем фильтр для поиска ревизий объекта. Поиск осуществляется по системному параметру "Идентификатор логического объекта ревизии"</span>
+        <span class="highlight-keyword">using</span> Filter filter = <span class="highlight-keyword">new</span> Filter(referenceObject.Reference.ParameterGroup);
+        filter.Terms.AddTerm(referenceObject.Reference.ParameterGroup.SystemParameters.Find(SystemParameterType.LogicalObjectGuid)
+                    , ComparisonOperator.Equal
+                    , referenceObject.SystemFields.LogicalObjectGuid);
+
+        <span class="highlight-comment">// Получаем ревизии при помощи фильтра</span>
+        <span class="highlight-keyword">var</span> revisions = referenceObject.Reference.Find(filter, <span class="highlight-number">-1</span>, <span class="highlight-keyword">null</span>, loadSettings: settings);
+
+        <span class="highlight-comment">// Ревизии без учета параметров загрузки можно получить более простым способом:</span>
+        <span class="highlight-comment">// var revisions = referenceObject.GetRevisions();</span>
+
+        <span class="highlight-comment">// Получаем любую неисходную и актуальную ревизию</span>
+        <span class="highlight-keyword">var</span> actualRevision = revisions.FirstOrDefault(r =&gt; r.SystemFields.IsActualRevision &amp;&amp; !String.IsNullOrEmpty(r.SystemFields.SourceRevisionName));
+
+        <span class="highlight-comment">// Делаем ревизию неактуальной</span>
+        <span class="highlight-keyword">if</span> (actualRevision <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+            actualRevision.SystemFields.IsActualRevision = <span class="highlight-keyword">false</span>;
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

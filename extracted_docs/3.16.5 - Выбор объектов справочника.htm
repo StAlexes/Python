@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Выбор объектов справочника</title>
+    <meta name="Microsoft.Help.Id" content="0c1914cd-ebba-445f-ba26-464346ccf478" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.MacroProvider.СоздатьДиалогВыбораОбъектов(System.String) - Создает диалог выбора объектов по наименованию или Guid'у справочника." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Выбор объектов справочника</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с диалогом выбора объектов</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="F2455C42.htm">СоздатьДиалогВыбораОбъектов("Имя или Guid справочника")</a>
+					- Создает диалог выбора объектов по наименованию или Guid'у справочника. Возвращает созданный диалог выбора объектов
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context) { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ДиалогВыбораОбъектов диалог = СоздатьДиалогВыбораОбъектов(<span class="highlight-literal">"Файлы"</span>);
+        диалог.Заголовок = <span class="highlight-literal">"Выбор файлов"</span>; <span class="highlight-comment">// Устанавливаем заголовок окна</span>
+        диалог.Вид = <span class="highlight-literal">"Список"</span>; <span class="highlight-comment">// Устанавливаем вид, с которым открывается справочник</span>
+        диалог.Каталог = <span class="highlight-literal">"Картотека по годам"</span>; <span class="highlight-comment">// Устанавливаем каталог, с которым открывается справочник</span>
+        диалог.ПапкаКаталога = <span class="highlight-literal">"2018"</span>; <span class="highlight-comment">// Устанавливаем папку каталога, с которой открывается справочник</span>
+        диалог.МножественныйВыбор = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Устанавливаем возможность множественного выбора объектов в окне диалога</span>
+        диалог.Фильтр = <span class="highlight-literal">"[Тип] Порождён от 'Документ системы T-FLEX CAD'"</span>; <span class="highlight-comment">// Устанавливаем фильтр, с которым открывается справочник</span>
+        диалог.ВыборФлажками = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Устанавливаем возможность выбора объектов при помощи флажков. Выбор флажками возможен только в случае, когда МножественныйВыбор = true</span>
+        диалог.ПоказатьПанельКнопок = <span class="highlight-keyword">false</span>; <span class="highlight-comment">// Скрываем панель кнопок</span>
+        диалог.АвтоВыборФлажками = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Устанавливаем возможность автоматической простановки флажков при выборе объектов. Автовыбор флажками возможен только в случае, когда ВыборФлажками = true и МножественныйВыбор = true</span>
+
+        <span class="highlight-comment">// Задаем объекты, которые будут выбраны в диалоге по умолчанию. Для установки выбранных объектов необходимо задать МножественныйВыбор = true</span>
+        диалог.ВыбранныеОбъекты = НайтиОбъекты(<span class="highlight-literal">"Файлы"</span>, <span class="highlight-literal">"[ID] Входит в список '10, 11'"</span>);
+
+        <span class="highlight-comment">// Показываем диалоговое окно. Если диалог закрыт кнопкой "Ок", метод возвращает true; в противном случае - false</span>
+        <span class="highlight-keyword">if</span> (диалог.Показать())
+        {
+            <span class="highlight-keyword">foreach</span> (Объект выбранныйОбъект <span class="highlight-keyword">in</span> диалог.ВыбранныеОбъекты) <span class="highlight-comment">// Получаем выбранные в диалоге объекты</span>
+            {
+                <span class="highlight-comment">// Действие над выбранным объектом</span>
+            }
+
+            <span class="highlight-comment">// Для справочника со сложной иерархией можно получить выбранные подключения</span>
+            <span class="highlight-keyword">foreach</span> (Подключение выбранноеПодключение <span class="highlight-keyword">in</span> диалог.ВыбранныеПодключения)
+            {
+                <span class="highlight-comment">// Действие над выбранным подключением</span>
+                Объект дочернийОбъект = выбранноеПодключение.ДочернийОбъект;
+            }
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <div class="mediaNear">
+            <div class="caption">Результат:</div>
+            <img alt="Select Objects Dialog Sample" src="../media/SelectObjectsDialogSample.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

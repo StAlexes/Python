@@ -1,0 +1,354 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Маска ввода</title>
+    <meta name="Microsoft.Help.Id" content="34BF1B80-5A19-4A7B-87BA-5C05D739DB06" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Маска ввода &mdash; это набор символов, определяющий формат входных данных." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Маска ввода</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+        Маска ввода &mdash; это набор символов, определяющий формат входных данных.
+        По заданной маске валидируется введенный текст, а также маска позволяет заполнять параметры в удобной форме ввода
+      </p>
+          <p>В диалоге ввода поддерживаются следующие типы масок:</p>
+          <ul>
+            <li>
+              <p>простая (данная маска используется в случаях, когда требуется строка с фиксированными форматом и длиной, например, почтовый индекс);</p>
+            </li>
+            <li>
+              <p>регулярное выражение (формат входных данных определяется регулярным выражением);</p>
+            </li>
+            <li>
+              <p>числовая (предназначена для ввода числовых значений [целое число, значения с плавающей запятой, валюты, проценты и т.д.] и для настройки их отображения);</p>
+            </li>
+            <li>
+              <p>дата и время (для ввода значений даты и времени в различных форматах);</p>
+            </li>
+            <li>
+              <p>промежуток времени (для ввода значений временных интервалов в различных форматах)</p>
+            </li>
+          </ul>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Простая маска ввода</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+          Простая маска представляет собой строку, которая может состоять из метасимволов, специальных и литеральных символов.
+        </p>
+          <p>
+            <strong>Метасимволы</strong>
+            <br />
+          Метасимволы используются для представления ряда символов.<br />
+          Когда метасимвол задан в определенной позиции в маске, пользователь может ввести любой символ из определяемого метасимволом диапазона только в эту позицию поля ввода
+        </p>
+          <table>
+            <tr>
+              <th>
+                <p>Символ</p>
+              </th>
+              <th>
+                <p>Значение</p>
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">L</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">L</span> требует алфавитный символ в данной позиции, заполнение обязательно
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">l</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">l</span> допускает алфавитный символ в данной позиции и не требует заполнения
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">A</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">A</span> требует буквенно-цифровой символ в данной позиции, заполнение обязательно
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">a</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">a</span> допускает буквенно-цифровой символ в данной позиции и не требует заполнения
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">C</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">C</span> требует произвольный символ в данной позиции, заполнение обязательно
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">c</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">c</span> допускает произвольный символ в данной позиции и не требует заполнения
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">0</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">0</span> требует только числовой символ в данной позиции, заполнение обязательно
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">9</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">9</span> допускает только числовой символ в данной позиции и не требует заполнения
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">#</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">#</span> допускает только числовой символ, "+" или "-" и не требует заполнения
+              </p>
+              </td>
+            </tr>
+          </table>
+          <p>
+            <strong>Специальные символы</strong>
+            <br />
+          Специальные символы используются для управления регистром входной строки и представления различных разделителей, а также символов валюты.
+        </p>
+          <table>
+            <tr>
+              <th>
+                <p>Символ</p>
+              </th>
+              <th>
+                <p>Значение</p>
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">&gt;</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">&gt;</span> преобразует в верхний регистр все следующие за ним символы до конца маски или до тех пор, пока не встретится символ <span class="code">&lt;</span></p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">&lt;</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">&lt;</span> преобразует в нижний регистр все следующие за ним символы до конца маски или до тех пор, пока не встретится символ <span class="code">&gt;</span></p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">&lt;&gt;</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Если символы <span class="code">&lt;&gt;</span> указываются вместе, то проверка регистра не выполняется, и данные форматируются с учетом регистра, используемого пользователем во время ввода данных
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">/</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">/</span> используется для разделения месяцев, дней и лет в датах
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">:</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">:</span> используется для разделения часов, минут и секунд в значениях времени.
+              </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  <span class="code">$</span>
+                </p>
+              </td>
+              <td>
+                <p>
+                Символ <span class="code">$</span> используется для обозначения денежных значений
+              </p>
+              </td>
+            </tr>
+          </table>
+          <p>
+            <strong>Литеральные символы</strong>
+            <br />
+          Литеральными символами являются буквенные символы, не являющиеся метасимволами или специальными символами.
+          Литералы автоматически добавляются на позиции определенные маской. Курсор пропускает литеральные символы во время ввода.
+          Метасимволы и специальные символы также могут отображаться как литералы, если им предшествует обратная косая черта (<span class="code">\</span>).
+        </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с маской ввода</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ДиалогВвода диалогВвода = СоздатьДиалогВвода(<span class="highlight-literal">"Примеры масок"</span>);
+
+<span class="highlight-comment">// Простая маска, позволяющая ввести код, состоящий из двух частей, разделенных "-". </span>
+<span class="highlight-comment">// Первая часть состоит из одного или двух буквенных символов, вторая из двузначного или трехзначного числа</span>
+диалогВвода.ДобавитьМаску(<span class="highlight-literal">"Маска 1"</span>, <span class="highlight-literal">"&gt;Ll-009"</span>, ТипМаски.Простая);
+
+<span class="highlight-comment">// Числовая маска. </span>
+<span class="highlight-comment">// # - десятичная цифра, можно ввести в соответствующую позицию или оставить пустой. Пустые позиции не отображаются.</span>
+<span class="highlight-comment">// 0 - в соответствующую позицию можно ввести десятичную цифру. Пустые заполнители представлены символом "0"</span>
+<span class="highlight-comment">// $ - символ валюты (знака денежной единицы), зависящий от текущей культуры</span>
+диалогВвода.ДобавитьМаску(<span class="highlight-literal">"Маска 2"</span>, <span class="highlight-literal">"##0.## $"</span>, ТипМаски.Числовая);
+
+<span class="highlight-comment">// Маска даты и времени. </span>
+<span class="highlight-comment">// g -  дата + время (время в сокращенной записи, т.е. часы и минуты)    </span>
+диалогВвода.ДобавитьМаску(<span class="highlight-literal">"Маска 3"</span>, <span class="highlight-literal">"g"</span>, ТипМаски.ДатаИВремя);
+
+<span class="highlight-comment">// Маска промежутка времени   </span>
+диалогВвода.ДобавитьМаску(<span class="highlight-literal">"Маска 4"</span>, <span class="highlight-literal">"hh' ч. 'mm' мин.'"</span>, ТипМаски.ПромежутокВремени, <span class="highlight-literal">"01 ч. 00 мин."</span>);
+
+<span class="highlight-comment">// Маска в виде регулярного выражения, позволяющего вводить только числа в диапазоне от 1 до 24 </span>
+диалогВвода.ДобавитьМаску(<span class="highlight-literal">"Маска 5"</span>, <span class="highlight-literal">@"(1?[1-9])|([12][0-4])"</span>, ТипМаски.РегулярноеВыражение);
+
+диалогВвода.Показать();</pre>
+              </div>
+            </div>
+          </div>
+          <div class="mediaNear">
+            <div class="caption">Результат:</div>
+            <img alt="Input Mask" src="../media/InputMask.png" />
+          </div>
+          <p>&nbsp;</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertNote.png" alt="Примечание" />&nbsp;&nbsp;Примечание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+            Информация о маске ввода более подробно изложена в документации на официальном сайте
+            <a href="https://docs.devexpress.com/WPF/6945/controls-and-libraries/data-editors/common-features/masked-input" target="_blank" rel="noopener noreferrer">DevExpress</a></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

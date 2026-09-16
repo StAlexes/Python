@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Регистрация справочников во внешнем приложении</title>
+    <meta name="Microsoft.Help.Id" content="B06E6C72-73B1-4E13-90B9-AC8D3DE268C1" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Приложение (плагин) - это библиотека классов Microsoft .NET Framework, реализующая определенную прикладную задачу с использованием API T-FLEX DOCs." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Регистрация справочников во внешнем приложении</h1>
+            </td>
+          </tr>
+        </table>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					Приложение (плагин) - это библиотека классов Microsoft .NET Framework, реализующая определенную прикладную задачу с использованием API T-FLEX DOCs.<br />
+					Некоторые классы, сгенерированные для поставочных справочников T-FLEX DOCs ("Процедуры", "Управление проектами", "Схемы" и т.д.), определены в отдельных плагинах.
+					При открытии клиента T-FLEX DOCs система автоматически регистрирует эти классы (описание процесса регистрации можно найти в директории с установленным клиентом T-FLEX DOCs: "..\Примеры использования API\Graphs\Описание.docx").<br />
+					Взаимодействие с этими классами во внешнем приложении также требует их регистрации. В противном случае, при попытке обращения к ним, система выдаст ошибку следующего вида:
+					"Объект <em>"класс плагина"</em> не может использоваться для работы с группой <em>"группа параметров"</em>, так как для работы с ней зарегистрирован объект <em>"базовый класс для работы с группой параметров"</em>.<br />
+					Более подробную информацию о работе с API T-FLEX DOCs из внешнего приложения можно найти в разделе: <a href="590BF971-0256-450B-8D9D-46C870673B97.htm#ServerConnectionFromApp">«Соединение с сервером из внешнего приложения»</a></p>
+          <div id="IDBABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Common.Extensions;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Plugins.Applications;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Nomenclature;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Processes;
+<span class="highlight-keyword">using</span> TFlex.PdmFramework.Resolve;
+
+<span class="highlight-keyword">namespace</span> RegisterSpecialReferenceInApp
+{
+    <span class="highlight-keyword">class</span> Program
+    {
+        <span class="highlight-keyword">static</span> <span class="highlight-keyword">void</span> Main(<span class="highlight-keyword">string</span>[] args)
+        {
+            AssemblyResolver.Instance.AddDirectory(<span class="highlight-literal">@"C:\Program Files (x86)\T-FLEX DOCs 18\Program"</span>);
+            MainCore();
+        }
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">static</span> <span class="highlight-keyword">void</span> MainCore()
+        {
+            <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> serverConnection = ServerConnection.Open(<span class="highlight-literal">"Администратор"</span>, String.Empty, <span class="highlight-literal">"localhost"</span>); <span class="highlight-comment">// Подключаемся к серверу</span>
+
+            <span class="highlight-keyword">if</span> (!serverConnection.IsConnected)
+                <span class="highlight-keyword">throw</span> <span class="highlight-keyword">new</span> InvalidOperationException(<span class="highlight-literal">"Подключение к серверу отсутствует"</span>);
+
+            <span class="highlight-comment">// Можем зарегистрировать классы конкретного плагина:</span>
+            <span class="highlight-comment">// new TFlex.DOCs.Model.Processes.PluginLibrary().RegisterPlugin(); </span>
+            <span class="highlight-comment">// Можем получить все системные плагины и зарегистрировать необходимые:</span>
+            <span class="highlight-keyword">var</span> systemApplications = ApplicationsManager.GetSystemApplicationsModels(); <span class="highlight-comment">// Получаем системные плагины</span>
+            <span class="highlight-keyword">var</span> applicationsManager = <span class="highlight-keyword">new</span> ApplicationsManager(serverConnection); <span class="highlight-comment">// Создаем менеджер плагинов</span>
+            <span class="highlight-comment">// Загружаем плагины, тем самым регистрируем классы</span>
+            applicationsManager.LoadApplications(e =&gt; Console.WriteLine(<span class="highlight-literal">"Ошибка при загрузке плагина: "</span> + e.Message), systemApplications.Select(p =&gt; p.Guid));
+
+            <span class="highlight-keyword">var</span> nomenclatureObject = <span class="highlight-keyword">new</span> NomenclatureReference(serverConnection).Find(Guid.Empty); <span class="highlight-comment">// Находим объект ЭСИ</span>
+            <span class="highlight-keyword">var</span> runningProcesses = ProcessesReference.GetRunningProcessesByObject(nomenclatureObject); <span class="highlight-comment">// Находим работающие процессы, в которых участвует объект ЭСИ</span>
+            runningProcesses.ForEach(p =&gt; p.Terminate(<span class="highlight-literal">"Прерывание"</span>)); <span class="highlight-comment">// Прерываем процессы</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

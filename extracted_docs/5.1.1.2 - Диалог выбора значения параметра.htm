@@ -1,0 +1,314 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Диалог выбора значения параметра</title>
+    <meta name="Microsoft.Help.Id" content="c302e799-57df-4ef5-8e6e-0a9f8b0e5834" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В T-FLEX DOCs имеется возможность подключения пользовательских диалогов для выбора значений параметров объектов. Ниже приведен пример создания такого диалога." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Диалог выбора значения параметра</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>В T-FLEX DOCs имеется возможность подключения пользовательских диалогов для выбора значений параметров объектов. Ниже приведен пример создания такого диалога.</p>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример диалога выбора значения параметра.</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+          В диалоге свойств параметра объекта имеется возможность изменить элемент управления для выбора значения параметра.
+          Один из вариантов элемента управления - выбор значения из диалога.
+        </p>
+          <div class="mediaNear">
+            <div class="caption">Список элементов управления для выбора значения параметра.</div>
+            <img alt="Custom Edit Value Dialog 1" src="../media/CustomEditValueDialog1.png" />
+          </div>
+          <p>
+          В настройках этого элемента управления нужно указать путь к сборке со страницами диалогов T-FLEX DOCs и имя класса, описывающего нужный диалог.
+        </p>
+          <div class="mediaNear">
+            <div class="caption">Параметры диалога.</div>
+            <img alt="Custom Edit Value Dialog 2" src="../media/CustomEditValueDialog2.png" />
+          </div>
+          <p>
+          В качестве примера рассмотрим диалог выбора значения параметра, позволяющий получить значение из текстового файла, выбранного пользователем.
+        </p>
+          <div class="mediaNear">
+            <div class="caption">Внешний вид диалога.</div>
+            <img alt="Custom Edit Value Dialog 3" src="../media/CustomEditValueDialog3.png" />
+          </div>
+          <p>Исходный код примера с комментариями представлен ниже.</p>
+          <div id="IDHBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/* Дополнительные библиотеки
+DevExpress.Utils.v20.1.dll
+System.Drawing.dll
+System.Windows.Forms.dll
+TFlex.DOCs.Common.dll
+TFlex.DOCs.Model.dll
+TFlex.DOCs.UI.Common.dll
+TFlex.DOCs.UI.Controls.dll
+TFlex.DOCs.UI.Objects.dll
+TFlex.DOCs.UI.Types.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.ComponentModel;
+<span class="highlight-keyword">using</span> System.IO;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> System.Windows.Forms;
+<span class="highlight-keyword">using</span> System.Xml.Serialization;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Configuration;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Common.Templates;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Controls.RepositoryManagers;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Objects.Settings;
+
+<span class="highlight-keyword">namespace</span> CustomEditValueDialog
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> EditValueDialog :
+        BaseDialog,
+        IEditValueDialogView
+    {
+        <span class="highlight-keyword">private</span> ListBox _listBox1;
+        <span class="highlight-keyword">private</span> Button _btnOpenFile;
+        <span class="highlight-keyword">private</span> Button _btnOk;
+        <span class="highlight-keyword">private</span> Button _btnCancel;
+
+        <span class="highlight-comment">// Первоначальное значение параметра</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">object</span> _value;
+
+        <span class="highlight-keyword">public</span> EditValueDialog()
+        {
+            <span class="highlight-comment">// Добавляем описание настроек для работы сериализатора</span>
+            XmlSerializerManager.RegisterType(<span class="highlight-keyword">typeof</span>(ExampleEditValueDialogSettingData));
+            InitializeComponent();
+        }
+
+        <span class="highlight-comment">// Возвращает или задает выбранное в списке значение</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">object</span> SelectedValue
+        {
+            <span class="highlight-keyword">get</span>
+            {
+                <span class="highlight-keyword">return</span> _listBox1.SelectedItem;
+            }
+            <span class="highlight-keyword">set</span>
+            {
+                SetSelectedValue(<span class="highlight-keyword">value</span>);
+            }
+        }
+
+        <span class="highlight-comment">// Обработчик события нажатия на кнопку "Открыть файл"</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> btnOpenFile_Click(<span class="highlight-keyword">object</span> sender, EventArgs e)
+        {
+            <span class="highlight-keyword">using</span> (<span class="highlight-keyword">var</span> dialog = <span class="highlight-keyword">new</span> OpenFileDialog())
+            {
+                dialog.Filter = <span class="highlight-literal">"Текстовые файлы|*.txt"</span>;
+
+                <span class="highlight-keyword">if</span> (dialog.ShowDialog(<span class="highlight-keyword">this</span>) == DialogResult.OK)
+                {
+                    FilePath = dialog.FileName;
+                    FillListEditFromFile();
+                    SetSelectedValue(_value);
+                }
+            }
+        }
+
+        <span class="highlight-comment">// Заполняет список строками из файла</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> FillListEditFromFile()
+        {
+            <span class="highlight-keyword">if</span> (!<span class="highlight-keyword">string</span>.IsNullOrEmpty(FilePath) &amp;&amp; File.Exists(FilePath))
+            {
+                <span class="highlight-keyword">var</span> lines = File.ReadAllLines(FilePath).Cast&lt;<span class="highlight-keyword">object</span>&gt;().ToArray();
+                _listBox1.Items.Clear();
+                _listBox1.Items.AddRange(lines);
+            }
+        }
+
+        <span class="highlight-comment">// Устанавливает указанное значение в качестве выбранного значения списка (в случае, если оно есть в списке)</span>
+        <span class="highlight-comment">// value - Значение</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> SetSelectedValue(<span class="highlight-keyword">object</span> <span class="highlight-keyword">value</span>)
+        {
+            <span class="highlight-keyword">if</span> (<span class="highlight-keyword">value</span> != <span class="highlight-keyword">null</span>)
+            {
+                <span class="highlight-keyword">int</span> idx = _listBox1.FindString(<span class="highlight-keyword">value</span>.ToString());
+
+                <span class="highlight-keyword">if</span> (idx != <span class="highlight-number">-1</span>)
+                    _listBox1.SetSelected(idx, <span class="highlight-keyword">true</span>);
+            }
+        }
+
+        <span class="highlight-preprocessor">#region</span> IEditValueDialogView
+
+        <span class="highlight-comment">// Возвращает значение для записи в параметр DOCs</span>
+        <span class="highlight-keyword">object</span> IEditValueDialogView.GetResultValue()
+        {
+            <span class="highlight-keyword">return</span> SelectedValue;
+        }
+
+        <span class="highlight-comment">// Инициализирует диалог текущим значением параметра DOCs</span>
+        <span class="highlight-comment">// value - Значение параметра DOCs</span>
+        <span class="highlight-comment">// returns: Значение true, если инициализация прошла успешно; в противном случае - значение false</span>
+        <span class="highlight-keyword">bool</span> IEditValueDialogView.InitializeValue(<span class="highlight-keyword">object</span> <span class="highlight-keyword">value</span>)
+        {
+            _value = <span class="highlight-keyword">value</span>;
+            <span class="highlight-keyword">return</span> <span class="highlight-keyword">true</span>;
+        }
+
+        <span class="highlight-preprocessor">#endregion</span>
+
+        <span class="highlight-preprocessor">#region</span> Хранимые настройки диалога
+
+        <span class="highlight-comment">// Возвращает или задает путь к файлу</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> FilePath { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">private</span> <span class="highlight-keyword">set</span>; }
+
+        <span class="highlight-keyword">protected</span> <span class="highlight-keyword">override</span> IWindowSettings CreateSettings()
+        {
+            <span class="highlight-keyword">return</span> <span class="highlight-keyword">new</span> PersistWindowSettings&lt;ExampleEditValueDialogSettingData&gt;(<span class="highlight-keyword">this</span>);
+        }
+
+        <span class="highlight-comment">// Сохраняет настройки диалога</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> SaveSettings()
+        {
+            SettingData.ValueListFilePath = FilePath;
+            <span class="highlight-keyword">base</span>.SaveSettings();
+        }
+
+        <span class="highlight-comment">// Загружает настройки диалога</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> LoadSettings()
+        {
+            <span class="highlight-keyword">base</span>.LoadSettings();
+            FilePath = SettingData.ValueListFilePath;
+            FillListEditFromFile();
+            SelectedValue = _value;
+        }
+
+        <span class="highlight-comment">// Объект, хранящий настройки диалога</span>
+        [Browsable(<span class="highlight-keyword">false</span>), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        <span class="highlight-keyword">public</span> ExampleEditValueDialogSettingData SettingData
+        {
+            <span class="highlight-keyword">get</span>
+            {
+                <span class="highlight-keyword">return</span> Settings.Data <span class="highlight-keyword">as</span> ExampleEditValueDialogSettingData;
+            }
+        }
+
+        <span class="highlight-comment">// Класс, описывающий сохраняемые настройки диалога</span>
+        [XmlType(<span class="highlight-literal">"ExampleEditValueDialogSettingData"</span>)]
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ExampleEditValueDialogSettingData : PersistWindowSettingsData
+        {
+            [XmlAttribute]
+            <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> ValueListFilePath { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+        }
+
+        <span class="highlight-preprocessor">#endregion</span>
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> InitializeComponent()
+        {
+            _listBox1 = <span class="highlight-keyword">new</span> ListBox();
+            _btnOpenFile = <span class="highlight-keyword">new</span> Button();
+            _btnOk = <span class="highlight-keyword">new</span> Button();
+            _btnCancel = <span class="highlight-keyword">new</span> Button();
+            SuspendLayout();
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// _listBox1</span>
+            <span class="highlight-comment">// </span>
+            _listBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            _listBox1.FormattingEnabled = <span class="highlight-keyword">true</span>;
+            _listBox1.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">0</span>, <span class="highlight-number">0</span>);
+            _listBox1.Name = <span class="highlight-literal">"_listBox1"</span>;
+            _listBox1.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">536</span>, <span class="highlight-number">225</span>);
+            _listBox1.TabIndex = <span class="highlight-number">0</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// _btnOpenFile</span>
+            <span class="highlight-comment">// </span>
+            _btnOpenFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            _btnOpenFile.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">12</span>, <span class="highlight-number">231</span>);
+            _btnOpenFile.Name = <span class="highlight-literal">"_btnOpenFile"</span>;
+            _btnOpenFile.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">104</span>, <span class="highlight-number">23</span>);
+            _btnOpenFile.TabIndex = <span class="highlight-number">1</span>;
+            _btnOpenFile.Text = <span class="highlight-literal">"Открыть файл"</span>;
+            _btnOpenFile.UseVisualStyleBackColor = <span class="highlight-keyword">true</span>;
+            _btnOpenFile.Click += btnOpenFile_Click;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// _btnOk</span>
+            <span class="highlight-comment">// </span>
+            _btnOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            _btnOk.DialogResult = DialogResult.OK;
+            _btnOk.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">358</span>, <span class="highlight-number">231</span>);
+            _btnOk.Name = <span class="highlight-literal">"_btnOk"</span>;
+            _btnOk.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">75</span>, <span class="highlight-number">23</span>);
+            _btnOk.TabIndex = <span class="highlight-number">2</span>;
+            _btnOk.Text = <span class="highlight-literal">"Выбрать"</span>;
+            _btnOk.UseVisualStyleBackColor = <span class="highlight-keyword">true</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// _btnCancel</span>
+            <span class="highlight-comment">// </span>
+            _btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            _btnCancel.DialogResult = DialogResult.Cancel;
+            _btnCancel.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">449</span>, <span class="highlight-number">231</span>);
+            _btnCancel.Name = <span class="highlight-literal">"_btnCancel"</span>;
+            _btnCancel.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">75</span>, <span class="highlight-number">23</span>);
+            _btnCancel.TabIndex = <span class="highlight-number">3</span>;
+            _btnCancel.Text = <span class="highlight-literal">"Отмена"</span>;
+            _btnCancel.UseVisualStyleBackColor = <span class="highlight-keyword">true</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// EditValueDialog</span>
+            <span class="highlight-comment">// </span>
+            ClientSize = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">536</span>, <span class="highlight-number">262</span>);
+            Controls.Add(_btnCancel);
+            Controls.Add(_btnOk);
+            Controls.Add(_btnOpenFile);
+            Controls.Add(_listBox1);
+            Name = <span class="highlight-literal">"EditValueDialog"</span>;
+            ShowIcon = <span class="highlight-keyword">false</span>;
+            Text = <span class="highlight-literal">"Выбор значения из файла"</span>;
+            ResumeLayout(<span class="highlight-keyword">false</span>);
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,313 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Подключения</title>
+    <meta name="Microsoft.Help.Id" content="7FE4FF20-560E-44D9-B98F-DFAF8B9613F6" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="P:TFlex.DOCs.Model.Macros.MacroProvider." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Подключения</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для работы с подключениями в справочниках со сложной иерархией</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="C319DCF8.htm">ТекущееПодключение</a>
+					- возвращает подключение текущего объекта к родительскому
+				</p>
+          <p>
+            <a href="93CD245E.htm">СоздатьПодключение((родительскийОбъект), (дочернийОбъект))</a>
+					- создает подключение дочернего объекта к родительскому
+				</p>
+          <div id="IDCBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Подключение подключение = СоздатьПодключение(родительскийОбъект, дочернийОбъект);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="BA5AB278.htm">Подключение.Удалить()</a>
+					- удаляет подключение
+				</p>
+          <p>
+            <a href="CDE5C582.htm">Подключение.Изменить()</a>
+					- переводит подключение в состояние редактирования
+				</p>
+          <p>
+            <a href="86044BDE.htm">Подключение.Сохранить()</a>
+					- сохранение изменений
+				</p>
+          <p>
+            <a href="859022B5.htm">Подключение.ОтменитьИзменения()</a>
+					- отмена изменений
+				</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>Каждому вызову команды Изменить() должен соответствовать вызов команды Сохранить() или ОтменитьИзменения()</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            <a href="F8466936.htm">Подключение</a>
+            <a href="D54880B2.htm">["(Параметр подключения)"]</a>
+					- доступ к параметру подключения
+				</p>
+          <div id="IDKBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDKBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDKBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDKBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDKBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">подключение[<span class="highlight-literal">"Количество на изделие"</span>] = <span class="highlight-number">5</span>;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="46A0D830.htm">Подключение.Параметр</a>
+            <a href="618A4278.htm">["(Параметр подключения)"]</a>
+					- доступ к параметру подключения
+				</p>
+          <div id="IDNBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDNBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDNBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDNBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDNBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">подключение.Параметр[<span class="highlight-literal">"Входит в спецификацию"</span>] = <span class="highlight-keyword">false</span>;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="A79D1491.htm">Подключение.Редактируется</a>
+					- показывает, находится ли подключение в состоянии редактирования
+				</p>
+          <div id="IDQBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDQBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDQBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDQBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDQBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (!подключение.Редактируется)
+    подключение.Изменить();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="8149BE39.htm">Подключение.РодительскийОбъект</a>
+					- возвращает родительский объект подключения
+				</p>
+          <div id="IDTBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDTBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDTBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDTBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDTBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект объект = подключение.РодительскийОбъект;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="DAFE62E6.htm">Подключение.ДочернийОбъект</a>
+					- возвращает дочерний объект подключения
+				</p>
+          <div id="IDWBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDWBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDWBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDWBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDWBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект объект = подключение.ДочернийОбъект;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="B9931961.htm">Объект.ДочерниеПодключения</a>
+					- возвращает список дочерних подключений объекта
+				</p>
+          <div id="IDZBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDZBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDZBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDZBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDZBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> дочернееПодключение <span class="highlight-keyword">in</span> ТекущийОбъект.ДочерниеПодключения)
+{
+    дочернееПодключение.Удалить();
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="F56C8FCA.htm">Объект.РодительскиеПодключения</a>
+					- возвращает список родительских подключений объекта
+				</p>
+          <div id="ID3BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID3BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID3BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID3BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID3BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> родительскоеПодключение <span class="highlight-keyword">in</span> ТекущийОбъект.РодительскиеПодключения)
+{
+    родительскоеПодключение.Изменить();
+    родительскоеПодключение[<span class="highlight-literal">"Количество на изделие"</span>] = <span class="highlight-number">5</span>;
+    родительскоеПодключение.Сохранить();
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="2A7C2C78.htm">Объект.СвязанноеПодключение</a>
+					- возвращает связанное подключение
+				</p>
+          <div id="ID6BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID6BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID6BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID6BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID6BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Подключение подключение = ТекущийОбъект.СвязанноеПодключение[<span class="highlight-literal">"Наименование связи"</span>];</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="2A77A1AF.htm">Объект.СвязанныеПодключения</a>
+					- возвращает связанные подключения
+				</p>
+          <div id="ID0CB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0CB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0CB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0CB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0CB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Подключения подключения = ТекущийОбъект.СвязанныеПодключения[<span class="highlight-literal">"Наименование связи"</span>];</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="7A1D77DE.htm">Объект</a>
+            <a href="525905A3.htm">["(путь к параметру подключения)"]</a>
+					- возвращает доступ к параметру подключения (доступ к параметрам подключения есть только у объектов, полученных через свойство ДочерниеОбъекты родительского объекта).
+				</p>
+          <div id="ID0FB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0FB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0FB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0FB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0FB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект деталь = Изделие.ДочерниеОбъекты.First();
+<span class="highlight-keyword">int</span> count = деталь[<span class="highlight-literal">"[Подключения].[Количество]"</span>];</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

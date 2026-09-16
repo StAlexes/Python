@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Страницы документа</title>
+    <meta name="Microsoft.Help.Id" content="3F478BB9-4D29-44A9-9B2E-1A0FFB145756" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере показано как получить информацию о страницах документа системы T-FLEX CAD (*." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Страницы документа</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В данном примере показано как получить информацию о страницах документа системы T-FLEX CAD (*.grb)
+			</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDAABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDAABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDAABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDAABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.FilePreview.CADService;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.FilePreview.CADService.TFlexCadDocument;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> GetPages : MacroProvider
+{
+    <span class="highlight-keyword">public</span> GetPages(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">string</span> pathToGrb = <span class="highlight-literal">"Путь к grb-файлу"</span>;
+        CadDocumentProvider provider = CadDocumentProvider.Connect(Context.Connection, <span class="highlight-literal">".grb"</span>);  <span class="highlight-comment">// Подключаемся к CAD-системе</span>
+        <span class="highlight-keyword">using</span> CadDocument document = provider.OpenDocument(pathToGrb, <span class="highlight-keyword">true</span>); <span class="highlight-comment">// Открываем документ в режиме чтения</span>
+
+        <span class="highlight-keyword">if</span> (document <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            Error(<span class="highlight-literal">"Ошибка"</span>, $<span class="highlight-literal">"Файл '{pathToGrb}' не может быть открыт"</span>);
+
+        TFlexPageInfo[] tflexPages = document.GetTFlexPagesInfo(<span class="highlight-keyword">new</span> TFlexPageType[] { TFlexPageType.Normal, TFlexPageType.BillOfMaterials }); <span class="highlight-comment">// Получаем страницы типа "Обычная" и "Спецификация"</span>
+
+        <span class="highlight-keyword">foreach</span> (TFlexPageInfo page <span class="highlight-keyword">in</span> tflexPages)
+        {
+            TFlexPageType type = page.PageType; <span class="highlight-comment">// Тип страницы</span>
+            <span class="highlight-keyword">string</span> name = page.Name; <span class="highlight-comment">// Наименование</span>
+            <span class="highlight-keyword">int</span> index = page.Index; <span class="highlight-comment">// Индекс</span>
+            <span class="highlight-keyword">bool</span> visible = page.Visible; <span class="highlight-comment">// Видимость</span>
+            <span class="highlight-keyword">string</span> format = page.Properties.Paper.Format; <span class="highlight-comment">// Формат листа</span>
+            PaperOrientation paperOrientation = page.Properties.Paper.Orientation; <span class="highlight-comment">// Ориентация листа</span>
+        }
+
+        document.Close(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Закрываем документ без сохранения</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="9047C8F0.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LST1CB9D076_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CadDocumentProvider</a>
+          </div>
+          <div>
+            <a href="13D564EA.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LST1CB9D076_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CadDocument</a>
+          </div>
+          <div>
+            <a href="5FDC6738.htm">TFlex.DOCs.Model.FilePreview.CADService.TFlexCadDocument<span id="LST1CB9D076_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>TFlexPageType</a>
+          </div>
+          <div>
+            <a href="BF2906D3.htm">TFlex.DOCs.Model.FilePreview.CADService.TFlexCadDocument<span id="LST1CB9D076_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>TFlexPageInfo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

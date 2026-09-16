@@ -1,0 +1,523 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Объекты справочника</title>
+    <meta name="Microsoft.Help.Id" content="458f2560-c2d9-4615-ae01-fe575141692d" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="P:TFlex.DOCs.Model.Macros.MacroProvider.ТекущийОбъект - возвращает T:TFlex.DOCs.Model.Macros.ObjectModel." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Объекты справочника</h1>
+            </td>
+          </tr>
+        </table>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="3546A4B7.htm">ТекущийОбъект</a>
+					- возвращает
+					<a href="95E78982.htm">объект</a>
+					, который редактируется в диалоге свойств/выбран в окне справочника/для которого вычисляется формула
+				</p>
+          <p>
+            <a href="56E8DEBA.htm">ВыбранныеОбъекты</a>
+					- возвращает
+					<a href="F1CB83DB.htm">объекты</a>
+					, выбранные в справочнике или ЭУ
+				</p>
+          <p>
+            <a href="24BFD25A.htm">Объект.Тип</a>
+					- возвращает тип указанного
+					<a href="95E78982.htm">объекта</a>.
+				</p>
+          <div id="IDDABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDDABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDDABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDDABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDDABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (ТекущийОбъект.Тип != <span class="highlight-literal">"Деталь"</span>)
+    <span class="highlight-keyword">return</span>;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="18D0E753.htm">Тип</a>
+					- возвращает тип текущего объекта.
+				</p>
+          <div id="IDGABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDGABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDGABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDGABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDGABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (Тип != <span class="highlight-literal">"Деталь"</span>)
+    <span class="highlight-keyword">return</span>;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="D55B0FD3.htm">Тип.Имя</a>
+					- возвращает имя типа
+				</p>
+          <div id="IDJABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDJABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDJABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDJABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDJABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (документ.Тип.Имя != <span class="highlight-literal">"Изделие"</span>)
+    <span class="highlight-keyword">return</span>;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="E852000B.htm">Тип.ПорожденОт("имя или Guid базового типа")</a>
+					- проверяет, является ли тип объекта порожденным от указанного типа
+				</p>
+          <div id="IDMABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDMABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDMABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDMABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDMABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (!документ.Тип.ПорожденОт(<span class="highlight-literal">"Материальный объект"</span>))
+    <span class="highlight-keyword">return</span>;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="B996C1DE.htm">ПолучитьТипыОбъектов(справочник[, имена или Guid'ы типов])</a>
+					- возвращает типы объектов справочника
+				</p>
+          <div id="IDPABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDPABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDPABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDPABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDPABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ТипОбъекта[] всеТипыСправочника = ПолучитьТипыОбъектов(<span class="highlight-literal">"Электронная структура изделий"</span>);
+ТипОбъекта[] конкретныеТипыСправочника = ПолучитьТипыОбъектов(<span class="highlight-literal">"Поручения"</span>, [<span class="highlight-literal">"Служебная записка"</span>, <span class="highlight-literal">"Поручение группе исполнителей"</span>]);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion" id="EditObjectSection">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание, редактирование, сохранение и удаление объектов</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>Порядок операций при создании/редактировании объекта справочника:</p>
+          <ul>
+            <li>
+              <p>Создание объекта или взятие на редактирование</p>
+            </li>
+            <li>
+              <p>Редактирование параметров и/или связей</p>
+            </li>
+            <li>
+              <p>Сохранение или отмена изменений</p>
+            </li>
+          </ul>
+          <p>
+					При изменении объекта, с последующим сохранением, необходимо учитывать следующий момент: методы изменения и сохранения (отмены изменений) должны выполняться попарно.
+					Если объект был взят на редактирование дважды, то и сохранить его тоже нужно дважды.<br />
+					Созданные объекты справочника уже находятся в состоянии редактирования и для них не нужно вызывать методы изменения, т.к. в противном случае понадобится повторное сохранение<br /><br />
+					Необходимость в попарно вызываемых методах обусловлена тем, что объект справочника из одного макроса может быть передан в другой макрос, содержащий код, который редактирует передаваемый объект.
+					Т.к. каждый из вызываемых макросов может самостоятельно редактировать и сохранять передаваемый объект, то система контролирует цепочку вызываемых макросов и следит за тем, чтобы каждому изменению соответствовало сохранение или отмена.
+					Если по завершению основного макроса система зафиксирует нарушение попарно вызываемых методов, то выдаст соответствующую ошибку:
+				</p>
+          <div class="mediaNear">
+            <img alt="Inconsistency On Save" src="../media/InconsistencyOnSave.png" />
+          </div>
+          <p>
+            <a href="CD290CD8.htm">СоздатьОбъект("имя справочника")</a>
+					- создает объект в заданном справочнике
+				</p>
+          <p>
+            <a href="A1C6F8A7.htm">СоздатьОбъект("имя справочника", "имя типа объекта")</a>
+					- создает объект указанного типа в заданном справочнике
+				</p>
+          <p>
+            <a href="B9D09AD6.htm">СоздатьОбъект("имя справочника", "имя типа объекта", родительский объект)</a>
+					- создает объект указанного типа в заданном справочнике с указанием родительского объекта
+				</p>
+          <div id="IDHBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект родительскийОбъект = НайтиОбъект(<span class="highlight-literal">"Договоры"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Новые договоры"</span>);
+
+Объект новыйДоговор = СоздатьОбъект(<span class="highlight-literal">"Договоры"</span>, <span class="highlight-literal">"Договор"</span>, родительскийОбъект);
+
+<span class="highlight-keyword">var</span> номерСледующегоДоговора = ГлобальныйПараметр[<span class="highlight-literal">"Номер следующего договора"</span>];
+новыйДоговор.Параметр[<span class="highlight-literal">"Номер"</span>] = номерСледующегоДоговора;
+новыйДоговор.Параметр[<span class="highlight-literal">"Наименование"</span>] = <span class="highlight-literal">"Договор №"</span> + новыйДоговор.Параметр[<span class="highlight-literal">"Номер"</span>];
+ГлобальныйПараметр[<span class="highlight-literal">"Номер следующего договора"</span>] = номерСледующегоДоговора + <span class="highlight-number">1</span>;
+
+новыйДоговор.Сохранить();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="3618DB20.htm">Объект.Изменить()</a>
+					- переводит объект в состояние редактирования.
+				</p>
+          <p>
+            <a href="F8D7116E.htm">Объект.ИзменитьСохранивПодписи()</a>
+					- переводит объект в состояние редактирования с сохранением подписей
+				</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Если у пользователя отсутствует доступ на изменение объекта с сохранением подписей, то взятие объекта на редактирование, при помощи метода ИзменитьСохранивПодписи(), позволит сохранить текущие подписи, сделав их неактуальными.<br />
+						Использование метода Изменить() в данном случае приведет к удалению установленных подписей.
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            <a href="B122A33B.htm">Объект.ИзменитьТип("имя типа объекта")</a>
+					- изменяет тип объекта
+				</p>
+          <div id="IDNBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDNBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDNBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDNBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDNBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект деталь = НайтиОбъект(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Деталь 1"</span>);                    
+деталь.ИзменитьТип(<span class="highlight-literal">"Изделие"</span>);
+деталь[<span class="highlight-literal">"Наименование"</span>] = <span class="highlight-literal">"Изделие 1"</span>;
+деталь[<span class="highlight-literal">"Является покупным изделием"</span>] = <span class="highlight-keyword">true</span>;
+деталь.Сохранить();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="F21F875.htm">Объект.Редактируется</a>
+					- проверяет, находится ли объект в состоянии редактирования
+				</p>
+          <p>
+            <a href="EC92D4F.htm">Объект.СкопироватьОбъект(прототип[, родительский объект, копировать дочерние объекты, копировать связанные прототипы])</a>
+					- создает объект на основе указанного прототипа
+				</p>
+          <p>
+            <a href="6BF64657.htm">Объект.НайтиПрототип("справочник", "фильтр")</a>
+					- возвращает прототип справочника
+				</p>
+          <div id="IDSBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDSBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDSBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDSBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDSBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> прототип = НайтиПрототип(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"[Наименование] = 'Прототип 1'"</span>); <span class="highlight-comment">// Находим прототип по фильтру</span>
+
+<span class="highlight-comment">// Создаем объекты на основе указанного прототипа</span>
+<span class="highlight-keyword">var</span> скопированныеОбъекты = СкопироватьОбъект(прототип,
+    родитель: ТекущийОбъект, <span class="highlight-comment">// В качестве родительского объекта передаем текущий</span>
+    копироватьДочерниеОбъекты: <span class="highlight-keyword">true</span>, <span class="highlight-comment">// Указываем, требуется ли копировать дочерние объекты прототипа</span>
+    копироватьСвязанныеПрототипы: <span class="highlight-keyword">true</span>); <span class="highlight-comment">// Указываем, требуется ли копировать связанные объекты прототипа</span>
+
+<span class="highlight-comment">// Результатом метода СкопироватьОбъект() является набор созданных объектов на основе целевого прототипа и связанных с ним (дочерние прототипы и по связям)</span>
+<span class="highlight-comment">// Для получения конкретного созданного объекта из набора, необходимо передать соответствующий прототип:</span>
+<span class="highlight-keyword">var</span> копияПрототипа = скопированныеОбъекты.ПолучитьКопию(прототип); <span class="highlight-comment">// Получаем созданный по прототипу объект</span>
+
+копияПрототипа[<span class="highlight-literal">"Название параметра"</span>] = <span class="highlight-literal">"Новое значение параметра"</span>; <span class="highlight-comment">// При необходимости редактируем созданный объект</span>
+
+скопированныеОбъекты.Сохранить(); <span class="highlight-comment">// Сохраняем созданный набор</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="8FEA1531.htm">Объект.Сохранить()</a>
+					- сохраняет произведенные изменения
+				</p>
+          <p>&nbsp;</p>
+          <p>
+					Макроязык позволяет зафиксировать изменения для каждого объекта по отдельности при помощи метода «Объект.Сохранить()».
+					Можно зафиксировать все изменения для всех объектов при помощи метода «СохранитьВсё», т.к. объекты макроязыка регистрируются внутри системы.
+					Для объектов справочников, поддерживающих историю изменений, имеется возможность зафиксировать изменения и сразу же применить их при помощи перегрузки метода «СохранитьВсё»
+				</p>
+          <p>
+            <a href="91D11C9F.htm">СохранитьВсё([применить изменения, "комментарий", показывать диалог подтверждения])</a>
+					- сохраняет все контекстные объекты с возможностью применения изменений
+				</p>
+          <div id="IDYBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDYBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDYBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDYBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDYBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объекты объекты = НайтиОбъекты(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"[Тип] = 'Сборочная единица'"</span>); <span class="highlight-comment">// Находим объекты</span>
+
+<span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> объект <span class="highlight-keyword">in</span> объекты)
+{
+    объект.Изменить(); <span class="highlight-comment">// Переводим объект в состояние редактирования</span>
+    объект[<span class="highlight-literal">"Наименование"</span>] = объект[<span class="highlight-literal">"Наименование"</span>] + <span class="highlight-literal">"*"</span>; <span class="highlight-comment">// Редактируем объект</span>
+}
+
+СохранитьВсё(<span class="highlight-keyword">true</span>, <span class="highlight-literal">"Применены изменения"</span>, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Сохраняем все редактируемые объекты и применяем изменения без отображения диалога "Применение изменений"</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="9EA727FF.htm">Объект.ОтменитьИзменения([отменить изменения на рабочем столе])</a>
+					- отменяет внесенные изменения. При помощи необязательного флага 'отменитьИзмененияНаРабочемСтоле' для объектов, поддерживающих историю изменений, возможно отменить изменения и на рабочем столе
+				</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>Каждому вызову команды Изменить() должен соответствовать вызов команды Сохранить() или ОтменитьИзменения()</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="ID3BCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID3BCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID3BCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID3BCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID3BCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект договор = НайтиОбъект(<span class="highlight-literal">"Договоры"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Договор №1302"</span>);
+
+<span class="highlight-keyword">if</span> (договор <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+    <span class="highlight-keyword">return</span>;
+
+договор.Изменить();
+договор.Параметр[<span class="highlight-literal">"Комментарий"</span>] = <span class="highlight-literal">"Описание договора №1302."</span>;
+договор.Сохранить();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="8A29E828.htm">Объект.Удалить()</a>
+					- удаляет объект
+				</p>
+          <p>&nbsp;</p>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <p>
+            <a href="90E7F1E1.htm">ИконкаСТекстом(имя или Guid иконки, текст)</a>
+					- выполняет поиск растровой иконки в справочнике "Изображения" по имени или глобальному уникальному идентификатору (Guid). Возвращает иконку с заданным текстом.<br />
+					Данный метод можно использовать в качестве возвращаемого результата формулы для вычисляемой колонки с включенным флажком "Отображать иконку"
+				</p>
+          <div id="IDBADAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBADAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBADAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBADAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBADAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> иконкаСТекстом = ИконкаСТекстом(<span class="highlight-literal">"flag_red"</span>, <span class="highlight-literal">"текст"</span>);
+<span class="highlight-keyword">return</span> иконкаСТекстом;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="68715B6F.htm">УниверсальнаяИконкаСТекстом(имя или Guid иконки, текст)</a>
+					- выполняет поиск иконки (как растровой, так и векторной - SVG) или изображения (которое будет преобразовано в иконку) по имени или глобальному уникальному идентификатору (Guid) в справочнике "Изображения". Возвращает иконку с заданным текстом.<br />
+					Данный метод можно использовать в качестве возвращаемого результата формулы для вычисляемой колонки с включенным флажком "Отображать иконку"
+				</p>
+          <div id="IDEADAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEADAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEADAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEADAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEADAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> иконкаСТекстом = УниверсальнаяИконкаСТекстом(<span class="highlight-literal">"warning"</span>, <span class="highlight-literal">"текст"</span>);
+<span class="highlight-keyword">return</span> иконкаСТекстом;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="44D617B5.htm">ЗадатьПользователяВладельца(пользователь)</a>
+					- задает пользователя-владельца для объекта
+				</p>
+          <div id="IDHADAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHADAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHADAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHADAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHADAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект сотрудник = НайтиОбъект(<span class="highlight-literal">"Группы и пользователи"</span>, <span class="highlight-literal">"[Наименование] = 'Сотрудник'"</span>);
+
+<span class="highlight-keyword">if</span> (сотрудник <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+    ТекущийОбъект.ЗадатьПользователяВладельца(сотрудник);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="7FCB8758.htm">Объект.ПользовательВладелец</a>
+					- возвращает владельца, являющегося объектом справочника "Группы и пользователи"
+				</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>Для получения или установки пользователя-владельца в настройках справочника должна быть включена поддержка параметра "Владелец"</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            <a href="2D2F9310.htm">Объект.Автор</a>
+					- возвращает автора объекта.
+				</p>
+          <p>
+            <a href="BD07F7E0.htm">Объект.Владелец</a>
+					- возвращает владельца объекта по связи. Пример: если для объекта справочника А по связи создается объект справочника Б, то созданный объект будет подчиненным, а объект справочника А его владельцем
+				</p>
+          <p>
+            <a href="3F0A424E.htm">Объект.Идентификатор</a>
+					- возвращает идентификатор (id) объекта
+				</p>
+          <p>
+            <a href="C614BE8.htm">Объект.ГлобальныйИдентификатор</a>
+					- возвращает глобальный идентификатор (Guid) объекта
+				</p>
+          <p>
+            <a href="DF30D72E.htm">Объект.СсылкаНаСвойства</a>
+					- возвращает ссылку на свойства
+				</p>
+          <p>
+            <a href="29DE075D.htm">Объект.СсылкаНаЗапись</a>
+					- возвращает ссылку на запись
+				</p>
+          <p>
+            <a href="4A711C3E.htm">Объект.Справочник.Имя</a>
+					- возвращает наименование справочника данного объекта
+				</p>
+          <p>
+            <a href="AAD2D314.htm">Объект.Справочник.УникальныйИдентификатор</a>
+					- возвращает уникальный идентификатор (Guid) справочника данного объекта
+				</p>
+          <p>
+            <a href="14C85705.htm">Объект.НовыйРодительскийОбъект</a>
+					- возвращает новый родительский объект, к которому подключается текущий объект в справочнике с простой иерархией (иерархия объектов "Дерево")
+				</p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

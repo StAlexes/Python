@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Взаимосвязь API и макроязыка</title>
+    <meta name="Microsoft.Help.Id" content="B52EA37C-1E51-4EFF-8534-EB33B85E67C2" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном разделе показано, как преобразовать ReferenceObject из API в объект макроязыка и как выполнить обратное приведение &mdash; из объекта макроязыка в ReferenceObject" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Взаимосвязь API и макроязыка</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В данном разделе показано, как преобразовать ReferenceObject из API в объект макроязыка и как выполнить обратное приведение &mdash; из объекта макроязыка в ReferenceObject
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример приведения объекта макроязыка к ReferenceObject</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        Объект пользователь = НайтиОбъект(<span class="highlight-literal">"Группы и пользователи"</span>, <span class="highlight-literal">"ID"</span>, <span class="highlight-number">100</span>);
+
+        <span class="highlight-comment">// Можем привести объект макроязыка к базовому классу, описывающему объект справочника (ReferenceObject)</span>
+        ReferenceObject referenceObject = (ReferenceObject)пользователь;
+
+        <span class="highlight-comment">// Можем привести к конкретному классу и воспользоваться его возможностями</span>
+        <span class="highlight-keyword">if</span> (пользователь?.Тип == <span class="highlight-literal">"Пользователь"</span>)
+        {
+            User user = (User)пользователь;
+            <span class="highlight-keyword">string</span> firstName = user.FirstName;
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример получения объекта макроязыка из ReferenceObject</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ReferenceObject foundObject = Context.Reference.Find(<span class="highlight-number">1</span>); <span class="highlight-comment">// Получаем объект при помощи API</span>
+
+        <span class="highlight-keyword">if</span> (foundObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        Объект найденныйОбъект = Объект.CreateInstance(foundObject, Context); <span class="highlight-comment">// Преобразуем ReferenceObject в Объект макроязыка</span>
+        ПоказатьДиалогСвойств(найденныйОбъект); <span class="highlight-comment">// Используем возможности макроязыка</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

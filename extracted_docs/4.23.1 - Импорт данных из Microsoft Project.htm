@@ -1,0 +1,626 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Импорт данных из Microsoft Project</title>
+    <meta name="Microsoft.Help.Id" content="73830c4a-3c93-425a-bf8d-fbba8d6b6132" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Импорт данных из Microsoft Project</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="summary">
+          <p />
+        </div>
+        <div>
+          <p>
+        API T-FLEX DOCs позволяет импортировать проекты из MS Project 2010 в DOCs. Ниже приводится пример реализации такой возможности.
+      </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание структуры для обмена данными</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <p>
+          Для того чтобы производить импорт данных, следует создать структуру для обмена данными. Реализуем ее в виде класса MSImportExchangeFormat:
+        </p>
+          <div id="IDBBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Структура для обмена данными</span>
+<span class="highlight-keyword">internal</span> <span class="highlight-keyword">class</span> MSImportExchangeFormat
+{
+    ...
+};</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+          Теперь будем добавлять переменные, методы и проч. в класс MSImportExchangeFormat.<br />
+          В первую очередь объявим экземпляр приложения MS Project и наименование для импортируемого проекта:
+        </p>
+          <div id="IDDBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDDBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDDBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDDBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDDBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Экземпляр приложения</span>
+<span class="highlight-keyword">public</span> MSProject.Application app = <span class="highlight-keyword">null</span>;
+<span class="highlight-comment">// Наименование проекта</span>
+<span class="highlight-keyword">internal</span> <span class="highlight-keyword">string</span> ProjectName { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+          Затем займемся подпроектами:
+        </p>
+          <div id="IDFBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDFBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDFBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDFBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDFBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Подпроект</span>
+<span class="highlight-keyword">internal</span> <span class="highlight-keyword">class</span> MSImportSubProject
+{
+    <span class="highlight-comment">// GUID подпроекта</span>
+    <span class="highlight-keyword">internal</span> Guid GUID { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Наименование</span>
+    <span class="highlight-keyword">internal</span> <span class="highlight-keyword">string</span> Name { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Подпроект в DOCs</span>
+    <span class="highlight-keyword">internal</span> BaseTaskObject AssignedTask { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Конструктор</span>
+    <span class="highlight-keyword">public</span> MSImportSubProject(Guid guid, <span class="highlight-keyword">string</span> name)
+    {
+        <span class="highlight-comment">// GUID подпроекта</span>
+        GUID = guid;
+        <span class="highlight-comment">// Наименование</span>
+        Name = name;
+    }
+}
+<span class="highlight-comment">// Список подпроектов</span>
+<span class="highlight-keyword">internal</span> ArrayList _subprojects = <span class="highlight-keyword">new</span> ArrayList();
+<span class="highlight-comment">// Добавление нового подпроекта</span>
+<span class="highlight-keyword">internal</span> <span class="highlight-keyword">int</span> AddSubProject(Guid guid, <span class="highlight-keyword">string</span> name)
+{
+    _subprojects.Add(<span class="highlight-keyword">new</span> MSImportSubProject(guid, name));
+    <span class="highlight-keyword">return</span> <span class="highlight-number">0</span>;
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+          И, наконец, задания:
+        </p>
+          <div id="IDHBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Задания</span>
+<span class="highlight-keyword">internal</span> <span class="highlight-keyword">class</span> MSImportTask
+{
+    <span class="highlight-comment">// GUID задания</span>
+    <span class="highlight-keyword">internal</span> Guid Guid { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Родительский объект</span>
+    <span class="highlight-keyword">internal</span> Guid ParentGuid { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Предшествующие задания</span>
+    <span class="highlight-keyword">internal</span> ArrayList PredecessorTasksGuids { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Наименование</span>
+    <span class="highlight-keyword">internal</span> <span class="highlight-keyword">string</span> Name { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Описание</span>
+    <span class="highlight-keyword">internal</span> <span class="highlight-keyword">string</span> Description { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Дата начала</span>
+    <span class="highlight-keyword">internal</span> DateTime StartDate { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Дата окончания</span>
+    <span class="highlight-keyword">internal</span> DateTime FinishDate { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Прогресс выполнения</span>
+    <span class="highlight-keyword">internal</span> <span class="highlight-keyword">int</span> CompletePercent { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Задание в DOCs</span>
+    <span class="highlight-keyword">internal</span> BaseTaskObject AssignedTask { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-comment">// Конструктор</span>
+    <span class="highlight-keyword">public</span> MSImportTask(Guid guid, Guid parent, ArrayList predecessorTasks, <span class="highlight-keyword">string</span> name, <span class="highlight-keyword">string</span> description, DateTime startDate, DateTime finishDate, <span class="highlight-keyword">int</span> completePercent)
+    {
+        Guid = guid;
+        ParentGuid = parent;
+        PredecessorTasksGuids = predecessorTasks;
+        Name = name;
+        Description = description;
+        StartDate = startDate;
+        FinishDate = finishDate;
+        CompletePercent = completePercent;
+    }
+}
+<span class="highlight-comment">// Список заданий</span>
+<span class="highlight-keyword">internal</span> ArrayList _tasks = <span class="highlight-keyword">new</span> ArrayList();
+<span class="highlight-comment">// Добавление нового задания</span>
+<span class="highlight-keyword">internal</span> <span class="highlight-keyword">int</span> AddTask(Guid guid, Guid parent, ArrayList predecessorTasks, <span class="highlight-keyword">string</span> name, <span class="highlight-keyword">string</span> description, DateTime startDate, DateTime finishDate, <span class="highlight-keyword">int</span> completePercent)
+{
+    _tasks.Add(<span class="highlight-keyword">new</span> MSImportTask(guid, parent, predecessorTasks, name, description, startDate, finishDate, completePercent));
+    <span class="highlight-keyword">return</span> <span class="highlight-number">0</span>;
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+          Кроме того, нам также понадобится специальная функция для нахождения соответствий объектов в DOCs и MS Project: <br />
+          (PS. Дело в том, что каждый импортируемый объект в MS Project имеет определенный GUID, а при создании нового соответствующего объекта в DOCs для него генерируется новый GUID.)
+        </p>
+          <div id="IDJBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDJBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDJBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDJBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDJBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Поиск объекта в DOCs по GUID данного объекта в MSProject</span>
+<span class="highlight-keyword">internal</span> BaseTaskObject FindAssignedObject(Guid guid)
+{
+    <span class="highlight-comment">// Поиск в подпроектах</span>
+    <span class="highlight-keyword">foreach</span> (MSImportSubProject subproject <span class="highlight-keyword">in</span> _subprojects)
+    {
+        <span class="highlight-keyword">if</span> (subproject.GUID == guid)
+            <span class="highlight-keyword">return</span> subproject.AssignedTask;
+    }
+
+    <span class="highlight-comment">// Поиск в заданиях</span>
+    <span class="highlight-keyword">foreach</span> (MSImportTask task <span class="highlight-keyword">in</span> _tasks)
+    {
+        <span class="highlight-keyword">if</span> (task.Guid == guid)
+            <span class="highlight-keyword">return</span> task.AssignedTask;
+    }
+
+    <span class="highlight-comment">// Возврат с кодом неуспешно</span>
+    <span class="highlight-keyword">return</span> <span class="highlight-keyword">null</span>;
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>Будет также весьма полезна функция форматированного вывода всего содержимого экземпляра класса MSImportExchangeFormat:</p>
+          <div id="IDLBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDLBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDLBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDLBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDLBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Печать содержимого</span>
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> PrintContent()
+{
+    <span class="highlight-comment">// Формирование содержимого</span>
+    <span class="highlight-keyword">string</span> data = <span class="highlight-literal">""</span>;
+
+    <span class="highlight-keyword">foreach</span> (MSImportTask task <span class="highlight-keyword">in</span> _tasks)
+    {
+        data += <span class="highlight-literal">"*** Задание \n"</span>;
+        data += <span class="highlight-literal">"GUID задания:\t"</span> + task.Guid.ToString() + <span class="highlight-literal">"\n"</span>;
+        data += <span class="highlight-literal">"Родительский:\t"</span> + task.ParentGuid.ToString() + <span class="highlight-literal">"\n"</span>;
+
+        <span class="highlight-keyword">foreach</span> (Object predecessorTask <span class="highlight-keyword">in</span> task.PredecessorTasksGuids)
+        {
+            data += <span class="highlight-literal">"Предшествующий:\t"</span> + predecessorTask.ToString() + <span class="highlight-literal">"\n"</span>;
+        }
+
+        data += <span class="highlight-literal">"Наименование:\t"</span> + task.Name + <span class="highlight-literal">"\n"</span>;
+        data += <span class="highlight-literal">"Описание работы:\t"</span> + task.Description + <span class="highlight-literal">"\n"</span>;
+        data += <span class="highlight-literal">"Начало работы:\t"</span> + task.StartDate.ToShortDateString() + <span class="highlight-literal">"\n"</span>;
+        data += <span class="highlight-literal">"Конец работы:\t"</span> + task.FinishDate.ToShortDateString() + <span class="highlight-literal">"\n"</span>;
+        data += <span class="highlight-literal">"Прогресс, %:\t"</span> + task.CompletePercent.ToString() + <span class="highlight-literal">"\n"</span>;
+    }
+
+    <span class="highlight-comment">// Вывод содержимого</span>
+    <span class="highlight-keyword">if</span> (data == <span class="highlight-literal">""</span>)
+    {
+        Log(<span class="highlight-literal">"(Данные отсутствуют)"</span>);
+    }
+    <span class="highlight-keyword">else</span>
+    {
+        Log(data);
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>Напоследок организуем в классе возможность вывода лога:</p>
+          <div id="IDNBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDNBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDNBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDNBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDNBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">public</span> <span class="highlight-keyword">delegate</span> <span class="highlight-keyword">void</span> MsgEventHandler(<span class="highlight-keyword">object</span> sender, MsgEventArgs e);
+
+<span class="highlight-comment">// Событие Msg - вывод лога</span>
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">event</span> MsgEventHandler Msg;
+
+<span class="highlight-keyword">protected</span> <span class="highlight-keyword">virtual</span> <span class="highlight-keyword">void</span> OnMsg(<span class="highlight-keyword">object</span> sender, MsgEventArgs e)
+{
+    Msg(<span class="highlight-keyword">this</span>, e);
+}
+
+<span class="highlight-comment">// Формирование лога</span>
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> Log(<span class="highlight-keyword">string</span> text)
+{
+    <span class="highlight-keyword">if</span> (text == <span class="highlight-literal">""</span>)
+    {
+        Msg(<span class="highlight-keyword">this</span>, <span class="highlight-keyword">new</span> MsgEventArgs(text, <span class="highlight-keyword">true</span>));
+    }
+    <span class="highlight-keyword">else</span>
+    {
+        Msg(<span class="highlight-keyword">this</span>, <span class="highlight-keyword">new</span> MsgEventArgs(text, <span class="highlight-keyword">false</span>));
+    }
+}
+
+<span class="highlight-comment">// Аргументы и делегат Msg</span>
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> MsgEventArgs : EventArgs
+{
+    <span class="highlight-keyword">internal</span> <span class="highlight-keyword">string</span> Text { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-keyword">internal</span> <span class="highlight-keyword">bool</span> Clear { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    <span class="highlight-keyword">public</span> MsgEventArgs(<span class="highlight-keyword">string</span> text, <span class="highlight-keyword">bool</span> clear)
+    {
+        Text = text;
+        Clear = clear;
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Извлечение данных</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <p>После того как создана структура для обмена данными, можно приступить к созданию функции для извлечения данных из файла MS Project:</p>
+          <div id="IDBBEAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBEAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBEAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBEAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBEAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Извлечение данных из файла</span>
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">int</span> ExtractData(<span class="highlight-keyword">string</span> fileName)
+{
+    <span class="highlight-comment">// Проверка входных данных</span>
+    <span class="highlight-keyword">if</span> (!File.Exists(fileName))
+    {
+        Log(<span class="highlight-literal">"Невозможно открыть файл "</span> + fileName);
+        <span class="highlight-keyword">return</span> <span class="highlight-number">-1</span>;
+    }
+
+    <span class="highlight-comment">// Открытие и обработка файла</span>
+    <span class="highlight-keyword">try</span>
+    {
+        <span class="highlight-comment">// Запуск приложения</span>
+        app = <span class="highlight-keyword">new</span> MSProject.Application();
+        app.Visible = <span class="highlight-keyword">false</span>;
+        <span class="highlight-comment">// Открытие файла</span>
+        app.FileOpen(fileName, <span class="highlight-keyword">true</span>, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, MSProject.PjPoolOpen.pjPoolReadOnly, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+        <span class="highlight-comment">// Чтение данных</span>
+        Log(<span class="highlight-literal">"Чтение данных.."</span>);
+        ProjectName = app.Name;
+
+        <span class="highlight-keyword">foreach</span> (MSProject.Project proj <span class="highlight-keyword">in</span> app.Projects)
+        {
+            AddSubProject(<span class="highlight-keyword">new</span> Guid(proj.GetServerProjectGuid()), proj.Name);]
+
+            <span class="highlight-keyword">foreach</span> (MSProject.Task task <span class="highlight-keyword">in</span> proj.Tasks)
+            {
+                ArrayList al = <span class="highlight-keyword">new</span> ArrayList();
+
+                <span class="highlight-keyword">foreach</span> (MSProject.Task predecessorTask <span class="highlight-keyword">in</span> task.PredecessorTasks)
+                {
+                    al.Add(<span class="highlight-keyword">new</span> Guid(predecessorTask.Guid));
+                }
+
+                AddTask(<span class="highlight-keyword">new</span> Guid(task.Guid), <span class="highlight-keyword">new</span> Guid(task.OutlineParent.Guid), al, task.Name, task.Notes, Convert.ToDateTime(task.ScheduledStart), Convert.ToDateTime(task.ScheduledFinish), Convert.ToInt32(task.PercentComplete));
+            }
+        }
+    }
+    <span class="highlight-keyword">catch</span> (Exception ex)
+    {
+        <span class="highlight-comment">// Вывод сообщения об ошибке, возврат с кодом неуспешно</span>
+        Log(ex.Message + <span class="highlight-literal">": "</span> + ex.InnerException.Message);
+        <span class="highlight-keyword">return</span> <span class="highlight-number">-1</span>;
+    }
+
+    <span class="highlight-keyword">finally</span>
+    {
+        <span class="highlight-comment">// Закрытие приложения</span>
+        <span class="highlight-keyword">if</span> (app != <span class="highlight-keyword">null</span>)
+        {
+            app.Quit(MSProject.PjSaveType.pjDoNotSave);
+        }
+    }
+    <span class="highlight-comment">// Возврат с кодом успешно</span>
+    Log(<span class="highlight-literal">"Чтение данных успешно завершено"</span>);
+    <span class="highlight-keyword">return</span> <span class="highlight-number">0</span>;
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDFAB')" onkeypress="SectionExpandCollapse_CheckKey('IDFAB', event)" tabindex="0">
+            <img id="IDFABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Импорт данных</span>
+        </div>
+        <div id="IDFABSection" class="collapsibleSection">
+          <p>Извлеченные данные можно импортировать следующим образом:</p>
+          <div id="IDBBFAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBFAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBFAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBFAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBFAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Импорт данных</span>
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">int</span> ImportData(Guid parentProjectFolderGUID)
+{
+    <span class="highlight-comment">// Проверка входных данных</span>
+    <span class="highlight-keyword">if</span> (ProjectName == <span class="highlight-keyword">null</span>)
+    {
+        Log(<span class="highlight-literal">"Невозможно импортировать данные"</span>);
+        <span class="highlight-keyword">return</span> <span class="highlight-number">-1</span>;
+    }
+
+    Log(<span class="highlight-literal">"Импорт данных"</span>);
+    <span class="highlight-comment">// Подготовка данных</span>
+    ReferenceInfo referenceInfo = ReferenceCatalog.FindReference(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"9a7daed1-7c2c-4f16-8147-6423d8eea413"</span>));
+    Reference reference = referenceInfo.CreateReference();
+    ReferenceObject projectParentObject = reference.Find(parentProjectFolderGUID);
+    <span class="highlight-comment">// Импорт данных</span>
+    <span class="highlight-keyword">try</span>
+    {
+        Log(<span class="highlight-literal">"Создание подпроектов.."</span>);
+
+        <span class="highlight-keyword">foreach</span> (MSImportExchangeFormat.MSImportSubProject subproject <span class="highlight-keyword">in</span> _subprojects)
+        {
+            BaseTaskObject _subproject = reference.CreateReferenceObject(projectParentObject,
+            reference.Classes.Find(TFlex.DOCs.Model.References.Projects.ProjectTypes.Keys.Project)) <span class="highlight-keyword">as</span> BaseTaskObject;
+            _subproject.Name = subproject.Name;
+            _subproject.EndChanges();
+            <span class="highlight-comment">// Создание работ</span>
+            Log(<span class="highlight-literal">"Создание работ.."</span>);
+            ReferenceObjectSaveSet taskSet = <span class="highlight-keyword">new</span> ReferenceObjectSaveSet();
+
+            <span class="highlight-keyword">foreach</span> (MSImportExchangeFormat.MSImportTask task <span class="highlight-keyword">in</span> _tasks)
+            {
+                DateTime start = DateTime.Now;
+                BaseTaskObject _task = reference.CreateReferenceObject(_subproject,
+                reference.Classes.Find(TFlex.DOCs.Model.References.Projects.ProjectTypes.Keys.Task)) <span class="highlight-keyword">as</span> BaseTaskObject;
+                taskSet.Add(_task);
+                _task.Name = task.Name;
+                _task.Description = task.Description;
+                _task.StartTime = task.StartDate;
+                _task.EndTime = task.FinishDate;
+                _task.Progress = Convert.ToDouble(task.CompletePercent) / <span class="highlight-number">100</span>;
+                <span class="highlight-comment">//_task.EndChanges();</span>
+                task.AssignedTask = _task;
+            }
+            taskSet.EndChanges();
+            <span class="highlight-comment">// Установка связей для работ</span>
+            Log(<span class="highlight-literal">"Установка связей для работ.."</span>);
+
+            <span class="highlight-keyword">foreach</span> (MSImportExchangeFormat.MSImportTask task <span class="highlight-keyword">in</span> _tasks)
+            {
+                BaseTaskObject _task = FindAssignedObject(task.Guid);
+                _task.BeginChanges();
+
+                <span class="highlight-keyword">if</span> (FindAssignedObject(task.ParentGuid) != <span class="highlight-keyword">null</span>)
+                {
+                    _task.SetParent(FindAssignedObject(task.ParentGuid));
+                }
+
+                _task.EndChanges();
+
+                <span class="highlight-keyword">foreach</span> (Guid predessor <span class="highlight-keyword">in</span> task.PredecessorTasksGuids)
+                {
+                    (FindAssignedObject(task.Guid) <span class="highlight-keyword">as</span> TaskObject).AddNewLink(FindAssignedObject(predessor) <span class="highlight-keyword">as</span> TaskObject, TaskLinkType.StartToFinish, <span class="highlight-number">0</span>);
+                }
+            }
+        }
+    }
+    <span class="highlight-keyword">catch</span> (Exception ex)
+    {
+        <span class="highlight-comment">// Вывод сообщения об ошибке, возврат с кодом неуспешно</span>
+        Log(ex.Message + <span class="highlight-literal">": "</span> + ex.InnerException.Message);
+        <span class="highlight-keyword">return</span> <span class="highlight-number">-1</span>;
+    }
+    <span class="highlight-comment">// Возврат с кодом успешно</span>
+    Log(<span class="highlight-literal">"Импорт данных успешно завершен"</span>);
+    <span class="highlight-keyword">return</span> <span class="highlight-number">0</span>;
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDGAB')" onkeypress="SectionExpandCollapse_CheckKey('IDGAB', event)" tabindex="0">
+            <img id="IDGABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Использование с визуальными компонентами</span>
+        </div>
+        <div id="IDGABSection" class="collapsibleSection">
+          <p>Описанный выше класс для импорта данных может быть использован с визуальными компонентами следующим образом.</p>
+          <p>Объявление и инициализация класса MSImportExchangeFormat:</p>
+          <div id="IDCBGAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBGAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBGAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBGAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBGAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Создание объекта MSImportExchangeFormat для импорта данных</span>
+MSImportExchangeFormat msief = <span class="highlight-keyword">new</span> MSImportExchangeFormat();</pre>
+              </div>
+            </div>
+          </div>
+          <p>Организация ведения лога (где richTextBoxLog - поле для вывода лога):</p>
+          <div id="IDEBGAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEBGAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEBGAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEBGAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEBGAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Добавление обработчика событий MSImportExchangeFormat</span>
+msief.Msg += <span class="highlight-keyword">new</span> MsgEventHandler(msief_Msg);
+
+<span class="highlight-comment">// Вывод лога объекта MSImportExchangeFormat</span>
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> msief_Msg(<span class="highlight-keyword">object</span> sender, MsgEventArgs e)
+{
+    <span class="highlight-keyword">if</span> (e.Clear == <span class="highlight-keyword">true</span>)
+        richTextBoxLog.Clear();
+
+    richTextBoxLog.AppendText(e.Text + <span class="highlight-literal">'\n'</span>);
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+          Выбор целевой папки для импортируемых данных (где textBoxTargetFolder - наименование/идентификатор целевой папки DOCs для импортируемых данных):
+        </p>
+          <div id="IDGBGAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDGBGAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDGBGAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDGBGAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDGBGAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Диалог выбора папки в DOCs для импортируемых данных</span>
+ReferenceInfo referenceInfo = ReferenceCatalog.FindReference(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"9a7daed1-7c2c-4f16-8147-6423d8eea413"</span>));
+Reference reference = referenceInfo.CreateReference();
+TFlexDOCsClientUI.Initialize();
+
+<span class="highlight-keyword">using</span> (ISelectReferenceObjectDialog dlg = ObjectCreator.CreateObject&lt;ISelectReferenceObjectDialog&gt;())
+{
+    dlg.Initialize(referenceInfo);
+
+    <span class="highlight-keyword">if</span> (dlg.ShowDialog(<span class="highlight-keyword">null</span>) != DialogOpenResult.Ok)
+        <span class="highlight-keyword">return</span>;
+
+    textBoxTargetFolder.Tag = dlg.FocusedObject.SystemFields.Guid.ToString();
+    textBoxTargetFolder.Text = (dlg.FocusedObject <span class="highlight-keyword">as</span> ProjectReferenceObject).Name;
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+          Непосредственно импорт данных из MS Project в DOCs (где textBoxMSProjectFileName - поле для задания имени файла MS Project, textBoxTargetFolder - наименование/идентификатор целевой папки DOCs для импортируемых данных):
+        </p>
+          <div id="IDIBGAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDIBGAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDIBGAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDIBGAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDIBGAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Очистка лога</span>
+msief.Log(<span class="highlight-literal">""</span>);
+<span class="highlight-comment">// Извлечение данных из файла MS Project</span>
+msief.ExtractData(textBoxMSProjectFileName.Text);
+<span class="highlight-comment">// Импорт данных</span>
+msief.ImportData(<span class="highlight-keyword">new</span> Guid(textBoxTargetFolder.Tag.ToString()));</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDHAB')" onkeypress="SectionExpandCollapse_CheckKey('IDHAB', event)" tabindex="0">
+            <img id="IDHABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Дополнительные сведения</span>
+        </div>
+        <div id="IDHABSection" class="collapsibleSection">
+          <p>Полную версию примера можно найти в проекте MSProjectImport (решение DOCs).</p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

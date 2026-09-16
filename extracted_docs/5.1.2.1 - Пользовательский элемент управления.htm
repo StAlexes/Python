@@ -1,0 +1,427 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Пользовательский элемент управления</title>
+    <meta name="Microsoft.Help.Id" content="614de5ec-58df-4a68-8f0d-6aefa895c98c" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Microsoft.Help.Category" content="XAML" />
+    <meta name="Description" content="В T-FLEX DOCs имеется возможность создания пользовательских элементов управления для использования в диалогах и пользовательских страницах. Ниже приведен пример создания такого элемента управления." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Пользовательский элемент управления</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В T-FLEX DOCs имеется возможность создания пользовательских элементов управления для использования в диалогах и пользовательских страницах. Ниже приведен пример создания такого элемента управления.
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример элемента управления пользователя</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>Для реализации пользовательского элемента управления необходимо:</p>
+          <ol>
+            <li>
+              <p>Создать новый .NET Framework проект - Библиотека классов</p>
+            </li>
+            <li>
+              <p>
+							В новом проекте подключить ссылки на библиотеки T-FLEX DOCs, которые расположены в
+							каталоге с установленным клиентом "{Ваш путь до места установки}\Program", а также необходимые зависимости .NET Framework:
+						</p>
+              <ul>
+                <li>
+                  <p>TFlex.DOCs.Model.dll;</p>
+                </li>
+                <li>
+                  <p>TFlex.DOCs.IoC.Infrastructure.dll;</p>
+                </li>
+                <li>
+                  <p>TFlex.DOCs.UI.Client.dll;</p>
+                </li>
+                <li>
+                  <p>TFlex.DOCs.UI.Client.Common.dll;</p>
+                </li>
+                <li>
+                  <p>TFlex.DOCs.UI.Utils.dll;</p>
+                </li>
+                <li>
+                  <p>TFlex.DOCs.UI.Utils.Common.dll;</p>
+                </li>
+                <li>
+                  <p>WindowsBase.dll;</p>
+                </li>
+                <li>
+                  <p>PresentationCore.dll;</p>
+                </li>
+                <li>
+                  <p>PresentationFramework.dll;</p>
+                </li>
+                <li>
+                  <p>System.Xaml.dll;</p>
+                </li>
+                <li>
+                  <p>System.Xml.dll;</p>
+                </li>
+                <li>
+                  <p>System.dll;</p>
+                </li>
+                <li>
+                  <p>System.Core.dll</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Удалить новый сгенерированный файл класса "Class1.cs" и создать 2 новых каталога в проекте: Views; ViewModels</p>
+            </li>
+            <li>
+              <p>Создать в папке ViewModels новый класс, код которого расположен ниже</p>
+            </li>
+            <li>
+              <p>Создать новый элемент "Пользовательский элемент управления (WPF)" в папке Views, код которого расположен ниже</p>
+            </li>
+          </ol>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section2">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример кода ViewsModels</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Collections.ObjectModel;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> System.Threading;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.Base;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.Layout.Common;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Utils.Helpers;
+
+<span class="highlight-keyword">namespace</span> CustomUiWpf.ViewModels
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> SelectUserListViewModel : ViewModel, IUserControlViewModel
+    {
+        <span class="highlight-comment">/// &lt;summary&gt; Наименование выбранного пользователя &lt;/summary&gt;</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">string</span> _selectedUserName;
+
+        <span class="highlight-comment">/// &lt;summary&gt; Выбранный пользователь в списке доступных пользователей &lt;/summary&gt;</span>
+        <span class="highlight-keyword">private</span> UserViewModel _selectedUser;
+
+        <span class="highlight-comment">/// &lt;summary&gt; Объект справочника "TestReference"&lt;/summary&gt;</span>
+        <span class="highlight-keyword">private</span> ReferenceObject _referenceObject;
+
+        <span class="highlight-comment">/// &lt;summary&gt; Guid справочника "TestReference" &lt;/summary&gt;</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">readonly</span> Guid _referenceGuid = <span class="highlight-keyword">new</span>(<span class="highlight-literal">"6d7f21b5-0a57-44a3-b96e-1afd15c52368"</span>);
+
+        <span class="highlight-comment">/// &lt;summary&gt; Guid связи N:1 "EmployeeLink" типа "Пользователи" справочника "TestReference" на "Группы и пользователи"&lt;/summary&gt;</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">readonly</span> Guid _employeeLinkGuid = <span class="highlight-keyword">new</span>(<span class="highlight-literal">"43b182e8-77a5-41de-87dd-d9aed2f24893"</span>);
+
+        <span class="highlight-keyword">public</span> SelectUserListViewModel() : <span class="highlight-keyword">base</span>(<span class="highlight-keyword">null</span>)
+        { }
+
+        <span class="highlight-keyword">public</span> SelectUserListViewModel(LayoutViewModel owner) : <span class="highlight-keyword">base</span>(owner)
+        { }
+
+        <span class="highlight-keyword">public</span> SelectUserListViewModel(ViewModel owner, ServerConnection connection = <span class="highlight-keyword">null</span>) : <span class="highlight-keyword">base</span>(owner, connection)
+        { }
+
+        <span class="highlight-comment">/// &lt;summary&gt;</span>
+        <span class="highlight-comment">/// Наименование выбранного пользователя</span>
+        <span class="highlight-comment">/// &lt;/summary&gt;</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> SelectedUserName
+        {
+            <span class="highlight-keyword">get</span> =&gt; _selectedUserName;
+            <span class="highlight-keyword">set</span> =&gt; SetPropertyValue(<span class="highlight-keyword">ref</span> _selectedUserName, <span class="highlight-keyword">value</span>);
+        }
+
+        <span class="highlight-comment">/// &lt;summary&gt;</span>
+        <span class="highlight-comment">/// Выбранный пользователь в списке доступных пользователей</span>
+        <span class="highlight-comment">/// &lt;/summary&gt;</span>
+        <span class="highlight-keyword">public</span> UserViewModel SelectedUser
+        {
+            <span class="highlight-keyword">get</span> =&gt; _selectedUser;
+            <span class="highlight-keyword">set</span>
+            {
+                SelectedUserName = <span class="highlight-keyword">value</span> == <span class="highlight-keyword">null</span> ? String.Empty : <span class="highlight-keyword">value</span>.FullName;
+                SetPropertyValue(<span class="highlight-keyword">ref</span> _selectedUser, <span class="highlight-keyword">value</span>);
+                SetUserToLink();
+            }
+        }
+
+        <span class="highlight-comment">/// &lt;summary&gt;</span>
+        <span class="highlight-comment">/// Список доступных пользователей</span>
+        <span class="highlight-comment">/// &lt;/summary&gt;</span>
+        <span class="highlight-keyword">public</span> ObservableCollection&lt;UserViewModel&gt; AvailableUsersList { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; } = <span class="highlight-keyword">new</span> ObservableCollection&lt;UserViewModel&gt;();
+
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">object</span> LoadData(DataObjectViewModel viewModel, CancellationToken cancellationToken)
+        {
+            ReferenceObject referenceObject = GetReferenceObject(viewModel);
+
+            <span class="highlight-keyword">if</span> (referenceObject <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+            {
+                <span class="highlight-keyword">var</span> userReference = <span class="highlight-keyword">new</span> UserReference(Connection);
+
+                ReferenceObject userObject = referenceObject.GetObject(_employeeLinkGuid);
+
+                List&lt;User&gt; users = userReference.GetAllUsers().ToList();
+
+                DispatcherHelper.CheckBeginInvokeOnUI(() =&gt;
+                {
+                    LoadData(userObject, users);
+                    _referenceObject = referenceObject;
+                });
+            }
+
+            <span class="highlight-keyword">return</span> viewModel;
+        }
+
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> RefreshUI(<span class="highlight-keyword">object</span> loadedData, CancellationToken cancellationToken)
+        {
+        }
+
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> ReadDataToObject(DataObjectViewModel viewModel)
+        {
+            ReferenceObject referenceObject = GetReferenceObject(viewModel);
+
+            <span class="highlight-keyword">if</span> (referenceObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">return</span>;
+
+            _referenceObject = referenceObject;
+
+            SetUserToLink();
+        }
+
+        <span class="highlight-comment">// Система определяет возможность редактирования пользовательского ЭУ (к примеру, обработав условия блокировки) и результат передает в данный метод,</span>
+        <span class="highlight-comment">// тем самым позволяя самостоятельно настроить блокировку элементов, входящих в пользовательский ЭУ</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> SetEditable(<span class="highlight-keyword">bool</span> editable) { }
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> LoadData(ReferenceObject userObject, List&lt;User&gt; users)
+        {
+            AvailableUsersList.Clear();
+            SelectedUser = <span class="highlight-keyword">null</span>;
+
+            <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> user <span class="highlight-keyword">in</span> users)
+            {
+                <span class="highlight-keyword">var</span> newUser = <span class="highlight-keyword">new</span> UserViewModel { Id = user.SystemFields.Id, FullName = user.FullName };
+                AvailableUsersList.Add(newUser);
+            }
+
+
+            <span class="highlight-keyword">if</span> (userObject <span class="highlight-keyword">is</span> User u)
+            {
+                <span class="highlight-keyword">var</span> newUser = <span class="highlight-keyword">new</span> UserViewModel { Id = u.SystemFields.Id, FullName = u.FullName };
+                SelectedUser = newUser;
+            }
+        }
+
+        <span class="highlight-keyword">private</span> ReferenceObject GetReferenceObject(DataObjectViewModel viewModel)
+        {
+            <span class="highlight-keyword">if</span> (viewModel <span class="highlight-keyword">is</span> not ReferenceObjectViewModel rvm)
+                <span class="highlight-keyword">return</span> <span class="highlight-keyword">null</span>;
+
+            <span class="highlight-keyword">if</span> (rvm.ReferenceObject.Reference.ParameterGroup.Guid != _referenceGuid)
+                <span class="highlight-keyword">return</span> <span class="highlight-keyword">null</span>;
+
+            <span class="highlight-keyword">return</span> rvm.ReferenceObject;
+        }
+
+        <span class="highlight-comment">/// &lt;summary&gt;</span>
+        <span class="highlight-comment">/// Установить по связи "Employee" объект справочника "Группы и пользователи"</span>
+        <span class="highlight-comment">/// объекту справочника "TestReference"</span>
+        <span class="highlight-comment">/// &lt;/summary&gt;</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> SetUserToLink()
+        {
+            <span class="highlight-keyword">if</span> (_referenceObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span> || !_referenceObject.Changing || _selectedUser <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">return</span>;
+
+            <span class="highlight-keyword">var</span> userReference = <span class="highlight-keyword">new</span> UserReference(Connection);
+
+            User user = userReference.Find(_selectedUser.Id) <span class="highlight-keyword">as</span> User;
+
+            <span class="highlight-keyword">if</span> (user <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+                _referenceObject.SetLinkedObject(_employeeLinkGuid, user);
+        }
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> UserViewModel
+    {
+        <span class="highlight-comment">/// &lt;summary&gt;Id объекта справочника "Группы и пользователи"&lt;/summary&gt;</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">int</span> Id { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+
+        <span class="highlight-comment">/// &lt;summary&gt;Наименование&lt;/summary&gt;</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> FullName { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">set</span>; }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section3">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пользовательский элемент управления (WPF)</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div id="IDABDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABDAB_tab1" class="codeSnippetContainerTabSingle">XAML</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-xml-bracket">&lt;</span>
+                  <span class="highlight-xml-tag">UserControl</span> <span class="highlight-xml-attribute-name">x:Class</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"CustomUiWpf.Views.SelectUserListControl"</span>
+             <span class="highlight-xml-attribute-name">xmlns</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</span>
+             <span class="highlight-xml-attribute-name">xmlns:x</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"http://schemas.microsoft.com/winfx/2006/xaml"</span>
+             <span class="highlight-xml-attribute-name">xmlns:mc</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"http://schemas.openxmlformats.org/markup-compatibility/2006"</span>
+             <span class="highlight-xml-attribute-name">xmlns:tdu</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"http://schemas.tflex.ru/docs/xaml/utils"</span>
+             <span class="highlight-xml-attribute-name">xmlns:componentModel</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"clr-namespace:System.ComponentModel;assembly=WindowsBase"</span>
+             <span class="highlight-xml-attribute-name">xmlns:vm</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"clr-namespace:CustomUiWpf.ViewModels"</span>
+             <span class="highlight-xml-attribute-name">xmlns:d</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"http://schemas.microsoft.com/expression/blend/2008"</span>
+             <span class="highlight-xml-attribute-name">mc:Ignorable</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"d"</span> 
+             <span class="highlight-xml-attribute-name">d:DesignWidth</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"220"</span>
+             <span class="highlight-xml-attribute-name">d:DesignHeight</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"100"</span><span class="highlight-xml-bracket">&gt;</span>
+    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">UserControl.Resources</span><span class="highlight-xml-bracket">&gt;</span>
+        <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">ResourceDictionary</span><span class="highlight-xml-bracket">&gt;</span>
+            <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">CollectionViewSource</span> <span class="highlight-xml-attribute-name">x:Key</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"AvailableUsers"</span> 
+                                  <span class="highlight-xml-attribute-name">Source</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"{Binding Path=(vm:SelectUserListViewModel.AvailableUsersList)}"</span><span class="highlight-xml-bracket">&gt;</span>
+                <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">CollectionViewSource.SortDescriptions</span><span class="highlight-xml-bracket">&gt;</span>
+                    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">componentModel:SortDescription</span> <span class="highlight-xml-attribute-name">PropertyName</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"FullName"</span> <span class="highlight-xml-bracket">/&gt;</span>
+                <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">CollectionViewSource.SortDescriptions</span><span class="highlight-xml-bracket">&gt;</span>
+            <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">CollectionViewSource</span><span class="highlight-xml-bracket">&gt;</span>
+        <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">ResourceDictionary</span><span class="highlight-xml-bracket">&gt;</span>
+    <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">UserControl.Resources</span><span class="highlight-xml-bracket">&gt;</span>
+    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Border</span> <span class="highlight-xml-attribute-name">Margin</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"1"</span> <span class="highlight-xml-attribute-name">BorderThickness</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"1"</span> <span class="highlight-xml-attribute-name">BorderBrush</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"DarkGray"</span><span class="highlight-xml-bracket">&gt;</span>
+        <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Grid</span> <span class="highlight-xml-attribute-name">Margin</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"2"</span><span class="highlight-xml-bracket">&gt;</span>
+            <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Grid.ColumnDefinitions</span><span class="highlight-xml-bracket">&gt;</span>
+                <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">ColumnDefinition</span> <span class="highlight-xml-attribute-name">Width</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"Auto"</span><span class="highlight-xml-bracket">/&gt;</span>
+                <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">ColumnDefinition</span><span class="highlight-xml-bracket">&gt;</span><span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">ColumnDefinition</span><span class="highlight-xml-bracket">&gt;</span>
+            <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">Grid.ColumnDefinitions</span><span class="highlight-xml-bracket">&gt;</span>
+            <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Grid.RowDefinitions</span><span class="highlight-xml-bracket">&gt;</span>
+                <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">RowDefinition</span> <span class="highlight-xml-attribute-name">Height</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"Auto"</span> <span class="highlight-xml-attribute-name">MinHeight</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"25"</span> <span class="highlight-xml-bracket">/&gt;</span>
+                <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">RowDefinition</span><span class="highlight-xml-bracket">/&gt;</span>
+            <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">Grid.RowDefinitions</span><span class="highlight-xml-bracket">&gt;</span>
+
+            <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">TextBlock</span> <span class="highlight-xml-attribute-name">Grid.Column</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"0"</span> <span class="highlight-xml-attribute-name">Grid.Row</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"0"</span>  <span class="highlight-xml-attribute-name">Foreground</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"Black"</span> <span class="highlight-xml-attribute-name">VerticalAlignment</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"Center"</span> <span class="highlight-xml-attribute-name">Margin</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"2"</span>
+                       <span class="highlight-xml-attribute-name">Text</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"Сотрудник:"</span><span class="highlight-xml-bracket">/&gt;</span>
+
+            <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">TextBox</span> <span class="highlight-xml-attribute-name">Grid.Column</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"1"</span> <span class="highlight-xml-attribute-name">Grid.Row</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"0"</span> <span class="highlight-xml-attribute-name">Margin</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"2 3 2 3"</span> <span class="highlight-xml-attribute-name">IsReadOnly</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"True"</span>
+                          <span class="highlight-xml-attribute-name">Text</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"{Binding Path=(vm:SelectUserListViewModel.SelectedUserName)}"</span><span class="highlight-xml-bracket">/&gt;</span>
+
+            <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">DataGrid</span> <span class="highlight-xml-attribute-name">Grid.Column</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"0"</span> <span class="highlight-xml-attribute-name">Grid.ColumnSpan</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"2"</span> <span class="highlight-xml-attribute-name">Grid.Row</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"1"</span> 
+                      <span class="highlight-xml-attribute-name">AutoGenerateColumns</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"False"</span>
+                      <span class="highlight-xml-attribute-name">CanUserAddRows</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"False"</span>
+                      <span class="highlight-xml-attribute-name">CanUserSortColumns</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"False"</span>
+                      <span class="highlight-xml-attribute-name">SelectionMode</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"Single"</span>
+                      <span class="highlight-xml-attribute-name">IsReadOnly</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"True"</span>
+                      <span class="highlight-xml-attribute-name">SelectedItem</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"{Binding Path=(vm:SelectUserListViewModel.SelectedUser)}"</span>
+                      <span class="highlight-xml-attribute-name">ItemsSource</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"{Binding Source={StaticResource AvailableUsers}}"</span><span class="highlight-xml-bracket">&gt;</span>
+                <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">DataGrid.Columns</span><span class="highlight-xml-bracket">&gt;</span>
+                    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">DataGridTemplateColumn</span> <span class="highlight-xml-attribute-name">Width</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"18"</span> <span class="highlight-xml-attribute-name">CanUserResize</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"False"</span> <span class="highlight-xml-attribute-name">CanUserSort</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"False"</span><span class="highlight-xml-bracket">&gt;</span>
+                        <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">DataGridTemplateColumn.CellTemplate</span><span class="highlight-xml-bracket">&gt;</span>
+                            <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">DataTemplate</span><span class="highlight-xml-bracket">&gt;</span>
+                                <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">Image</span> <span class="highlight-xml-attribute-name">Source</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"{tdu:IconSource Name=UsersMonitor, Type=ImageSource}"</span> <span class="highlight-xml-bracket">/&gt;</span>
+                            <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">DataTemplate</span><span class="highlight-xml-bracket">&gt;</span>
+                        <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">DataGridTemplateColumn.CellTemplate</span><span class="highlight-xml-bracket">&gt;</span>
+                    <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">DataGridTemplateColumn</span><span class="highlight-xml-bracket">&gt;</span>
+                    <span class="highlight-xml-bracket">&lt;</span><span class="highlight-xml-tag">DataGridTextColumn</span> <span class="highlight-xml-attribute-name">Binding</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"{Binding FullName}"</span> <span class="highlight-xml-attribute-name">Header</span><span class="highlight-xml-attribute-equal">=</span><span class="highlight-xml-attribute-value">"Наименование"</span><span class="highlight-xml-bracket">/&gt;</span>
+                <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">DataGrid.Columns</span><span class="highlight-xml-bracket">&gt;</span>
+            <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">DataGrid</span><span class="highlight-xml-bracket">&gt;</span>
+
+        <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">Grid</span><span class="highlight-xml-bracket">&gt;</span>
+    <span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">Border</span><span class="highlight-xml-bracket">&gt;</span>
+<span class="highlight-xml-bracket">&lt;/</span><span class="highlight-xml-tag">UserControl</span><span class="highlight-xml-bracket">&gt;</span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section4">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример добавления пользовательского элемента управления в диалог свойств справочника</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <ol>
+            <li>
+              <p>Импортировать собранную сборку в справочник "Файлы"</p>
+            </li>
+            <li>
+              <p>Перейти в "Управление справочниками", выбрать тип нужного нам справочника</p>
+              <div class="mediaNear">
+                <img alt="User Control Wpf Customization Reference 1" src="../media/UserControlWpfCustomizationReference1.PNG" />
+              </div>
+            </li>
+            <li>
+              <p>Открыть настройку редактирования пользовательской страницы на вкладке "Диалог свойств"</p>
+              <div class="mediaNear">
+                <img alt="User Control Wpf Customization Reference 2" src="../media/UserControlWpfCustomizationReference2.PNG" />
+              </div>
+            </li>
+            <li>
+              <p>Перенести на пользовательскую страницу и добавить "Пользовательский элемент управления"</p>
+              <div class="mediaNear">
+                <img alt="User Control Wpf Customization Reference 3" src="../media/UserControlWpfCustomizationReference3.PNG" />
+              </div>
+            </li>
+            <li>
+              <p>Указать настройки - "DLL файл из справочника", "Наименование класса" и "Наименование класса ViewModel"</p>
+              <div class="mediaNear">
+                <img alt="User Control Wpf Customization Reference 4" src="../media/UserControlWpfCustomizationReference4.PNG" />
+              </div>
+            </li>
+            <li>
+              <p>Открыть диалог свойств, где расположен пользовательский элемент управления</p>
+              <div class="mediaNear">
+                <img alt="User Control Wpf Customization Reference 5" src="../media/UserControlWpfCustomizationReference5.PNG" />
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

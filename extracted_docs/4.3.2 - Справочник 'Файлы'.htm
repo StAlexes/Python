@@ -1,0 +1,230 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Справочник "Файлы"</title>
+    <meta name="Microsoft.Help.Id" content="0BBDFA21-580C-4D3B-A6E8-30C3E6186D78" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Справочник &quot;Файлы&quot; предназначен для хранения файлов и работы с ними (при этом физически файлы хранятся на файловом сервере)." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Справочник "Файлы"</h1>
+            </td>
+          </tr>
+        </table>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					Справочник "Файлы" предназначен для хранения файлов и работы с ними (при этом физически файлы хранятся на файловом сервере).
+					В рамках данного справочника API позволяет производить следующие операции над файлами и папками:
+				</p>
+          <ul>
+            <li>
+              <p>импорт из файловой системы;</p>
+            </li>
+            <li>
+              <p>экспорт из файлового хранилища на компьютер пользователя;</p>
+            </li>
+            <li>
+              <p>поиск по абсолютному/относительному пути</p>
+            </li>
+          </ul>
+          <div id="IDCABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.IO;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Desktop;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Files;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// 1. Добавление файлов из файловой системы</span>
+        <span class="highlight-keyword">var</span> fileReference = <span class="highlight-keyword">new</span> FileReference(Context.Connection); <span class="highlight-comment">// Создаем экземпляр справочника</span>
+        <span class="highlight-keyword">var</span> folder = fileReference.FindByRelativePath(<span class="highlight-literal">"Служебные файлы"</span>) <span class="highlight-keyword">as</span> FolderObject; <span class="highlight-comment">// Осуществляем поиск целевой папки по относительному пути</span>
+
+        <span class="highlight-keyword">if</span> (folder <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            Error(<span class="highlight-literal">"Внимание!"</span>, <span class="highlight-literal">"Не найдена папка"</span>);
+
+        <span class="highlight-comment">// Настраиваем параметры импорта файлов в справочник "Файлы"</span>
+        <span class="highlight-keyword">var</span> importParams = <span class="highlight-keyword">new</span> ImportParameters()
+        {
+            DestinationFolder = folder, <span class="highlight-comment">// Задаем папку назначения. Если значение равно null, то импортируемая папка будет добавлена в корень справочника</span>
+            Recursive = <span class="highlight-keyword">true</span>, <span class="highlight-comment">// Выполняем операцию рекурсивно для всех входящих папок</span>
+            CreateClasses = <span class="highlight-keyword">true</span>, <span class="highlight-comment">// Создаем новые типы в случае их отсутствия</span>
+            AutoCheckIn = <span class="highlight-keyword">true</span> <span class="highlight-comment">// Автоматическое применение изменений</span>
+        };
+
+        <span class="highlight-keyword">string</span>[] filePaths = [<span class="highlight-literal">@"C:\Test\t1.txt"</span>, <span class="highlight-literal">@"C:\Test\p1.pdf"</span>];
+
+        IEnumerable&lt;FileObject&gt; fileObjects = fileReference.AddFiles(filePaths, importParams); <span class="highlight-comment">// Добавляем файлы из файловой системы в справочник "Файлы"</span>
+        <span class="highlight-comment">// Обрабатываем добавленные файлы. Если планируется внесение изменений в файлы,</span>
+        <span class="highlight-comment">// то можно в параметрах импорта выставить флаг AutoCheckIn в false и применить изменения после обработки</span>
+        <span class="highlight-keyword">foreach</span> (FileObject fileObject <span class="highlight-keyword">in</span> fileObjects)
+        {
+        }
+
+        <span class="highlight-comment">// 2. Теперь рассмотрим импорт папки</span>
+        <span class="highlight-keyword">string</span> folderPath = <span class="highlight-literal">@"C:\FilesToImport"</span>; <span class="highlight-comment">// Папка в файловой системе - из нее будут копироваться файлы</span>
+        fileReference.Import(folderPath, importParams);
+
+        <span class="highlight-comment">// 3. Загружаем последние версии файлов с сервера в рабочую папку</span>
+        FileObject file = fileReference.FindByRelativePath(<span class="highlight-literal">@"Служебные файлы\Материалы и сортамент\Круг.grb"</span>) <span class="highlight-keyword">as</span> FileObject;
+
+        <span class="highlight-keyword">if</span> (file <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        FileReference.GetHeadRevision(<span class="highlight-keyword">new</span>[] { file });
+
+        <span class="highlight-comment">// 4. Для загрузки файла со снятым атрибутом "Только для чтения" можно воспользоваться следующим кодом:</span>
+        file.Export(Path.Combine(Path.GetTempPath(), file.Name), <span class="highlight-keyword">true</span>);
+
+        <span class="highlight-comment">// 5. Пример создания папки:</span>
+
+        <span class="highlight-keyword">var</span> rootFolder = fileReference.CreateFolder(<span class="highlight-literal">"Новая корневая папка"</span>, <span class="highlight-literal">"Корневая папка"</span>); <span class="highlight-comment">// Создаем папку в корне справочника</span>
+        <span class="highlight-keyword">var</span> subFolder = rootFolder.CreateFolder(<span class="highlight-literal">"Новая вложенная папка"</span>, <span class="highlight-literal">"Вложенная папка"</span>); <span class="highlight-comment">// Создаем папку внутри корневой папки</span>
+
+        _ = Desktop.CheckIn([rootFolder, subFolder], <span class="highlight-literal">"Созданы новые папки"</span>, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Применяем изменения</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="7E06EE0D.htm">TFlex.DOCs.Model.References.Files<span id="LSTA49860B2_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FileReference</a>
+            <br />
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Переименование файлов и папок</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Desktop;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Files;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> RenamingFile : MacroProvider
+{
+    <span class="highlight-keyword">public</span> RenamingFile(MacroContext context) : <span class="highlight-keyword">base</span>(context) { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> fileReference = <span class="highlight-keyword">new</span> FileReference(Context.Connection); <span class="highlight-comment">// Создаем экземпляр справочника "Файлы"</span>
+        <span class="highlight-keyword">var</span> folder = fileReference.FindByRelativePath(<span class="highlight-literal">"Корневая папка"</span>) <span class="highlight-keyword">as</span> FolderObject; <span class="highlight-comment">// Находим папку по относительному пути</span>
+
+        <span class="highlight-keyword">if</span> (folder <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+        {
+            folder.Rename(<span class="highlight-literal">"Переименованная папка"</span>); <span class="highlight-comment">// Переименовываем папку</span>
+            Desktop.CheckIn(folder, <span class="highlight-literal">"Переименована папка"</span>, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Применяем изменения</span>
+        }
+
+        <span class="highlight-keyword">var</span> file = fileReference.FindByRelativePath(<span class="highlight-literal">@"Служебные файлы\Библиотека dll\Тестовый файл.PDF"</span>) <span class="highlight-keyword">as</span> FileObject; <span class="highlight-comment">// Находим файл по относительному пути</span>
+
+        <span class="highlight-keyword">if</span> (file <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+        {
+            <span class="highlight-keyword">if</span> (file.CanCheckOut)
+                Desktop.CheckOut(file, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Берем на редактирование</span>
+
+            file.Modify(f =&gt; f.Name.Value = <span class="highlight-literal">"Переименованный файл.PDF"</span>); <span class="highlight-comment">// Переименовываем файл</span>
+            Desktop.CheckIn(file, <span class="highlight-literal">"Переименован файл"</span>, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Применяем изменения</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание дубликата файла (с сохранением подписей)</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div id="IDABDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Files;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> CreateFileDuplicateMacro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> fileReference = <span class="highlight-keyword">new</span> FileReference(Context.Connection); <span class="highlight-comment">// Создаем экземпляр справочника "Файлы"</span>
+        <span class="highlight-keyword">var</span> folder = fileReference.FindByRelativePath(<span class="highlight-literal">@"Дубликаты"</span>) <span class="highlight-keyword">as</span> FolderObject; <span class="highlight-comment">// Находим папку, в которую будем сохранять дубликат</span>
+        <span class="highlight-keyword">var</span> file = fileReference.FindByRelativePath(<span class="highlight-literal">@"Служебные файлы\Библиотека dll\Тестовый файл.PDF"</span>) <span class="highlight-keyword">as</span> FileObject; <span class="highlight-comment">// Находим файл по относительному пути</span>
+
+        <span class="highlight-keyword">if</span> (folder <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span> || file <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> fileDuplicate = file.CreateFileDuplicate(folder); <span class="highlight-comment">// Создаем дубликат файла. Изменения применяются автоматически</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

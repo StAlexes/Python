@@ -1,0 +1,241 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Внешняя страница диалога свойств объекта</title>
+    <meta name="Microsoft.Help.Id" content="5b54fcb2-490e-4263-87d6-cf008b421374" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В T-FLEX DOCs существует возможность подключать к диалогу свойств объекта внешние пользовательские страницы. Ниже приведен пример создания такой страницы." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Внешняя страница диалога свойств объекта</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+        В T-FLEX DOCs существует возможность подключать к диалогу свойств объекта внешние пользовательские страницы. Ниже приведен пример создания такой страницы.
+      </p>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример внешней страницы диалога свойств объекта</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div class="mediaNear">
+            <div class="caption">Страница диалога</div>
+            <img alt="Custom Dialog Page" src="../media/CustomDialogPage.png" />
+          </div>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/* Дополнительные библиотеки
+DevExpress.Offece.v20.1.Core.dll
+DevExpress.Utils.v20.1.dll
+System.Drawing.dll
+System.Windows.Forms.dll
+TFlex.DOCs.Model.dll
+TFlex.DOCs.UI.Controls.dll
+TFlex.DOCs.UI.Objects.dll
+TFlex.DOCs.UI.Types.dll
+ */</span>
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Windows.Forms;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Controls.LayoutControls;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Objects.ReferenceModel;
+
+<span class="highlight-keyword">namespace</span> CustomPropertyDialogPage
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> MyPage : DesignLayoutPage
+    {
+        <span class="highlight-keyword">private</span> TextBox _tbName;
+        <span class="highlight-keyword">private</span> TextBox _tbDenotation;
+        <span class="highlight-keyword">private</span> Label _labelName;
+        <span class="highlight-keyword">private</span> Label _labelDenotation;
+
+        <span class="highlight-keyword">public</span> MyPage()
+        {
+            InitializeComponent();
+        }
+
+        <span class="highlight-comment">// Возвращает или задает объект диалога свойств</span>
+        <span class="highlight-keyword">public</span> ReferenceUIObject ReferenceUiObject { <span class="highlight-keyword">get</span>; <span class="highlight-keyword">private</span> <span class="highlight-keyword">set</span>; }
+
+        <span class="highlight-comment">// Возвращает объект справочника, отображаемый в диалоге</span>
+        <span class="highlight-keyword">public</span> ReferenceObject ReferenceObject
+        {
+            <span class="highlight-keyword">get</span>
+            {
+                <span class="highlight-keyword">return</span> ReferenceUiObject == <span class="highlight-keyword">null</span> ? <span class="highlight-keyword">null</span> : ReferenceUiObject.ReferenceObject;
+            }
+        }
+
+        <span class="highlight-comment">// Возвращает справочник, в который входит текущий объект</span>
+        <span class="highlight-keyword">public</span> Reference Reference
+        {
+            <span class="highlight-keyword">get</span>
+            {
+                <span class="highlight-keyword">return</span> ReferenceObject == <span class="highlight-keyword">null</span> ? <span class="highlight-keyword">null</span> : ReferenceObject.Reference;
+            }
+        }
+
+        <span class="highlight-comment">// Возвращает или задает наименование объекта</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> ObjectName
+        {
+            <span class="highlight-keyword">get</span>
+            {
+                <span class="highlight-keyword">return</span> _tbName.Text;
+            }
+            <span class="highlight-keyword">set</span>
+            {
+                _tbName.Text = <span class="highlight-keyword">value</span>;
+            }
+        }
+
+        <span class="highlight-comment">// Возвращает или задает обозначение объекта</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> ObjectDenotation
+        {
+            <span class="highlight-keyword">get</span>
+            {
+                <span class="highlight-keyword">return</span> _tbDenotation.Text;
+            }
+            <span class="highlight-keyword">set</span>
+            {
+                _tbDenotation.Text = <span class="highlight-keyword">value</span>;
+            }
+        }
+
+        <span class="highlight-comment">// Инициализирует страницу диалога свойств объекта</span>
+        <span class="highlight-comment">// uiObject - Объект</span>
+        <span class="highlight-comment">// context - Контекст вызова диалога</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Initialize(TFlex.DOCs.UI.Objects.IObject uiObject, TFlex.DOCs.UI.Controls.Templates.ControlActionContext context)
+        {
+            <span class="highlight-keyword">base</span>.Initialize(uiObject, context);
+            ReferenceUiObject = uiObject <span class="highlight-keyword">as</span> ReferenceUIObject; <span class="highlight-comment">//Получаем объект диалога</span>
+            SetDataToPage();
+        }
+
+        <span class="highlight-comment">// Вызывается при заполнении полей диалога данными объекта</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> SetDataToPage()
+        {
+            <span class="highlight-keyword">base</span>.SetDataToPage();
+            <span class="highlight-keyword">if</span> (ReferenceObject == <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">throw</span> <span class="highlight-keyword">new</span> ArgumentNullException(<span class="highlight-literal">"ReferenceObject"</span>);
+            ObjectName = ReferenceObject.GetObjectValue(<span class="highlight-literal">"[Наименование]"</span>).ToString();
+            ObjectDenotation = ReferenceObject.GetObjectValue(<span class="highlight-literal">"[Обозначение]"</span>).ToString();
+        }
+
+        <span class="highlight-comment">// Вызывается при заполнении параметров объекта данными из диалога</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> ReadPageData()
+        {
+            <span class="highlight-keyword">base</span>.ReadPageData();
+
+            <span class="highlight-keyword">if</span> (Reference == <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">throw</span> <span class="highlight-keyword">new</span> ArgumentNullException(<span class="highlight-literal">"Reference"</span>);
+
+            <span class="highlight-keyword">var</span> nameParamInfo = Reference.ParameterGroup.OneToOneParameters.FindByName(<span class="highlight-literal">"Наименование"</span>);
+            ReferenceObject[nameParamInfo].Value = ObjectName;
+            <span class="highlight-keyword">var</span> denotParamInfo = Reference.ParameterGroup.OneToOneParameters.FindByName(<span class="highlight-literal">"Обозначение"</span>);
+            ReferenceObject[denotParamInfo].Value = ObjectDenotation;
+        }
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> InitializeComponent()
+        {
+            _tbName = <span class="highlight-keyword">new</span> TextBox();
+            _tbDenotation = <span class="highlight-keyword">new</span> TextBox();
+            _labelName = <span class="highlight-keyword">new</span> Label();
+            _labelDenotation = <span class="highlight-keyword">new</span> Label();
+            SuspendLayout();
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// tbName</span>
+            <span class="highlight-comment">// </span>
+            _tbName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            _tbName.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">98</span>, <span class="highlight-number">13</span>);
+            _tbName.Name = <span class="highlight-literal">"_tbName"</span>;
+            _tbName.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">218</span>, <span class="highlight-number">21</span>);
+            _tbName.TabIndex = <span class="highlight-number">0</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// tbDenotation</span>
+            <span class="highlight-comment">// </span>
+            _tbDenotation.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            _tbDenotation.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">98</span>, <span class="highlight-number">51</span>);
+            _tbDenotation.Name = <span class="highlight-literal">"_tbDenotation"</span>;
+            _tbDenotation.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">218</span>, <span class="highlight-number">21</span>);
+            _tbDenotation.TabIndex = <span class="highlight-number">1</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// labelName</span>
+            <span class="highlight-comment">// </span>
+            _labelName.AutoSize = <span class="highlight-keyword">true</span>;
+            _labelName.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">12</span>, <span class="highlight-number">16</span>);
+            _labelName.Name = <span class="highlight-literal">"_labelName"</span>;
+            _labelName.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">80</span>, <span class="highlight-number">13</span>);
+            _labelName.TabIndex = <span class="highlight-number">2</span>;
+            _labelName.Text = <span class="highlight-literal">"Наименование"</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// labelDenotation</span>
+            <span class="highlight-comment">// </span>
+            _labelDenotation.AutoSize = <span class="highlight-keyword">true</span>;
+            _labelDenotation.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">12</span>, <span class="highlight-number">54</span>);
+            _labelDenotation.Name = <span class="highlight-literal">"_labelDenotation"</span>;
+            _labelDenotation.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">74</span>, <span class="highlight-number">13</span>);
+            _labelDenotation.TabIndex = <span class="highlight-number">3</span>;
+            _labelDenotation.Text = <span class="highlight-literal">"Обозначение"</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// MyPage</span>
+            <span class="highlight-comment">// </span>
+            Controls.Add(_labelDenotation);
+            Controls.Add(_labelName);
+            Controls.Add(_tbDenotation);
+            Controls.Add(_tbName);
+            IsReadOnly = <span class="highlight-keyword">false</span>;
+            Name = <span class="highlight-literal">"MyPage"</span>;
+            PropertiesInDesign = <span class="highlight-literal">"ReferenceId=00000000-0000-0000-0000-000000000000;ParameterGroupGuid=00000000-0000"</span> +
+                                 <span class="highlight-literal">"-0000-0000-000000000000;IsReadOnly=False;AutoConnect=False;"</span>;
+            Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">335</span>, <span class="highlight-number">86</span>);
+            ResumeLayout(<span class="highlight-keyword">false</span>);
+            PerformLayout();
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

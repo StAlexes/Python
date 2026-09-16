@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Запуск</title>
+    <meta name="Microsoft.Help.Id" content="793BD4F3-A777-4AA3-BF7E-DCEF5E3A7076" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.ObjectModel.BusinessProcessesReferenceAccessor.Запустить(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Boolean,System.String,System.String,TFlex.DOCs.Model.Macros.ObjectModel." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Запуск</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для запуска бизнес-процессов</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="4F5CA25D.htm">БизнесПроцессы.Запустить(наименование[, переменные, показывать диалог, шаблон переменных, начало, вспомогательныеОбъекты])</a>
+					- запускает бизнес-процесс по наименованию
+				</p>
+          <p>
+            <a href="D5BBD7E2.htm">БизнесПроцессы.Запустить(наименование, объект[, переменные, показывать диалог, шаблон переменных, начало, вспомогательныеОбъекты])</a>
+					- запускает бизнес-процесс по наименованию с возможностью подключения объекта
+				</p>
+          <p>
+            <a href="338CD7E2.htm">БизнесПроцессы.Запустить(наименование, объекты[, переменные, показывать диалог, шаблон переменных, начало, вспомогательныеОбъекты])</a>
+					- запускает бизнес-процесс по наименованию с возможностью подключения объектов
+				</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример запуска бизнес-процесса</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объекты объектыПоБП = НайтиОбъекты(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"[Тип] = 'Изделие'"</span>); <span class="highlight-comment">// Находим объекты, которые подключим к БП</span>
+
+<span class="highlight-keyword">var</span> переменные = <span class="highlight-keyword">new</span> Dictionary&lt;<span class="highlight-keyword">string</span>, <span class="highlight-keyword">object</span>&gt;  <span class="highlight-comment">// Список из пар "Наименование переменной" + "значение"</span>
+{
+    {<span class="highlight-literal">"Переменная1"</span>, <span class="highlight-number">5</span>},
+    {<span class="highlight-literal">"Переменная2"</span>, <span class="highlight-literal">"текстовое значение"</span>}
+};
+
+<span class="highlight-comment">// Запускаем бизнес-процесс</span>
+БизнесПроцессы.Запустить(
+    <span class="highlight-literal">"Тестовый бизнес-процесс"</span>, <span class="highlight-comment">// Наименование бизнес-процесса</span>
+    объектыПоБП, <span class="highlight-comment">// Идущие по процессу объекты</span>
+    переменные, <span class="highlight-comment">// Список наименований и значений переменных</span>
+    <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Скрываем мастер запуска</span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для запуска линейных бизнес-процессов</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <p>
+            <a href="5CDEBBF3.htm">БизнесПроцессы.ЗапуститьЛинейныйПроцесс()</a>
+					- запускает линейный бизнес-процесс
+				</p>
+          <p>
+            <a href="C789A9DF.htm">БизнесПроцессы.ЗапуститьЛинейныйПроцесс(Объект)</a>
+					- запускает линейный бизнес-процесс с возможностью подключения объекта
+				</p>
+          <p>
+            <a href="6A311E7A.htm">БизнесПроцессы.ЗапуститьЛинейныйПроцесс(Объекты)</a>
+					- запускает линейный бизнес-процесс с возможностью подключения объектов
+				</p>
+          <p>
+            <a href="F4CEF0E6.htm">БизнесПроцессы.ЗапуститьЛинейныйПроцесс(Прототип[, показывать диалог])</a>
+					- запускает линейный бизнес-процесс по прототипу
+				</p>
+          <p>
+            <a href="97766581.htm">БизнесПроцессы.ЗапуститьЛинейныйПроцесс(Прототип, объект[, показывать диалог])</a>
+					- запускает линейный бизнес-процесс по прототипу с возможностью подключения объекта
+				</p>
+          <p>
+            <a href="3A1DDA1C.htm">БизнесПроцессы.ЗапуститьЛинейныйПроцесс(Прототип, объекты[, показывать диалог])</a>
+					- запускает линейный бизнес-процесс по прототипу с возможностью подключения объектов
+				</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример запуска линейного бизнес-процесса</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <div id="IDABEAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABEAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABEAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABEAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABEAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект документ = НайтиОбъект(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"[ID] = '1'"</span>); <span class="highlight-comment">// Находим объект, который подключим к линейному БП</span>
+
+<span class="highlight-comment">// Запускаем линейный бизнес-процесс по прототипу с отображением диалога</span>
+БизнесПроцессы.ЗапуститьЛинейныйПроцесс(<span class="highlight-literal">"Прототип"</span>, документ, <span class="highlight-keyword">true</span>);</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

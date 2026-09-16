@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Изменение связи</title>
+    <meta name="Microsoft.Help.Id" content="2D30B162-AE9D-4B91-8D30-29004B83000E" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена обработка события &quot;Изменение связи объекта&quot;, возникающего перед изменением связи" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Изменение связи</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В данном примере рассмотрена обработка события "Изменение связи объекта", возникающего перед изменением связи
+			</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDAABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDAABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDAABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDAABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> ИзменениеСвязиОбъекта()
+    {
+        <span class="highlight-keyword">if</span> (Context.ModelChangedArgs <span class="highlight-keyword">is</span> not ObjectLinkChangingEventArgs linkChangingEventArgs) <span class="highlight-comment">// Проверяем, что макрос является обработчиком события "Изменение связи объекта"</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">if</span> (linkChangingEventArgs.Link.LinkGroup.Guid == Guid.Empty) <span class="highlight-comment">// Проверяем идентификатор связи</span>
+        {
+            <span class="highlight-keyword">if</span> (linkChangingEventArgs.AddedObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Если добавляемый объект (AddedObject) отсутствует, значит происходит отключение объекта по связи</span>
+                Cancel(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Отменяем отключение объекта по связи</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LST4FE75B10_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+          </div>
+          <div>
+            <a href="FBAE736E.htm">TFlex.DOCs.Model.Macros<span id="LST4FE75B10_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroContext</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

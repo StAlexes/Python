@@ -1,0 +1,201 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Импорт файлов в T-FLEX DOCs</title>
+    <meta name="Microsoft.Help.Id" content="06929ab0-71b3-404a-bcfd-c9e8f1c8366f" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="API T-FLEX DOCs позволяет импортировать любые файлы из файловой системы в файловое хранилище T-FLEX DOCs. Ниже приводится пример реализации такой возможности." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Импорт файлов в T-FLEX DOCs</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>API T-FLEX DOCs позволяет импортировать любые файлы из файловой системы в файловое хранилище T-FLEX DOCs. Ниже приводится пример реализации такой возможности.</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Импорт файлов - общая концепция</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+          Для организации импорта файлов предусмотрена функция <a href="9AB6D17F.htm">Import</a>
+          класса <a href="7E06EE0D.htm">FileReference</a></p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">public</span> FolderObject Import(<span class="highlight-keyword">string</span> sourceFolder, ImportParameters parameters)</pre>
+              </div>
+            </div>
+          </div>
+          <p> Где sourceFolder - исходная папка в файловой системе, parameters - параметры импорта. Функция возвращает папку файлового хранилища с импортированными объектами. </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Импорт файлов - пример в виде макроса</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+          Ниже приводится пример импорта файлов с использованием описанной выше функции <a href="9AB6D17F.htm">Import</a>:
+        </p>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Text;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Files;
+
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ImportingFilesIntoDOCsMacro : MacroProvider
+{
+    <span class="highlight-comment">// Исходная папка в файловой системе - из нее будут копироваться файлы</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">const</span> <span class="highlight-keyword">string</span> FolderPath = <span class="highlight-literal">@"C:\!TEMP\FilesToImport"</span>;
+
+    <span class="highlight-keyword">public</span> ImportingFilesIntoDOCsMacro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">try</span>
+        {
+            <span class="highlight-comment">// Создаем экземпляр файлового справочника</span>
+            <span class="highlight-keyword">var</span> fileReference = <span class="highlight-keyword">new</span> FileReference(Context.Connection);
+
+            <span class="highlight-comment">// Задаем целевую папку для импорта файлов</span>
+            <span class="highlight-keyword">var</span> parentFolder = fileReference.FindByRelativePath(<span class="highlight-literal">"Служебные файлы"</span>) <span class="highlight-keyword">as</span> FolderObject;
+
+            <span class="highlight-comment">// Вызываем функцию импорта файлов, и получение объекта с описание содержимого в папке</span>
+            FolderObject result = fileReference.Import(FolderPath,
+                <span class="highlight-keyword">new</span> ImportParameters
+                {
+                    <span class="highlight-comment">// Задаем папку назначения</span>
+                    DestinationFolder = parentFolder,
+                    <span class="highlight-comment">// Задаем значение, указывающее, требуется ли выполнять операцию рекурсивно для всех входящих папок</span>
+                    Recursive = <span class="highlight-keyword">true</span>,
+                    <span class="highlight-comment">// Задаем значение, указывающее, требуется ли создавать новые типы</span>
+                    CreateClasses = <span class="highlight-keyword">true</span>,
+                    <span class="highlight-comment">// Задаем значение, указывающее, требуется ли автоматическое применение изменений</span>
+                    AutoCheckIn = <span class="highlight-keyword">false</span>
+                }
+            );
+
+            <span class="highlight-comment">// Выводим результат операции</span>
+            ViewResult(result);
+        }
+        <span class="highlight-keyword">catch</span> (Exception e)
+        {
+            <span class="highlight-comment">// Выводим сообщение об ошибке</span>
+            Сообщение(<span class="highlight-literal">"Ошибка"</span>, e.Message);
+        }
+    }
+
+    <span class="highlight-comment">// Выводим содержимое папки</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ViewResult(FolderObject folder)
+    {
+        <span class="highlight-comment">// Создаем стек для обхода дерева объекта FolderObject</span>
+        <span class="highlight-keyword">var</span> stack = <span class="highlight-keyword">new</span> Stack&lt;FolderObject&gt;();
+
+        <span class="highlight-comment">// Добавляем корневой элемент</span>
+        stack.Push(folder);
+
+        <span class="highlight-keyword">var</span> sb = <span class="highlight-keyword">new</span> StringBuilder();
+
+        <span class="highlight-comment">// Рекурсивно обходим содержимое папки</span>
+        <span class="highlight-keyword">while</span> (stack.Count &gt; <span class="highlight-number">0</span>)
+        {
+            FolderObject folderItem = stack.Pop();
+
+            <span class="highlight-keyword">foreach</span> (FileReferenceObject refObj <span class="highlight-keyword">in</span> folderItem.Children)
+            {
+                sb.AppendLine(refObj.Path);
+
+                <span class="highlight-keyword">if</span> (refObj.IsFolder)
+                    stack.Push((FolderObject)refObj);
+            }
+        }
+        <span class="highlight-comment">// Выводим сообщение со списком импортированных фалов</span>
+        Сообщение(<span class="highlight-literal">"Список файлов"</span>, sb.ToString());
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+          Результатом выполнения данного кода будет импорт всех файлов из директории "C:\!TEMP\FilesToImport" (включая подпапки) в папку  "Служебные файлы" справочника "Файлы".
+        </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="8185D110.htm">TFlex.DOCs.Model<span id="LSTF6BD611C_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerGateway</a>
+          </div>
+          <div>
+            <a href="7E06EE0D.htm">TFlex.DOCs.Model.References.Files<span id="LSTF6BD611C_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FileReference</a>
+          </div>
+          <div>
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LSTF6BD611C_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+          </div>
+          <div>
+            <a href="C5D87599.htm">TFlex.DOCs.Model.References.Files<span id="LSTF6BD611C_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FolderObject</a>
+          </div>
+          <div>
+            <a href="64DA792D.htm">TFlex.DOCs.Model.References.Files<span id="LSTF6BD611C_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ImportParameters</a>
+          </div>
+          <div>
+            <a href="2DAFBAC0.htm">TFlex.DOCs.Model.References.Files<span id="LSTF6BD611C_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FileReferenceObject</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

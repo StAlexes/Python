@@ -1,0 +1,139 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Вывод сообщений</title>
+    <meta name="Microsoft.Help.Id" content="9eb35368-e455-469b-9a56-c86b69894696" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.MacroProvider.Сообщение(System.String,System.String,System.Object[]) - выводит сообщение с указанным заголовком и текстом." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Вывод сообщений</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для вывода сообщений.</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="987AC1D5.htm">Сообщение("Заголовок", "Текст сообщения"[, параметры])</a>
+					- выводит сообщение с указанным заголовком и текстом.
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (ТекущийОбъект.Параметр[<span class="highlight-literal">"Обозначение"</span>] == <span class="highlight-literal">""</span>)
+    Сообщение(<span class="highlight-literal">"Предупреждение."</span>, <span class="highlight-literal">"Не задано обозначение детали {0}"</span>, ТекущийОбъект.Параметр[<span class="highlight-literal">"Наименование"</span>]);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="E61AD0B6.htm">Ошибка("Сообщение об ошибке")</a>
+					- прерывает выполнение макроса и выводит указанное сообщение.
+				</p>
+          <div id="IDEBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (ТекущийОбъект.Параметр[<span class="highlight-literal">"Обозначение"</span>] == <span class="highlight-literal">""</span>)
+    Ошибка(<span class="highlight-literal">"Не задано обозначение детали!"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="F3252EFF.htm">Вопрос("Текст вопроса")</a>
+					- показывает сообщение с текстом вопроса и вариантами Да/Нет
+				</p>
+          <div id="IDHBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (Вопрос(<span class="highlight-literal">"Продолжить операцию?"</span>))
+    <span class="highlight-comment">// Выполнение операции</span>
+<span class="highlight-keyword">else</span>
+    <span class="highlight-keyword">return</span>;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="5A6E2D27.htm">ВопросСОтменой("Текст вопроса")</a>
+					- показывает сообщение с текстом вопроса и вариантами Да/Нет/Отмена
+				</p>
+          <div id="IDKBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDKBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDKBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDKBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDKBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">bool</span>? результат = ВопросСОтменой(<span class="highlight-literal">"Уведомить ответственного при сохранении изменений?"</span>);
+
+<span class="highlight-keyword">if</span> (результат <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+    Сообщение(<span class="highlight-literal">"Результат"</span>, <span class="highlight-literal">"Отмена изменений"</span>);
+<span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (результат <span class="highlight-keyword">is</span> <span class="highlight-keyword">true</span>)
+    Сообщение(<span class="highlight-literal">"Результат"</span>, <span class="highlight-literal">"Сохранение изменений с уведомлением ответственного"</span>);
+<span class="highlight-keyword">else</span>
+    Сообщение(<span class="highlight-literal">"Результат"</span>, <span class="highlight-literal">"Сохранение изменений без уведомления ответственного"</span>);</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

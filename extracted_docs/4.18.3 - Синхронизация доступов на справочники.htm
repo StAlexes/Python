@@ -1,0 +1,156 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Синхронизация доступов на справочники</title>
+    <meta name="Microsoft.Help.Id" content="B2134BF0-AE39-4D1B-825F-5A82097A57AE" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Необходимо выбрать справочник - источник доступов и справочники, доступы которых будут синхронизированы с доступами справочника-источника" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Синхронизация доступов на справочники</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример синхронизации доступов на справочники</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					Необходимо выбрать справочник - источник доступов и справочники, доступы которых будут синхронизированы с доступами справочника-источника
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.Common.dll
+TFlex.DOCs.IoC.Infrastructure.dll
+TFlex.DOCs.UI.Client.dll
+TFlex.DOCs.UI.Client.Common.dll
+TFlex.DOCs.UI.Utils.Common.dll
+WindowsBase.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Client;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Access;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.Base;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.References.SelectionDialogs;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> AccessesSynchronizationMacro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> AccessesSynchronizationMacro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> СинхронизироватьДоступы()
+    {
+        <span class="highlight-keyword">if</span> (Context <span class="highlight-keyword">is</span> not UIMacroContext uiContext) <span class="highlight-comment">// Проверяем, выполняется ли макрос в графическом интерфейсе пользователя</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Выбираем справочник, с которого будем считывать доступы (второй аргумент отвечает за выбор нескольких справочников в диалоге)</span>
+        <span class="highlight-keyword">var</span> selectReferenceVM = <span class="highlight-keyword">new</span> SelectReferenceViewModel(Context.Connection, <span class="highlight-keyword">false</span>);
+        selectReferenceVM.DialogProperties.Title = <span class="highlight-literal">"Выбор справочника-источника доступов"</span>;
+
+        <span class="highlight-keyword">if</span> (!ApplicationManager.OpenDialog(selectReferenceVM, uiContext.OwnerViewModel <span class="highlight-keyword">as</span> LayoutViewModel))
+            <span class="highlight-keyword">return</span>;
+
+        ReferenceInfo sourceReference = selectReferenceVM.SelectedObjects[<span class="highlight-number">0</span>]; <span class="highlight-comment">// Справочник-источник доступов</span>
+
+        selectReferenceVM = <span class="highlight-keyword">new</span> SelectReferenceViewModel(Context.Connection, <span class="highlight-keyword">true</span>); <span class="highlight-comment">// Выбираем справочники для синхронизации доступов</span>
+        selectReferenceVM.DialogProperties.Title = <span class="highlight-literal">"Выбор справочников для синхронизации доступов"</span>;
+
+        <span class="highlight-keyword">if</span> (!ApplicationManager.OpenDialog(selectReferenceVM, uiContext.OwnerViewModel <span class="highlight-keyword">as</span> LayoutViewModel))
+            <span class="highlight-keyword">return</span>;
+
+        AccessManager allSourceReferenceAccesses = AccessManager.GetAllReferenceAccesses(sourceReference); <span class="highlight-comment">// Получаем все доступы исходного справочника</span>
+        ReferenceInfo[] targetReferences = selectReferenceVM.SelectedObjects; <span class="highlight-comment">// Из диалога получаем целевые справочники, в которых будут обновлены доступы</span>
+
+        WaitingDialog.Show(<span class="highlight-literal">"Установка доступов"</span>, <span class="highlight-keyword">true</span>);
+
+        <span class="highlight-keyword">foreach</span> (ReferenceInfo reference <span class="highlight-keyword">in</span> targetReferences)
+        {
+            <span class="highlight-keyword">if</span> (!WaitingDialog.NextStep(String.Format(<span class="highlight-literal">"Установка доступов на справочник '{0}'"</span>, reference)))
+                <span class="highlight-keyword">return</span>;
+
+            AccessManager allReferenceAccesses = AccessManager.GetAllReferenceAccesses(reference); <span class="highlight-comment">// Получаем все доступы указанного справочника</span>
+
+            <span class="highlight-keyword">foreach</span> (AccessInfo deletedAccess <span class="highlight-keyword">in</span> allReferenceAccesses.Reverse()) <span class="highlight-comment">// Удаляем имеющиеся доступы</span>
+            {
+                allReferenceAccesses.RemoveAccess(deletedAccess.Owner, <span class="highlight-keyword">null</span>, deletedAccess.AccessDirection);
+            }
+
+            <span class="highlight-keyword">foreach</span> (AccessInfo sourceReferenceAccess <span class="highlight-keyword">in</span> allSourceReferenceAccesses) <span class="highlight-comment">// Обрабатываем доступы справочника-источника</span>
+            {
+                <span class="highlight-comment">// Добавляем аналогичный доступ в целевой-справочник</span>
+                allReferenceAccesses.SetAccess(<span class="highlight-number">0</span>, sourceReferenceAccess.Owner, sourceReferenceAccess.Access, <span class="highlight-keyword">null</span>, <span class="highlight-keyword">null</span>,
+                     sourceReferenceAccess.CommandType, sourceReferenceAccess.AccessTypeID, sourceReferenceAccess.AccessDirection, <span class="highlight-keyword">null</span>);
+            }
+
+            allReferenceAccesses.Save(); <span class="highlight-comment">// Сохраняем изменения</span>
+        }
+
+        WaitingDialog.Hide();
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="7A8EE38A.htm">AccessManager</a>
+          </div>
+          <div>
+            <a href="54F1C2A.htm">AccessInfo</a>
+          </div>
+          <div>
+            <a href="D99B90CD.htm">ReferenceInfo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

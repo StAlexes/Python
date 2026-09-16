@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Темы и задачи</title>
+    <meta name="Microsoft.Help.Id" content="9d803a38-a3b1-4ecf-9d73-57b13bccd5ac" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Темы и задачи</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример создания поручения и задачи справочника «Темы и задачи»</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Assignments;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Files;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Tasks;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ThemesAndTasksMacro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> ThemesAndTasksMacro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">const</span> <span class="highlight-keyword">string</span> executorName = <span class="highlight-literal">"Иванов Иван Иванович"</span>;
+        <span class="highlight-keyword">const</span> <span class="highlight-keyword">string</span> controllerName = <span class="highlight-literal">"Сергеев Сергей Сергеевич"</span>;
+        <span class="highlight-keyword">const</span> <span class="highlight-keyword">string</span> filePath = <span class="highlight-literal">@"Служебные файлы\Шаблоны спецификаций\Спецификации\ВС ГОСТ 2.106-96 ф 3,3а v12.grb"</span>;
+
+        <span class="highlight-keyword">var</span> executor = GetUserByFullName(executorName);
+        <span class="highlight-keyword">if</span> (executor == <span class="highlight-keyword">null</span>)
+            Error(<span class="highlight-literal">"Исполнитель не найден"</span>);
+
+        <span class="highlight-keyword">var</span> controller = GetUserByFullName(controllerName);
+        <span class="highlight-keyword">if</span> (controller == <span class="highlight-keyword">null</span>)
+            Error(<span class="highlight-literal">"Контролёр не найден"</span>);
+
+        <span class="highlight-comment">// Создаем новое поручение</span>
+        <span class="highlight-keyword">var</span> assignmentReference = <span class="highlight-keyword">new</span> AssignmentReference(Context.Connection);
+        <span class="highlight-keyword">var</span> assignmentClass = assignmentReference.Classes.AssignmentReferenceObject;
+        <span class="highlight-keyword">var</span> assignment = (AssignmentReferenceObject) assignmentReference.CreateReferenceObject(assignmentClass);
+
+        <span class="highlight-comment">// Заполняем параметры нового поручения</span>
+        assignment.EndDate.Value = DateTime.Today.AddDays(<span class="highlight-number">5</span>);
+        assignment.Executor = executor;
+        assignment.Controller = controller;
+        assignment.Description.Value = <span class="highlight-literal">"Это тестовое поручение"</span>;
+
+        assignment.EndChanges();
+
+        <span class="highlight-comment">// Находим файл для подключения к задаче</span>
+        <span class="highlight-keyword">var</span> document = GetFileByPath(filePath);
+
+        <span class="highlight-comment">// Создаем новую задачу</span>
+        <span class="highlight-keyword">var</span> tasksReference = <span class="highlight-keyword">new</span> TasksReference(Context.Connection);
+        <span class="highlight-keyword">var</span> task = (TasksReferenceObject) tasksReference.CreateReferenceObject(tasksReference.Classes.Task);
+
+        <span class="highlight-keyword">if</span> (document != <span class="highlight-keyword">null</span>)
+            task.AddLinkedMaterial(document);
+
+        task.AutomaticCalculation.Value = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Устанавливаем автоматический расчет процентов</span>
+        task.AppointExecutor(Context.Connection.ClientView.GetUser());
+        task.AddLinkedAssignment(assignment);
+        task.EndChanges();
+    }
+
+    <span class="highlight-comment">/// &lt;summary&gt;</span>
+    <span class="highlight-comment">/// Получает пользователя по полному имени</span>
+    <span class="highlight-comment">/// &lt;/summary&gt;</span>
+    <span class="highlight-comment">/// &lt;param name="fullName"&gt;Полное имя пользователя&lt;/param&gt;</span>
+    <span class="highlight-comment">/// &lt;returns&gt;Пользователь&lt;/returns&gt; </span>
+    <span class="highlight-keyword">private</span> User GetUserByFullName(<span class="highlight-keyword">string</span> fullName)
+    {
+        <span class="highlight-keyword">var</span> userReference = <span class="highlight-keyword">new</span> UserReference(Context.Connection);
+        <span class="highlight-keyword">return</span> userReference.FindUser(fullName);
+    }
+
+    <span class="highlight-comment">/// &lt;summary&gt;</span>
+    <span class="highlight-comment">/// Получает файл по относительному пути</span>
+    <span class="highlight-comment">/// &lt;/summary&gt;</span>
+    <span class="highlight-comment">/// &lt;param name="path"&gt;Относительный путь к файлу&lt;/param&gt;</span>
+    <span class="highlight-comment">/// &lt;returns&gt;Файл&lt;/returns&gt;</span>
+    <span class="highlight-keyword">private</span> FileObject GetFileByPath(<span class="highlight-keyword">string</span> path)
+    {
+        <span class="highlight-keyword">var</span> fileReference = <span class="highlight-keyword">new</span> FileReference(Context.Connection);
+        <span class="highlight-keyword">return</span> fileReference.FindByRelativePath(path) <span class="highlight-keyword">as</span> FileObject;
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

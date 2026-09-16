@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Завершение редактирования свойств объекта</title>
+    <meta name="Microsoft.Help.Id" content="2615B67A-434D-4CBC-B45F-1D35779C4505" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена обработка события &quot;Завершение редактирования свойств объекта&quot;. Событие происходит во время завершения редактирования объекта справочника с панели свойств или в момент закрытия диалога свойств." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Завершение редактирования свойств объекта</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В данном примере рассмотрена обработка события "Завершение редактирования свойств объекта".<br />
+				Событие происходит во время завершения редактирования объекта справочника с панели свойств или в момент закрытия диалога свойств.
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример обработчика события справочника "Завершение редактирования свойств объекта".</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ReferenceUIObjectEndEdit : MacroProvider
+{
+    <span class="highlight-keyword">public</span> ReferenceUIObjectEndEdit(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-comment">// Обработчик события "Завершение редактирования свойств объекта"</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">if</span> (Context.CancellingChanges) <span class="highlight-comment">// Если нажата кнопка "Отмена" или диалог закрыт</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">if</span> (Context.ReferenceObject <span class="highlight-keyword">is</span> not User user)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">if</span> (user.IsNew &amp;&amp; user.Email.IsEmpty &amp;&amp; !Question(<span class="highlight-literal">"Не указана электронная почта. Продолжить сохранение?"</span>))
+            Cancel(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Отменяем сохранение объекта без отображения сообщения о прерывании выполнения макроса</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LSTEF7AE8E6_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+          </div>
+          <div>
+            <a href="FBAE736E.htm">TFlex.DOCs.Model.Macros<span id="LSTEF7AE8E6_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroContext</a>
+          </div>
+          <div>
+            <a href="DAC89B56.htm">TFlex.DOCs.Model.References.Users<span id="LSTEF7AE8E6_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>User</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

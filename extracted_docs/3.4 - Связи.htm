@@ -1,0 +1,236 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Связи</title>
+    <meta name="Microsoft.Help.Id" content="f1d8062e-3428-4318-8fd2-a05657209179" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="P:TFlex.DOCs.Model.Macros.ObjectModel.ObjectAccessor.СвязанныйОбъект P:TFlex.DOCs.Model.Macros.ObjectModel.LinkedObjectAccessor`1.Item(System.String) - возвращает связанный объект." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Связи</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для работы со связями.</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="76D34911.htm">Объект.СвязанныйОбъект</a>
+            <a href="619B56AA.htm">["(имя связи 1:1 или N:1)"]</a>
+					- возвращает связанный объект.
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект файл = ТекущийОбъект.СвязанныйОбъект[<span class="highlight-literal">"Файл"</span>];
+<span class="highlight-keyword">string</span> наименованиеФайла = файл == <span class="highlight-keyword">null</span> ? <span class="highlight-literal">"Нет связанного файла"</span> : файл.Параметр[<span class="highlight-literal">"Наименование"</span>];</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="76D34911.htm">Объект.СвязанныйОбъект</a>
+            <a href="619B56AA.htm">["(имя связи 1:1 или N:1)"] = (объект)</a>
+					- устанавливает связанный объект
+				</p>
+          <div id="IDEBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект файл = НайтиОбъект(<span class="highlight-literal">"Файлы"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Мой документ.pdf"</span>);
+ТекущийОбъект.СвязанныйОбъект[<span class="highlight-literal">"Файл"</span>] = файл; <span class="highlight-comment">// Подключает объект по связи</span>
+ТекущийОбъект.СвязанныйОбъект[<span class="highlight-literal">"Документ"</span>] = <span class="highlight-keyword">null</span>; <span class="highlight-comment">// Отключает объект по связи</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="63B6CCBA.htm">Объект.СвязанныеОбъекты</a>
+            <a href="619B56AA.htm">["(имя или Guid связи 1:N или N:N, или на любой справочник)"]</a>
+					- возвращает список связанных объектов.
+				</p>
+          <div id="IDHBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объекты документы = ТекущийОбъект.СвязанныеОбъекты[<span class="highlight-literal">"Документы"</span>];
+
+<span class="highlight-keyword">foreach</span> (Объект документ <span class="highlight-keyword">in</span> документы)
+{
+    ТекущийОбъект.Отключить(<span class="highlight-literal">"Документы"</span>, документ);
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="3B43D424.htm">Объект.Подключить("Наименование связи", (объект))</a>
+					- подключает объект по связи.
+				</p>
+          <div id="IDKBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDKBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDKBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDKBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDKBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект файл = НайтиОбъект(<span class="highlight-literal">"Файлы"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Мой документ.pdf"</span>);
+
+<span class="highlight-keyword">if</span> (файл <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+    ТекущийОбъект.Подключить(<span class="highlight-literal">"Файлы"</span>, файл);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="B89BC1FC.htm">Объект.Отключить("Наименование связи")</a>
+					- отключает объект по связи 1:1, N:1 <br /><a href="5A19FA12.htm">Объект.Отключить("Наименование связи", (объект))</a>
+					- отключает объект по связи 1:N, N:N, или на любой справочник
+				</p>
+          <div id="IDNBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDNBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDNBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDNBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDNBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объекты файлы = ТекущийОбъект.СвязанныеОбъекты[<span class="highlight-literal">"Файлы"</span>];
+
+<span class="highlight-keyword">foreach</span> (Объект файл <span class="highlight-keyword">in</span> файлы)
+{
+    <span class="highlight-keyword">if</span> (файл.Параметр[<span class="highlight-literal">"Наименование"</span>] == <span class="highlight-literal">"Мой документ.pdf"</span>)
+    {
+         ТекущийОбъект.Отключить(<span class="highlight-literal">"Файлы "</span>, файл);
+         <span class="highlight-keyword">break</span>;
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <div class="mediaNear">
+            <div class="caption">Обратные связи</div>
+            <img alt="Swapped Links" src="../media/SwappedLinks.png" />
+          </div>
+          <p>
+            <strong>Получение объектов по обратным связям</strong>
+          </p>
+          <div id="IDRBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDRBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDRBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDRBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDRBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект объект = ТекущийОбъект.СвязанныйОбъект[<span class="highlight-literal">"[~Один со списком]"</span>];
+Объекты объекты = ТекущийОбъект.СвязанныеОбъекты[<span class="highlight-literal">"[~Список со списком]"</span>];</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="2EADB0C9.htm">ИзмененнаяСвязь</a>
+					- возвращает наименование связи при срабатывании события "Изменение связи объекта".
+				</p>
+          <div id="IDUBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDUBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDUBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDUBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDUBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (ИзмененнаяСвязь == <span class="highlight-literal">"Деталь"</span>)
+    ТекущийОбъект.Параметр[<span class="highlight-literal">"Наименование операции"</span>] = <span class="highlight-literal">"Обработка детали "</span> + ТекущийОбъект.Параметр[<span class="highlight-literal">"Деталь-&gt;Наименование"</span>];</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="BD07F7E0.htm">Объект.Владелец</a>
+					- возвращает владельца объекта.
+				</p>
+          <div id="IDXBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDXBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDXBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDXBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDXBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект владелец = ТекущийОбъект.Владелец;</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

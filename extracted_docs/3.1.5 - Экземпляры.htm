@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Экземпляры</title>
+    <meta name="Microsoft.Help.Id" content="AEDA13FE-DF1C-495E-9C2A-94FEA662BFE8" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Механизм экземпляров обеспечивает возможность вести параллельную копию структуры справочника со сложной иерархией в виде объектов справочника простой иерархии, в котором каждый из объектов связан с объектом исходного справочника и имеет независимый набор п" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Экземпляры</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Механизм экземпляров обеспечивает возможность вести параллельную копию структуры справочника со сложной иерархией в виде объектов справочника простой иерархии, в котором каждый из объектов связан с объектом исходного справочника и имеет независимый набор параметров и связей
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Работа с экземплярами</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="41A4A226.htm">ТекущийЭкземплярОбъекта</a>
+					- возвращает
+					<span class="noLink">экземпляр</span>
+					, который выбран в окне справочника
+				</p>
+          <p>
+            <a href="453CF700.htm">ИсходныйОбъект</a>
+					- возвращает соответствующий
+					<a href="95E78982.htm">объект</a>
+					исходного справочника
+				</p>
+          <p>
+            <a href="FCF11732.htm">ИсходноеПодключение</a>
+					- возвращает связанное
+					<a href="F8466936.htm">подключение</a>
+					исходного справочника
+				</p>
+          <div id="IDDBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDDBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDDBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDDBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDDBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> текущийЭкземпляр = ТекущийЭкземплярОбъекта; <span class="highlight-comment">// Получаем текущий экземпляр</span>
+<span class="highlight-keyword">var</span> исходныйОбъект = ТекущийЭкземплярОбъекта?.ИсходныйОбъект; <span class="highlight-comment">// Получаем соответствующий объект исходного справочника</span>
+<span class="highlight-keyword">var</span> исходноеПодключение = ТекущийЭкземплярОбъекта?.ИсходноеПодключение; <span class="highlight-comment">// Получаем связанное подключение исходного справочника</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,410 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Пакетная обработка</title>
+    <meta name="Microsoft.Help.Id" content="9F16E838-42D3-43FB-8EE6-D5656FEEB2C9" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Класс T:TFlex.DOCs.Model.References.Reference предоставляет методы пакетной обработки объектов, позволяющих увеличить скорость выполнения операций и уменьшить количество запросов к серверу." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Пакетная обработка</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Класс <a href="26AE86E6.htm">Reference</a> предоставляет методы пакетной обработки объектов, позволяющих увеличить скорость выполнения операций и уменьшить количество запросов к серверу.
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Перезагрузка объектов</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <span class="noLink">Reference.Reload("Список объектов")</span>
+					- перезагружает параметры и связи объектов
+				</p>
+          <p>
+            <a href="40D82111.htm">Reference.Reload("Список объектов"[, "Список настроек загрузки объектов", "Загружать удалённые объекты"])</a>
+					- перезагружает параметры и связи объектов с настройками дополнительных параметров для загрузки. Аргумент "Загружать удалённые объекты" отвечает за загрузку удалённых объектов и их учитывание при расчёте значений параметров. С информацией о настройке дополнительных параметров для загрузки можно ознакомиться в разделе <a href="fd11697b-d818-4e8d-a45b-5f69315691b8.htm">«Оптимизация загрузки объектов»</a></p>
+          <div id="IDCBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBBAB_tab1" class="codeSnippetContainerTabSingle">Пример</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ReferenceObject[] selectedObjects = Context.GetSelectedObjects(); <span class="highlight-comment">// Получаем выбранные объекты справочника</span>
+
+        Reference.Reload(selectedObjects); <span class="highlight-comment">// Перезагружаем объекты</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Загрузка подписей объектов</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+            <a href="9D9940CB.htm">Reference.LoadSignatures("(Список объектов)")</a>
+					- производит загрузку подписей объектов справочников
+				</p>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">Пример</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Search;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// В коде необходимо пустые значения глобальных идентификаторов (Guid.Empty) заменить на реальные</span>
+
+        ReferenceObject[] referenceObjectList1 = Context.GetSelectedObjects(); <span class="highlight-comment">// Получаем выбранные объекты справочника</span>
+
+        <span class="highlight-comment">// Для примера загрузим объекты еще одного справочника</span>
+        <span class="highlight-keyword">var</span> reference = Context.Connection.ReferenceCatalog.Find(Guid.Empty).CreateReference();
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> filter = <span class="highlight-keyword">new</span> Filter(reference.ParameterGroup); <span class="highlight-comment">// Создаем фильтр для поиска объектов во втором справочнике</span>
+        filter.Terms.AddTerm(reference.ParameterGroup[SystemParameterType.ObjectId], ComparisonOperator.GreaterThan, <span class="highlight-number">5</span>);
+        List&lt;ReferenceObject&gt; referenceObjectList2 = reference.Find(filter); <span class="highlight-comment">// Находим объекты второго справочника</span>
+
+        <span class="highlight-comment">// Пакетная загрузка подписей работает с объектами разных справочников.</span>
+        <span class="highlight-comment">// При загрузке подписей пропускаются объекты справочников, не поддерживающих механизм подписей</span>
+
+        Reference.LoadSignatures(referenceObjectList1.Concat(referenceObjectList2)); <span class="highlight-comment">// Загружаем подписи</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Проверка уникальности объектов</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <p>
+            <a href="4B44BCB1.htm">Reference.IsUniqueObjects("(Список объектов)", "(Перезагрузка объектов)")</a>
+					- проверяет, являются ли объекты справочника уникальными. Возвращает результаты проверки уникальности объектов
+				</p>
+          <div id="IDBBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBDAB_tab1" class="codeSnippetContainerTabSingle">Пример</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> System.Linq;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> reference = Context.Connection.ReferenceCatalog.Find(Guid.Empty).CreateReference(); <span class="highlight-comment">// Создаем экземпляр справочника</span>
+
+        <span class="highlight-comment">// Создаем объекты справочника с заполнением уникального параметра</span>
+        <span class="highlight-keyword">int</span> referenceObjectCount = <span class="highlight-number">10</span>;
+        <span class="highlight-keyword">var</span> referenceObjects = <span class="highlight-keyword">new</span> List&lt;ReferenceObject&gt;(referenceObjectCount);
+
+        <span class="highlight-keyword">for</span> (<span class="highlight-keyword">int</span> i = <span class="highlight-number">0</span>; i &lt; referenceObjectCount; i++)
+        {
+            ReferenceObject newObject = reference.CreateReferenceObject();
+            newObject[Guid.Empty].Value = i;
+            referenceObjects.Add(newObject);
+        }
+
+        <span class="highlight-comment">// Проверяем уникальность созданных объектов. Метод возвращает результаты проверки уникальности объектов</span>
+        List&lt;UniqueObjectCheckResult&gt; uniqueObjectCheckResults = Reference.IsUniqueObjects(referenceObjects);
+
+        <span class="highlight-keyword">var</span> notUniqueObjects = uniqueObjectCheckResults.Select(cr =&gt; cr.Object).ToList(); <span class="highlight-comment">// Получаем неуникальные объекты</span>
+
+        <span class="highlight-keyword">var</span> uniqueObjects = referenceObjects.Except(notUniqueObjects); <span class="highlight-comment">// Исключаем неуникальные объекты</span>
+
+        <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> notUniqueObject <span class="highlight-keyword">in</span> notUniqueObjects) <span class="highlight-comment">// Отменяем изменения для неуникальных объектов</span>
+            notUniqueObject.CancelChanges();
+
+        Reference.EndChanges(uniqueObjects); <span class="highlight-comment">// Фиксируем окончание изменения уникальных объектов</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание подключений</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <p>
+            <a href="82B158EE.htm">Reference.CreateComplexHierarchyLinks("(Родительские объекты)", "(Дочерние объекты)")</a>
+					- создает список подключений между указанными родительскими и дочерними объектами
+				</p>
+          <p>
+            <a href="B8C5F200.htm">Reference.CreateComplexHierarchyLinks("(Родительские объекты)", "(Дочерние объекты)", "(Подключение от родительских объектов)")</a>
+					- создает список подключений между указанными родительскими и дочерними объектами с учетом направления подключения.<br />
+					Если linkFromParents true, то подключение осуществляется со стороны родительских объектов,  они же являются текущими объектами в макросах-обработчиках.
+				</p>
+          <div id="IDCBEAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBEAB_tab1" class="codeSnippetContainerTabSingle">Пример</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBEAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBEAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBEAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Для примера подключим выбранных пользователей к нескольким группам в справочнике "Группы и пользователи"</span>
+        <span class="highlight-keyword">if</span> (Context.Reference <span class="highlight-keyword">is</span> not UserReference userReference) <span class="highlight-comment">// Если текущий справочник не "Группы и пользователи", то выходим</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> selectedUsers = Context.GetSelectedObjects().OfType&lt;User&gt;(); <span class="highlight-comment">// Получаем выбранных пользователей</span>
+
+        <span class="highlight-comment">// Находим группы пользователей</span>
+        <span class="highlight-keyword">var</span> group1 = userReference.FindOne(userReference.ParameterGroup[UserReferenceObject.Fields.FullName], <span class="highlight-literal">"Группа 1"</span>);
+        <span class="highlight-keyword">var</span> group2 = userReference.FindOne(userReference.ParameterGroup[UserReferenceObject.Fields.FullName], <span class="highlight-literal">"Группа 2"</span>);
+
+        <span class="highlight-comment">// Создаем подключения между пользователями и группами, подключения осуществляются со стороны пользователей (т.е. будут отрабатывать обработчики событий типа "Пользователь")</span>
+        IEnumerable&lt;ComplexHierarchyLink&gt; complexHierarchyLinks = Reference.CreateComplexHierarchyLinks(<span class="highlight-keyword">new</span>[] { group1, group2 }, selectedUsers, <span class="highlight-keyword">false</span>);
+
+        <span class="highlight-comment">// Сохраняем подключения</span>
+        Reference.EndChanges(complexHierarchyLinks);
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDFAB')" onkeypress="SectionExpandCollapse_CheckKey('IDFAB', event)" tabindex="0">
+            <img id="IDFABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Фиксирование окончания изменений (завершение редактирования) объектов и подключений</span>
+        </div>
+        <div id="IDFABSection" class="collapsibleSection">
+          <p>
+            <a href="848BA1C0.htm">Reference.EndChanges("(Список объектов)")</a>
+					- завершает редактирование списка объектов
+				</p>
+          <p>
+            <a href="C5427BC2.htm">Reference.EndChanges("(Список подключений)")</a>
+					- завершает редактирование списка подключений
+				</p>
+          <div id="IDCBFAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBFAB_tab1" class="codeSnippetContainerTabSingle">Пример</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBFAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBFAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBFAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Search;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// В коде необходимо пустые значения глобальных идентификаторов (Guid.Empty) заменить на реальные</span>
+
+        Reference reference = Context.Connection.ReferenceCatalog.Find(Guid.Empty).CreateReference(); <span class="highlight-comment">// Создаем экземпляр справочника</span>
+
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> filter = <span class="highlight-keyword">new</span> Filter(reference.ParameterGroup); <span class="highlight-comment">// Создаем фильтр для поиска объектов в справочнике</span>
+        filter.Terms.AddTerm(reference.ParameterGroup[SystemParameterType.ObjectId], ComparisonOperator.GreaterThan, <span class="highlight-number">5</span>);
+        List&lt;ReferenceObject&gt; referenceObjects = reference.Find(filter); <span class="highlight-comment">// Находим объекты</span>
+
+        <span class="highlight-keyword">var</span> editableObjects = <span class="highlight-keyword">new</span> List&lt;ReferenceObject&gt;(referenceObjects.Count * <span class="highlight-number">2</span>); <span class="highlight-comment">// Создаем список, в котором будем хранить редактируемые объекты</span>
+
+        <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> referenceObject <span class="highlight-keyword">in</span> referenceObjects)
+        {
+            referenceObject.BeginChanges(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Переводим объект в состояние редактирования. Т.к. объект только что загружен, то передаем в метод false, тем самым не перезагружаем объект</span>
+            referenceObject[Guid.Empty].Value = <span class="highlight-number">1</span>; <span class="highlight-comment">// Редактируем объект</span>
+            editableObjects.Add(referenceObject); <span class="highlight-comment">// Добавляем в список</span>
+
+            <span class="highlight-comment">// Пакетное фиксирование окончания изменений позволяет сохранять объекты разных справочников</span>
+
+            <span class="highlight-keyword">var</span> linkedObject = referenceObject.GetObject(Guid.Empty); <span class="highlight-comment">// Получаем объект по связи к 1</span>
+            <span class="highlight-keyword">if</span> (linkedObject <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+            {
+                linkedObject.BeginChanges(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Переводим в состояние редактирования объект по связи</span>
+                linkedObject[Guid.Empty].Value = <span class="highlight-literal">"Test"</span>; <span class="highlight-comment">// Редактируем объект по связи</span>
+                editableObjects.Add(linkedObject); <span class="highlight-comment">// Добавляем в список</span>
+            }
+        }
+
+        Reference.EndChanges(editableObjects); <span class="highlight-comment">// Фиксируем окончание изменения объектов</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDGAB')" onkeypress="SectionExpandCollapse_CheckKey('IDGAB', event)" tabindex="0">
+            <img id="IDGABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Удаление объектов и подключений</span>
+        </div>
+        <div id="IDGABSection" class="collapsibleSection">
+          <p>
+            <a href="68C01E4A.htm">Reference.Delete("(Список объектов)")</a>
+					- удаляет список объектов
+				</p>
+          <p>
+            <a href="5C8C6672.htm">Reference.Delete("(Список подключений)")</a>
+					- удаляет список подключений
+				</p>
+          <p>
+            <a href="E61E715A.htm">Reference.DeleteDesktopObjects("(Список Объектов)")</a>
+					- удаляет список объектов с учётом объектов справочника с поддержкой рабочего стола
+				</p>
+          <div id="IDDBGAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDDBGAB_tab1" class="codeSnippetContainerTabSingle">Пример</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDDBGAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDDBGAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDDBGAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Search;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> filter = <span class="highlight-keyword">new</span> Filter(Context.Reference.ParameterGroup); <span class="highlight-comment">// Создаем фильтр для поиска объектов в текущем справочнике</span>
+        filter.Terms.AddTerm(Context.Reference.ParameterGroup[SystemParameterType.ObjectId], ComparisonOperator.GreaterThan, <span class="highlight-number">5</span>);
+        List&lt;ReferenceObject&gt; referenceObjects = Context.Reference.Find(filter); <span class="highlight-comment">// Находим объекты</span>
+
+        Reference.Delete(referenceObjects); <span class="highlight-comment">// Удаляем объекты</span>
+
+        Context.RefreshReferenceWindow(); <span class="highlight-comment">// Обновляем окно справочника</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

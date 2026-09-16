@@ -1,0 +1,244 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Соединение с сервером приложений</title>
+    <meta name="Microsoft.Help.Id" content="590BF971-0256-450B-8D9D-46C870673B97" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Для работы с данными T-FLEX DOCs, хранящимися на сервере, необходимо осуществить подключение к серверу. За соединение с сервером отвечает класс T:TFlex.DOCs.Model.ServerConnection." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Соединение с сервером приложений</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Для работы с данными T-FLEX DOCs, хранящимися на сервере, необходимо осуществить подключение к серверу. За соединение с сервером отвечает класс
+				<a href="EAA7893.htm">ServerConnection</a>.
+				В макросах соединение с сервером можно получить из контекста выполнения макроса (пример <a href="590BF971-0256-450B-8D9D-46C870673B97.htm#ServerConnectionFromMacro">«Работа с соединением с сервером из макроса»</a>).
+				Во внешних приложениях для создания подключения необходимо воспользоваться статическим методом 
+				<a href="DAF353F6.htm">ServerConnection.Open()</a>
+				(пример <a href="590BF971-0256-450B-8D9D-46C870673B97.htm#ServerConnectionFromApp">«Соединение с сервером из внешнего приложения»</a>).
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion" id="ServerConnectionFromMacro">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Работа с соединением с сервером из макроса</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Signatures;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Stages;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ServerConnection serverConnection = Context.Connection; <span class="highlight-comment">// Получаем соединение с сервером из контекста макроса</span>
+        User currentUser = serverConnection.ClientView.GetUser(); <span class="highlight-comment">// Получаем текущего пользователя</span>
+
+        <span class="highlight-keyword">string</span> workingFolder = serverConnection.WorkingFolder; <span class="highlight-comment">// Получаем путь к рабочей папке</span>
+        serverConnection.SetWorkingFolder(<span class="highlight-literal">"path to folder"</span>); <span class="highlight-comment">// Устанавливаем путь к рабочей папке</span>
+
+        ReferenceCatalog referenceCatalog = serverConnection.ReferenceCatalog; <span class="highlight-comment">// Получаем каталог справочников</span>
+        ReferenceInfo referenceInfo = referenceCatalog.Find(<span class="highlight-literal">"Макросы"</span>); <span class="highlight-comment">// Находим в каталоге описание справочника по наименованию</span>
+
+        List&lt;Stage&gt; stages = serverConnection.Stages; <span class="highlight-comment">// Получаем список всех стадий</span>
+
+        List&lt;SignatureType&gt; signatureTypes = serverConnection.SignatureTypes; <span class="highlight-comment">// Получаем список всех типов подписей</span>
+
+        <span class="highlight-keyword">string</span> serverName = serverConnection.ServerName; <span class="highlight-comment">// Получаем имя сервера</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LSTBACF013B_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+          </p>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion" id="ServerConnectionFromApp">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Соединение с сервером из внешнего приложения</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+					В данном примере рассмотрено подключение к серверу с последующим импортом папки с файлами.<br />
+					Более подробная информация о справочнике "Файлы" содержится в разделе <a href="0BBDFA21-580C-4D3B-A6E8-30C3E6186D78.htm">"Специализированные справочники"</a></p>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/* Ссылки
+TFlex.DOCs.Common.dll - не копируем локально (Copy local - false)
+TFlex.DOCs.Model.dll  - не копируем локально (Copy local - false)
+TFlex.PdmFramework.Resolve.dll - копируем локально (Copy local - true)*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> System.Text;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Common;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Files;
+<span class="highlight-keyword">using</span> TFlex.PdmFramework.Resolve;
+
+<span class="highlight-keyword">namespace</span> ConsoleApplicationImportTest
+{
+    <span class="highlight-keyword">class</span> Program
+    {
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">const</span> <span class="highlight-keyword">string</span> FolderPath = <span class="highlight-literal">@"C:\FilesToImport"</span>;  <span class="highlight-comment">// Исходная папка в файловой системе, из нее будут копироваться файлы</span>
+
+        [STAThread]
+        <span class="highlight-keyword">static</span> <span class="highlight-keyword">void</span> Main(<span class="highlight-keyword">string</span>[] args)
+        {
+            <span class="highlight-comment">// AssemblyResolver необходим для поиска недостающих библиотек и их автоматической загрузки</span>
+            <span class="highlight-comment">// Указываем путь к папке Program установленного клиента DOCs</span>
+            AssemblyResolver.Instance.AddDirectory(<span class="highlight-literal">@"C:\Program Files (x86)\T-FLEX DOCs 18\Program"</span>); <span class="highlight-comment">// Путь по умолчанию к клиенту DOCs</span>
+
+            <span class="highlight-comment">// Внимание! Классы из зависимых библиотек, которые подгружает AssemblyResolver, не должны находиться в методе Main</span>
+            <span class="highlight-comment">// JIT-компилятор должен обработать метод Main до его запуска, а разрешение загрузки сборок (через AssemblyResolver)</span>
+            <span class="highlight-comment">// происходит непосредственно во время выполнения метода Main</span>
+            MainCore();
+        }
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">static</span> <span class="highlight-keyword">void</span> MainCore()
+        {
+            <span class="highlight-comment">// Подключаемся к серверу с использованием авторизации сервера</span>
+            <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> serverConnection = ServerConnection.Open(<span class="highlight-literal">"Администратор"</span>, <span class="highlight-comment">// Логин</span>
+                String.Empty, <span class="highlight-comment">// Пароль</span>
+                <span class="highlight-literal">"localhost"</span>, <span class="highlight-comment">// Сервер</span>
+                <span class="highlight-keyword">null</span>, <span class="highlight-comment">// Конфигурация</span>
+                CommunicationMode.GRPC, <span class="highlight-comment">// Способ передачи данных между клиентом и сервером</span>
+                DataFormatterSettings.DefaultDataSerializerAlgorithm, <span class="highlight-comment">// Способ сериализации данных</span>
+                DataFormatterSettings.DefaultCompressionAlgorithm); <span class="highlight-comment">// Алгоритм сжатия данных</span>
+
+            <span class="highlight-keyword">if</span> (serverConnection?.IsConnected != <span class="highlight-keyword">true</span>)
+            {
+                Console.WriteLine(<span class="highlight-literal">"Подключение к серверу отсутствует"</span>);
+                <span class="highlight-keyword">return</span>;
+            }
+
+            serverConnection.ConnectionLost += ServerGatewayOnConnectionLost; <span class="highlight-comment">// Подписываемся на событие, возникающее при потере соединения с сервером</span>
+
+            <span class="highlight-keyword">var</span> fileReference = <span class="highlight-keyword">new</span> FileReference(serverConnection); <span class="highlight-comment">// Создаем экземпляра справочника "Файлы"</span>
+            <span class="highlight-keyword">var</span> parentFolder = fileReference.FindByRelativePath(<span class="highlight-literal">"Служебные файлы"</span>) <span class="highlight-keyword">as</span> FolderObject; <span class="highlight-comment">// Находим целевую папку, в которую будем импортировать</span>
+
+            Console.WriteLine(<span class="highlight-literal">"Импорт данных..."</span>);
+            <span class="highlight-comment">// Вызываем функцию импорта файлов</span>
+            FolderObject importedFolder = fileReference.Import(FolderPath,
+                <span class="highlight-keyword">new</span> ImportParameters
+                {
+                    DestinationFolder = parentFolder, <span class="highlight-comment">// Задаем папку назначения. Если значение равно null, то импортируемая папка будет добавлена в корень справочника</span>
+                    Recursive = <span class="highlight-keyword">true</span>, <span class="highlight-comment">// Выполняем операцию рекурсивно для всех входящих папок</span>
+                    CreateClasses = <span class="highlight-keyword">true</span>, <span class="highlight-comment">// Создаем новые типы в случае их отсутствия</span>
+                    AutoCheckIn = <span class="highlight-keyword">true</span> <span class="highlight-comment">// Автоматическое применение изменений</span>
+                });
+
+            WriteFilePathsFromFolder(importedFolder); <span class="highlight-comment">// Выводим результат операции</span>
+            Console.WriteLine(<span class="highlight-literal">"Импорт данных успешно завершен"</span>);
+        }
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">static</span> <span class="highlight-keyword">void</span> ServerGatewayOnConnectionLost(<span class="highlight-keyword">object</span> sender, ConnectionLostEventArgs connectionLostEventArgs)
+        {
+            Console.WriteLine(<span class="highlight-literal">"Внимание: потеря соединения с сервером"</span>);
+        }
+
+        <span class="highlight-comment">// Выводим все файлы папки</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">static</span> <span class="highlight-keyword">void</span> WriteFilePathsFromFolder(FolderObject folder)
+        {
+            <span class="highlight-keyword">var</span> files = folder.Children.RecursiveLoad().OfType&lt;FileObject&gt;().ToList(); <span class="highlight-comment">// Рекурсивно загружаем содержимое папки и выбираем только файлы</span>
+            <span class="highlight-keyword">var</span> sb = <span class="highlight-keyword">new</span> StringBuilder(files.Count);
+            files.ForEach(file =&gt; sb.AppendLine(file.Path)); <span class="highlight-comment">// Выводим относительные пути файлов</span>
+            Console.WriteLine(sb.ToString());
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+					Результатом выполнения данного кода будет импорт папки с файлами по пути "C:\FilesToImport" (включая подпапки) в папку "Служебные файлы" справочника "Файлы".
+				</p>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="7E06EE0D.htm">TFlex.DOCs.Model.References.Files<span id="LSTBACF013B_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FileReference</a>
+          </div>
+          <div>
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LSTBACF013B_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+          </div>
+          <div>
+            <a href="C5D87599.htm">TFlex.DOCs.Model.References.Files<span id="LSTBACF013B_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FolderObject</a>
+          </div>
+          <div>
+            <a href="64DA792D.htm">TFlex.DOCs.Model.References.Files<span id="LSTBACF013B_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ImportParameters</a>
+          </div>
+          <div>
+            <a href="2DAFBAC0.htm">TFlex.DOCs.Model.References.Files<span id="LSTBACF013B_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FileReferenceObject</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

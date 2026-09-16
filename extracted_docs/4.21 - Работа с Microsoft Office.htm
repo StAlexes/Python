@@ -1,0 +1,326 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Работа с Microsoft Office</title>
+    <meta name="Microsoft.Help.Id" content="FA2A44BA-84AA-40C0-A06B-EE28315D205C" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Ниже предствалена информация по библиотекам для работы с Microsoft Office (описания, инструкции по подключению к макросу, примеры)" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Работа с Microsoft Office</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Ниже предствалена информация по библиотекам для работы с Microsoft Office (описания, инструкции по подключению к макросу, примеры)
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />SDK Open XML</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					Пакет SDK Open XML упрощает задачу управления пакетами Open XML и базовыми элементами схемы Open XML.
+					Классы в пакете SDK инкапсулируют распространенные задачи по работе с Office Open XML
+				</p>
+          <p>
+					Для работы понадобятся следующие пакеты NuGet:<br /><a href="https://www.nuget.org/packages/DocumentFormat.OpenXml" target="_blank" rel="noopener noreferrer">DocumentFormat.OpenXml</a><br /><a href="https://www.nuget.org/packages/DocumentFormat.OpenXml.Framework" target="_blank" rel="noopener noreferrer">DocumentFormat.OpenXml.Framework</a><br />
+					Их необходимо скачать, открыть любым архиватором, извлечь библиотеки по пути "lib\net46\" и подключить к макросу.<br />
+					Информация о подключении библиотек к макросу представлена в разделе <a href="4babcc2e-2989-4dad-979e-e6fd216a56ba.htm#CodeEditing">«Редактирование макроса»</a></p>
+          <div id="IDCBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.IO;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> DocumentFormat.OpenXml.Packaging;
+<span class="highlight-keyword">using</span> DocumentFormat.OpenXml.Spreadsheet;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Открываем электронный документ на чтение</span>
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> fileStream = <span class="highlight-keyword">new</span> FileStream(<span class="highlight-literal">"Путь к xlsx-файлу"</span>, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        <span class="highlight-keyword">using</span> SpreadsheetDocument doc = SpreadsheetDocument.Open(fileStream, <span class="highlight-keyword">false</span>);
+
+        WorkbookPart workbookPart = doc.WorkbookPart; <span class="highlight-comment">// Получаем контейнер верхнего уровня для документа Excel</span>
+        <span class="highlight-comment">// Получаем таблицу общих строк (содержит всю необходимую информацию для отображения строк: текст, свойства форматирования)</span>
+        SharedStringTable sharedStringTable = workbookPart.GetPartsOfType&lt;SharedStringTablePart&gt;().First().SharedStringTable;
+        Worksheet sheet = workbookPart.WorksheetParts.First().Worksheet; <span class="highlight-comment">// Получаем лист</span>
+        <span class="highlight-keyword">var</span> rows = sheet.Descendants&lt;Row&gt;(); <span class="highlight-comment">// Получаем строки</span>
+
+        <span class="highlight-keyword">foreach</span> (Row row <span class="highlight-keyword">in</span> rows) <span class="highlight-comment">// Обрабатываем строки</span>
+        {
+            <span class="highlight-keyword">foreach</span> (Cell cell <span class="highlight-keyword">in</span> row.Elements&lt;Cell&gt;()) <span class="highlight-comment">// Обрабатываем ячейки</span>
+            {
+                <span class="highlight-keyword">if</span> (cell.DataType <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Если дата или числовое значение</span>
+                {
+                    <span class="highlight-keyword">string</span> result = cell.CellValue.Text;
+                }
+                <span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (cell.DataType == CellValues.SharedString) <span class="highlight-comment">// Если строка</span>
+                {
+                    <span class="highlight-keyword">int</span> ssid = Int32.Parse(cell.CellValue.Text);
+                    <span class="highlight-keyword">string</span> result = sharedStringTable.ElementAt(ssid).InnerText;
+                }
+                <span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (cell.DataType.Value == CellValues.Boolean) <span class="highlight-comment">// Если логическое значение</span>
+                {
+                    <span class="highlight-keyword">bool</span> result = Convert.ToBoolean(Convert.ToInt16(cell.CellValue.Text));
+                }
+            }
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Microsoft.Office.Interop</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+					Для работы со сборками Microsoft.Office.Interop, взаимодействующими с компонентами COM, на компьютере должны быть установлены Microsoft Office Excel и Microsoft Office Word
+				</p>
+          <p>
+					Необходимы следующие пакеты NuGet:<br /><a href="https://www.nuget.org/packages/Microsoft.Office.Interop.Excel" target="_blank" rel="noopener noreferrer">Microsoft.Office.Interop.Excel</a><br /><a href="https://www.nuget.org/packages/Microsoft.Office.Interop.Word" target="_blank" rel="noopener noreferrer">Microsoft.Office.Interop.Word</a><br />
+					Их необходимо скачать, открыть любым архиватором, извлечь библиотеки по пути "lib\net20\" и подключить к макросу.<br />
+					Информация о подключении библиотек к макросу представлена в разделе <a href="4babcc2e-2989-4dad-979e-e6fd216a56ba.htm#CodeEditing">«Редактирование макроса»</a></p>
+          <div id="IDCBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Runtime.InteropServices;
+<span class="highlight-keyword">using</span> Microsoft.Office.Interop.Excel;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        Application objExcel = <span class="highlight-keyword">new</span> Application { DisplayAlerts = <span class="highlight-keyword">false</span> }; <span class="highlight-comment">// создаем экземпляр приложения Microsoft Excel с отключенным выводом сообщений</span>
+        Workbook objWorkBook = objExcel.Workbooks.Open(<span class="highlight-literal">"Путь к xlsx-файлу"</span>); <span class="highlight-comment">// Открываем книгу</span>
+        Worksheet objWorkSheet = objExcel.Sheets[<span class="highlight-number">1</span>] <span class="highlight-keyword">as</span> Worksheet; <span class="highlight-comment">// Получаем лист</span>
+        Range xlRange = objWorkSheet.UsedRange; <span class="highlight-comment">// Получаем используемый диапазон листа</span>
+
+        <span class="highlight-comment">// Получаем количество столбцов и полей</span>
+        <span class="highlight-keyword">int</span> rowCount = xlRange.Rows.Count;
+        <span class="highlight-keyword">int</span> colCount = xlRange.Columns.Count;
+
+        <span class="highlight-keyword">for</span> (<span class="highlight-keyword">int</span> i = <span class="highlight-number">1</span>; i &lt;= rowCount; i++)
+        {
+            <span class="highlight-keyword">for</span> (<span class="highlight-keyword">int</span> j = <span class="highlight-number">1</span>; j &lt;= colCount; j++)
+            {
+                <span class="highlight-comment">// Если j == 1, то это новая строка</span>
+
+                <span class="highlight-comment">// Получаем значение ячейки   </span>
+                <span class="highlight-keyword">var</span> range = xlRange.Cells[i, j] <span class="highlight-keyword">as</span> Range;
+                <span class="highlight-keyword">string</span> result = range.Text.ToString();
+            }
+        }
+
+        <span class="highlight-comment">// Освобождаем ресурсы</span>
+        Marshal.ReleaseComObject(xlRange);
+        Marshal.ReleaseComObject(objWorkSheet);
+
+        objWorkBook.Close(<span class="highlight-keyword">false</span>, Type.Missing, Type.Missing); <span class="highlight-comment">// Закрываем без сохранения</span>
+        Marshal.ReleaseComObject(objWorkBook);
+
+        objExcel.Quit();
+        Marshal.ReleaseComObject(objExcel);
+
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />DevExpress</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <p>
+					Необходимые библиотеки находятся в папке с клиентом T-FLEX DOCs, поэтому достаточно указать их на вкладке "Ссылки"
+				</p>
+          <div id="IDBBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBDAB_tab1" class="codeSnippetContainerTabSingle">Microsoft Excel</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+DevExpress.Docs.v21.2.dll
+DevExpress.Office.v21.2.Core.dll
+DevExpress.Spreadsheet.v21.2.Core.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.IO;
+<span class="highlight-keyword">using</span> DevExpress.Spreadsheet;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Открываем электронный документ</span>
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> stream = <span class="highlight-keyword">new</span> FileStream(<span class="highlight-literal">"Путь к xlsx-файлу"</span>, FileMode.Open);
+        <span class="highlight-keyword">var</span> workbook = <span class="highlight-keyword">new</span> Workbook();
+
+        <span class="highlight-keyword">if</span> (!workbook.LoadDocument(stream, DevExpress.Spreadsheet.DocumentFormat.Xlsx))
+            <span class="highlight-keyword">return</span>;
+
+        Worksheet worksheet = workbook.Worksheets[<span class="highlight-number">0</span>]; <span class="highlight-comment">// Получаем лист</span>
+        RowCollection rows = worksheet.Rows; <span class="highlight-comment">// Получаем строки</span>
+        ColumnCollection columns = worksheet.Columns; <span class="highlight-comment">// Получаем колонки</span>
+
+        <span class="highlight-keyword">int</span> lastRowIndex = worksheet.Rows.LastUsedIndex;
+        <span class="highlight-keyword">int</span> lastColumnIndex = worksheet.Columns.LastUsedIndex;
+
+        <span class="highlight-keyword">for</span> (<span class="highlight-keyword">int</span> i = <span class="highlight-number">0</span>; i &lt;= lastRowIndex; i++)
+        {
+            <span class="highlight-keyword">for</span> (<span class="highlight-keyword">int</span> j = <span class="highlight-number">0</span>; j &lt;= lastColumnIndex; j++)
+            {
+                Cell cell = worksheet.Cells[i, j]; <span class="highlight-comment">// Получаем ячейку</span>
+
+                <span class="highlight-keyword">if</span> (!cell.HasData)
+                    <span class="highlight-keyword">continue</span>;
+
+                <span class="highlight-comment">// Получаем значение ячейки</span>
+                <span class="highlight-keyword">var</span> cellValue = cell.Value;
+
+                <span class="highlight-keyword">if</span> (cellValue.IsNumeric)
+                {
+                    <span class="highlight-keyword">double</span> result = cellValue.NumericValue;
+                }
+                <span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (cellValue.IsBoolean)
+                {
+                    <span class="highlight-keyword">bool</span> result = cellValue.BooleanValue;
+                }
+                <span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (cellValue.IsDateTime)
+                {
+                    DateTime result = cellValue.DateTimeValue;
+                }
+                <span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (cellValue.IsText)
+                {
+                    <span class="highlight-keyword">string</span> result = cellValue.TextValue;
+                }
+            }
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <div id="IDCBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBDAB_tab1" class="codeSnippetContainerTabSingle">Microsoft Word</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+DevExpress.RichEdit.v21.2.Core.dll
+DevExpress.Office.v21.2.Core.dll
+DevExpress.Data.v21.2.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> DevExpress.XtraRichEdit;
+<span class="highlight-keyword">using</span> DevExpress.XtraRichEdit.API.Native;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> DevExpress.Office.Utils;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> reDocServer = <span class="highlight-keyword">new</span> RichEditDocumentServer(); <span class="highlight-comment">// Создаем класс, предоставляющий функции обработки форматированного текста</span>
+        <span class="highlight-comment">// reDocServer.LoadDocument("Путь к docx-файлу"); // Если необходимо загрузить существующий документ</span>
+
+        Document document = reDocServer.Document; <span class="highlight-comment">// Получаем созданный документ</span>
+        Table table = document.Tables.Create(document.Range.Start, <span class="highlight-number">3</span>, <span class="highlight-number">3</span>); <span class="highlight-comment">// Создаем таблицу</span>
+
+        <span class="highlight-comment">// Настраиваем таблицу</span>
+        table.TableAlignment = TableRowAlignment.Center;
+        table.TableLayout = TableLayoutType.Fixed;
+        table.PreferredWidthType = WidthType.Fixed;
+        table.PreferredWidth = Units.InchesToDocumentsF(<span class="highlight-number">4</span>f);
+
+        table.Rows[<span class="highlight-number">1</span>].HeightType = HeightType.Exact;
+        table.Rows[<span class="highlight-number">1</span>].Height = Units.InchesToDocumentsF(<span class="highlight-number">0.8</span>f);
+
+        table[<span class="highlight-number">1</span>, <span class="highlight-number">1</span>].PreferredWidthType = WidthType.Fixed;
+        table[<span class="highlight-number">1</span>, <span class="highlight-number">1</span>].PreferredWidth = Units.InchesToDocumentsF(<span class="highlight-number">1.5</span>f);
+
+        table.MergeCells(table[<span class="highlight-number">1</span>, <span class="highlight-number">1</span>], table[<span class="highlight-number">2</span>, <span class="highlight-number">1</span>]);
+
+        reDocServer.SaveDocument(<span class="highlight-literal">"Путь к docx-файлу"</span>, DevExpress.XtraRichEdit.DocumentFormat.OpenXml); <span class="highlight-comment">// Сохраняем документ</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

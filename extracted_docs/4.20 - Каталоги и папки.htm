@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Каталоги и папки</title>
+    <meta name="Microsoft.Help.Id" content="38E18306-EAB2-4DCE-A89E-66A9315AEE66" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Каталоги служат для группировки объектов, позволяя организовать их просмотр удобным образом. Исходная структура объектов справочника при этом не изменяется. Каталоги состоят из обособленных или объединенных в группы папок." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Каталоги и папки</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Каталоги служат для группировки объектов, позволяя организовать их просмотр удобным образом. Исходная структура объектов справочника при этом не изменяется.<br />
+				Каталоги состоят из обособленных или объединенных в группы папок.
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с каталогами, группами папок и папками</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Configuration;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Catalogs;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Search;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">if</span> (Context.Reference <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> catalogManager = <span class="highlight-keyword">new</span> CatalogManager(Context.Reference); <span class="highlight-comment">// Менеджер каталогов</span>
+
+        <span class="highlight-keyword">var</span> catalog = <span class="highlight-keyword">new</span> Catalog(catalogManager) <span class="highlight-comment">// Создаем новый каталог</span>
+        {
+            Name = <span class="highlight-literal">"Новый каталог"</span>, <span class="highlight-comment">// Устанавливаем наименование каталога</span>
+            IsPrivate = <span class="highlight-keyword">false</span>, <span class="highlight-comment">// Делаем каталог публичным</span>
+        };
+
+        <span class="highlight-comment">// Можем осуществить поиск уже существующего каталога по имени или Guid'у</span>
+        <span class="highlight-comment">// var catalog = catalogManager.Find("Имя или Guid каталога").FirstOrDefault();</span>
+
+        SetCatalogAccess(catalog); <span class="highlight-comment">// Устанавливаем доступ на каталог</span>
+        catalog.Save(); <span class="highlight-comment">// Сохраняем созданный каталог</span>
+
+        <span class="highlight-keyword">var</span> folderGroup = <span class="highlight-keyword">new</span> FolderGroup(catalog) <span class="highlight-comment">// Создаем группу папок в указанном каталоге</span>
+        {
+            Name = <span class="highlight-literal">"Группа папок"</span>, <span class="highlight-comment">// Устанавливаем наименование группы папок</span>
+            ShowObjects = <span class="highlight-keyword">false</span> <span class="highlight-comment">// Указываем, нужно ли для данной папки отображать вложенные объекты</span>
+        };
+
+        folderGroup.Save(); <span class="highlight-comment">// Сохраняем группу папок</span>
+
+        <span class="highlight-keyword">var</span> userFolder = <span class="highlight-keyword">new</span> UserFolder(folderGroup) { Name = <span class="highlight-literal">"Папка"</span>, ShowObjects = <span class="highlight-keyword">true</span> }; <span class="highlight-comment">// Создаем новую папку в указанной папке каталога</span>
+        userFolder.Save(); <span class="highlight-comment">// Сохраняем новую папку</span>
+        userFolder.Add(Context.Reference.Find([<span class="highlight-number">1</span>, <span class="highlight-number">2</span>])); <span class="highlight-comment">// Добавляем объекты в папку</span>
+
+        <span class="highlight-keyword">var</span> searchFolder = <span class="highlight-keyword">new</span> SearchFolder(catalog) { Name = <span class="highlight-literal">"Папка поиска"</span>, ShowObjects = <span class="highlight-keyword">false</span> }; <span class="highlight-comment">// Создаем новую папку поиска в каталоге</span>
+
+        ParameterGroup parameterGroup = Context.Reference.ParameterGroup; <span class="highlight-comment">// Получаем группу параметров</span>
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> filter = <span class="highlight-keyword">new</span> Filter(parameterGroup); <span class="highlight-comment">// Создаем фильтр для указанной группы параметров</span>
+        filter.Terms.AddTerm(parameterGroup.SystemParameters.Find(SystemParameterType.ObjectId), ComparisonOperator.GreaterThan, <span class="highlight-number">0</span>);
+
+        searchFolder.SetFilter(filter); <span class="highlight-comment">// Задаем фильтр для папки поиска</span>
+        searchFolder.Save(); <span class="highlight-comment">// Сохраняем новую папку поиска</span>
+    }
+
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> SetCatalogAccess(Catalog catalog)
+    {
+        <span class="highlight-keyword">if</span> (catalog <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Если нет каталога, то выбрасываем исключение</span>
+            Error(<span class="highlight-literal">"Каталог не указан"</span>);
+
+        <span class="highlight-comment">// Задаем доступ</span>
+        catalog.AccessUsersUseType = ItemListUseType.ListOnly; <span class="highlight-comment">// ListOnly - каталог будет доступен только для списка, Exclude - каталог будет доступен тем, кто не входит в список</span>
+
+        <span class="highlight-keyword">var</span> userReferenceObjects = <span class="highlight-keyword">new</span> UserReference(Context.Connection).Find([<span class="highlight-number">1</span>, <span class="highlight-number">9</span>, <span class="highlight-number">10</span>, <span class="highlight-number">11</span>, <span class="highlight-number">12</span>]).OfType&lt;UserReferenceObject&gt;(); <span class="highlight-comment">// Находим объекты справочника 'Группы и пользователи'</span>
+        catalog.SetAccessUsers(userReferenceObjects); <span class="highlight-comment">// Устанавливаем доступ для найденных объектов</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="9108F67.htm">TFlex.DOCs.Model.References.Catalogs<span id="LST4BCE3BEC_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CatalogManager</a>
+          </div>
+          <div>
+            <a href="F38D6CB1.htm">TFlex.DOCs.Model.References.Catalogs<span id="LST4BCE3BEC_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Catalog</a>
+          </div>
+          <div>
+            <a href="6FAF2C1B.htm">TFlex.DOCs.Model.References.Catalogs<span id="LST4BCE3BEC_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FolderGroup</a>
+          </div>
+          <div>
+            <a href="ABA48ADA.htm">TFlex.DOCs.Model.References.Catalogs<span id="LST4BCE3BEC_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>SearchFolder</a>
+          </div>
+          <div>
+            <a href="62FFD3F.htm">TFlex.DOCs.Model.References.Catalogs<span id="LST4BCE3BEC_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>UserFolder</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

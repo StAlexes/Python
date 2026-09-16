@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Использование</title>
+    <meta name="Microsoft.Help.Id" content="c81bf791-6db7-4f53-88ec-a54d240f9c91" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Description" content="Макросы в T-FLEX DOCs вызываются при возникновении в системе определенных событий, для которых они выбраны в качестве обработчиков." />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Использование</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>Макросы в T-FLEX DOCs вызываются при возникновении в системе определенных событий, для которых они выбраны в качестве обработчиков. При настройке макроса в качестве обработчика события или действия кроме самого макроса можно выбрать также его метод, который будет выполняться при возникновении события. Для макроса типа "Макрос" поле "Метод макроса" всегда остается пустым. Для макроса типа "Макрос C#" можно выбрать любой из его открытых методов без параметров. Если оставить поле "Метод макроса" пустым, будет выполнен метод Run().</p>
+          <div class="mediaNear">
+            <div class="caption">Настройка макроса в качестве обработчика события справочника</div>
+            <img alt="Macro Event Handler Settings" src="../media/MacroEventHandlerSettings.png" />
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Возможные варианты использования макросов:</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <span class="ui">Обработчик события справочника</span>
+          </p>
+          <p>
+					Макрос вызывается при возникновении указанного события. Все действия, выполняемые макросом, выполняются от имени текущего пользователя.
+				</p>
+          <div class="mediaNear">
+            <div class="caption">Добавление обработчика события справочника</div>
+            <img alt="Macro As Event Handler" src="../media/MacroAsEventHandler.png" />
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <span class="ui">Действие кнопки или флага на странице пользовательского диалога</span>
+          </p>
+          <p>
+					Макрос вызывается при нажатии на кнопку или при выборе флага на пользовательской странице. Все действия, выполняемые макросом, выполняются от имени текущего пользователя.
+				</p>
+          <div class="mediaNear">
+            <div class="caption">Настройка действия кнопки</div>
+            <img alt="Macro As Button Click Action" src="../media/MacroAsButtonClickAction.png" />
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <span class="ui">Действие кнопки панели навигации</span>
+          </p>
+          <p>
+					Макрос вызывается при нажатии на ярлык панели навигации. Все действия, выполняемые макросом, выполняются от имени текущего пользователя.
+				</p>
+          <div class="mediaNear">
+            <div class="caption">Настройка ярлыка</div>
+            <img alt="Macro As Fast Command Action" src="../media/MacroAsFastCommandAction.png" />
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <span class="ui">Действие задачи сервера</span>
+          </p>
+          <p>
+					Макрос вызывается при запуске выполнения задачи на сервере. Все действия, выполняемые макросом, выполняются от имени системы.
+				</p>
+          <div class="mediaNear">
+            <div class="caption">Настройка действия задачи</div>
+            <img alt="Macro As Server Task Action" src="../media/MacroAsServerTaskAction.png" />
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <span class="ui">Макрос в процедуре</span>
+          </p>
+          <p>
+					Макрос вызывается при выполнении действия процесса, связанного с указанным этапом процедуры. Макрос выполняется на стороне сервера. Все действия, выполняемые макросом, выполняются от имени системы.
+					Исключением является макрос, заданный в блоке "Действие на компьютере пользователя". Такой макрос выполняется от имени текущего пользователя на стороне клиента.
+				</p>
+          <div class="mediaNear">
+            <div class="caption">Настройка макроса процедуры</div>
+            <img alt="Macro As Procedure State" src="../media/MacroAsProcedureState.png" />
+          </div>
+          <div class="mediaNear">
+            <div class="caption">Блок "Действие на компьютере пользователя"</div>
+            <img alt="Macro As Client Side Macros" src="../media/MacroAsClientSideMacros.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

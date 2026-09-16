@@ -1,0 +1,312 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Справочники</title>
+    <meta name="Microsoft.Help.Id" content="DEFD0FA1-83E9-4812-B789-104DB96CC5F6" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Справочник представляет собой совокупность объектов определенных типов. API позволяет со стороны справочника создавать и осуществлять поиск объектов, а также предоставляет дополнительный функционал по работе со специализированными справочниками." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Справочники</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Справочник представляет собой совокупность объектов определенных типов. API позволяет со стороны справочника создавать и осуществлять поиск объектов, а также предоставляет дополнительный функционал по работе со специализированными справочниками. Специализированные справочники описаны в соответствующих подразделах.
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание экземпляра справочника</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					Для работы со справочником и входящими в него объектами необходимо получить описание справочника 
+					<a href="D99B90CD.htm">ReferenceInfo</a> и по нему создать экземпляр справочника.
+					Найти описание справочника можно по наименованию или идентификатору в каталоге справочников, доступ к которому можно получить через свойство <a href="C9D72890.htm">ReferenceCatalog</a> экземпляра <a href="EAA7893.htm">ServerConnection</a>.
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    { 
+        ReferenceInfo referenceInfo = Context.Connection.ReferenceCatalog.Find(Guid.Empty); <span class="highlight-comment">// Получаем описание справочника по Guid'у</span>
+        <span class="highlight-keyword">if</span> (referenceInfo <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span> || referenceInfo.ActivityStatus != GroupActivityStatus.Normal) <span class="highlight-comment">// Если справочник не найден или деактивирован, выходим</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Создание объекта справочника для работы с данными</span>
+        Reference reference = referenceInfo.CreateReference();
+
+        <span class="highlight-comment">// Загрузка объектов из справочника на первом уровне иерархии          </span>
+        reference.Objects.Load();
+
+        <span class="highlight-comment">// Обработка загруженных объектов </span>
+        <span class="highlight-keyword">foreach</span> (ReferenceObject referenceObject <span class="highlight-keyword">in</span> reference.Objects)
+        {
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LST6312EEA9_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+            <br />
+            <a href="D99B90CD.htm">TFlex.DOCs.Model<span id="LST6312EEA9_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceInfo</a>
+            <br />
+            <a href="26AE86E6.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Reference</a>
+            <br />
+            <a href="C9D72890.htm">TFlex.DOCs.Model<span id="LST6312EEA9_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceCatalog</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion" id="CreateObjectSection">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание новых объектов справочника</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+					Для создания объекта справочника нужно вызвать метод CreateReferenceObject для инициализации объекта.<br />
+					Создать объект можно без указания типа (будет использован тип по умолчанию), либо предварительно определив тип.
+				</p>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Создание объекта с типом по умолчанию</span>
+ReferenceObject newObject1 = reference.CreateReferenceObject();
+<span class="highlight-comment">// Поиск типа</span>
+ClassObject classObject = reference.Classes.Find(<span class="highlight-comment">/*гуид типа*/</span>Guid.Empty);
+<span class="highlight-comment">// Создание объекта с явно заданным типом</span>
+ReferenceObject newObject2 = reference.CreateReferenceObject(classObject);</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+					Затем можно приступать к редактированию созданного объекта (см. <a href="663e0b41-ed90-4985-bdca-da4741702f3e.htm#EditObjectSection">«Редактирование объектов»</a>).<br /></p>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="26AE86E6.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Reference</a>
+            <br />
+            <a href="828E76B1.htm">TFlex.DOCs.Model.Classes<span id="LST6312EEA9_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ClassObject</a>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание объекта справочника по прототипу</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <p>
+					Для создания объекта справочника по прототипу необходимо создать экземпляр справочника для работы с прототипами, найти необходимй прототип и создать контекст копирования объекта справочника<br /></p>
+          <div id="IDBBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> CreatorByPrototype : MacroProvider
+{
+    <span class="highlight-keyword">public</span> CreatorByPrototype(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> prototypeModeReference = Context.Reference.ParameterGroup.ReferenceInfo.CreateReference(<span class="highlight-keyword">true</span>); <span class="highlight-comment">// Создаем еще один экземпляр текущего справочника для работы с прототипами</span>
+        <span class="highlight-keyword">var</span> prototype = prototypeModeReference.Find(<span class="highlight-number">1</span>); <span class="highlight-comment">// Находим прототип по идентификатору</span>
+
+        <span class="highlight-comment">// Создаем контекст копирования объекта справочника</span>
+        <span class="highlight-keyword">var</span> context = <span class="highlight-keyword">new</span> CopyReferenceObjectsContext
+        {
+            ParentObject = Context.ReferenceObject, <span class="highlight-comment">// В качестве родительского объекта передаем текущий</span>
+            CopyChildren = <span class="highlight-keyword">true</span>, <span class="highlight-comment">// Указываем, требуется ли копировать дочерние объекты</span>
+            CopyLinkedPrototypes = <span class="highlight-keyword">true</span> <span class="highlight-comment">// Указываем, требуется ли копировать связанные прототипы</span>
+        };
+
+        <span class="highlight-keyword">var</span> copySet = Context.Reference.CopyReferenceObject(prototype, context); <span class="highlight-comment">// Создаем набор объектов на основе указанного прототипа и контекста </span>
+
+        <span class="highlight-keyword">var</span> referenceObjectFromPrototype = copySet.GetNewObject(prototype); <span class="highlight-comment">// Получаем из набора созданный по прототипу объект</span>
+        referenceObjectFromPrototype[<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid параметра"</span>)].Value = <span class="highlight-literal">"Новое значение парамаетра"</span>; <span class="highlight-comment">// При необходимости редактируем созданный объект</span>
+
+        <span class="highlight-keyword">bool</span> result = copySet.EndChanges(); <span class="highlight-comment">// Сохраняем набор объектов, созданных по прототипу</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="26AE86E6.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_7" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Reference</a>
+            <br />
+            <a href="22B47D21.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_8" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CopyReferenceObjectsContext</a>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_9" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Поиск объектов</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <p>
+					Поиск объектов может осуществляться различными способами:
+				</p>
+          <div id="IDBBEAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBEAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBEAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBEAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBEAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Поиск по идентификатору объекта</span>
+<span class="highlight-keyword">int</span> objectId = <span class="highlight-number">0</span>;
+ReferenceObject changingObject = reference.Find(objectId);
+<span class="highlight-comment">// Поиск по GUID объекта</span>
+Guid objectGuid = <span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"C9095587-24F4-4EDC-84E5-924C741A0EBA"</span>);
+ReferenceObject changingObject = reference.Find(objectGuid);</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="26AE86E6.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_10" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Reference</a>
+            <br />
+            <a href="828E76B1.htm">TFlex.DOCs.Model.Classes<span id="LST6312EEA9_11" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ClassObject</a>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_12" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion" id="SetObjectsOwner">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDFAB')" onkeypress="SectionExpandCollapse_CheckKey('IDFAB', event)" tabindex="0">
+            <img id="IDFABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Установка владельца для списка объектов справочника</span>
+        </div>
+        <div id="IDFABSection" class="collapsibleSection">
+          <div id="IDABFAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABFAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABFAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABFAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABFAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ReferenceObject[] selectedObjects = Context.GetSelectedObjects(); <span class="highlight-comment">// Получаем выбранные объекты</span>
+        <span class="highlight-keyword">if</span> (Context.Reference.ParameterGroup.SupportsOwner) <span class="highlight-comment">// Проверяем, включена ли поддержка параметра "Владелец"</span>
+        {
+            <span class="highlight-comment">// Context.Reference возвращает справочник, в контексте которого выполняется макрос.</span>
+            <span class="highlight-comment">// Альтернативным вариантом может быть обращение к справочнику через объект: selectedObjects[0].Reference (ReferenceObject.Reference)</span>
+
+            <span class="highlight-keyword">var</span> userReference = <span class="highlight-keyword">new</span> UserReference(Context.Connection); <span class="highlight-comment">// Создаем экземпляр справочника "Группы и пользователи"</span>
+
+            <span class="highlight-keyword">var</span> groupUsers = userReference.FindOne(UserReferenceObject.Fields.FullName, <span class="highlight-literal">"Сотрудники"</span>) <span class="highlight-keyword">as</span> UserReferenceObject; <span class="highlight-comment">// Находим группу пользователей "Сотрудники"</span>
+            <span class="highlight-keyword">if</span> (groupUsers <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+                <span class="highlight-keyword">return</span>;
+
+            Context.Reference.SetObjectsOwner(selectedObjects, groupUsers); <span class="highlight-comment">// Задаем владельца</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="979C59C9.htm">TFlex.DOCs.Model.References.Users<span id="LST6312EEA9_13" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>UserReference</a>
+            <br />
+            <a href="52DE014A.htm">TFlex.DOCs.Model.References.Users<span id="LST6312EEA9_14" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>UserReferenceObject</a>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST6312EEA9_15" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

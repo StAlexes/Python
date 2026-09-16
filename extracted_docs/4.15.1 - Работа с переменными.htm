@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Работа с переменными</title>
+    <meta name="Microsoft.Help.Id" content="2e75d336-09cb-4b51-9088-b62f1837f668" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена возможность редактирования переменных документа CAD-системы." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Работа с переменными</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+        В данном примере рассмотрена возможность редактирования переменных документа CAD-системы.
+      </p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDAABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDAABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDAABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDAABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.IO;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.FilePreview.CADService;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> WorkWithVariables : MacroProvider
+{
+    <span class="highlight-keyword">public</span> WorkWithVariables(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">string</span> path = <span class="highlight-literal">"Чертёж.grb"</span>; <span class="highlight-comment">// Путь к grb-документу</span>
+        CadDocumentProvider provider = CadDocumentProvider.Connect(Context.Connection, <span class="highlight-literal">".grb"</span>); <span class="highlight-comment">// Подключаемся к CAD-системе </span>
+
+        <span class="highlight-keyword">using</span> CadDocument document = provider.OpenDocument(path, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Открываем документ в режиме редактирования.   </span>
+
+        <span class="highlight-keyword">if</span> (document <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>) <span class="highlight-comment">// Проверяем, был ли открыт документ</span>
+            Error($<span class="highlight-literal">"Файл '{Path.GetFileName(path)}' не может быть открыт"</span>);
+
+        VariableCollection variables = document.GetVariables(); <span class="highlight-comment">// Получаем список переменных документа</span>
+
+        <span class="highlight-comment">// Находим необходимые переменные по наименованию и устанавливаем значения</span>
+        <span class="highlight-keyword">foreach</span> (Variable cadVar <span class="highlight-keyword">in</span> variables)
+        {
+            <span class="highlight-keyword">switch</span> (cadVar.Name)
+            {
+                <span class="highlight-keyword">case</span> <span class="highlight-literal">"Ширина_Д1"</span>:
+                    cadVar.Value = <span class="highlight-number">15.0</span>;
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> <span class="highlight-literal">"Высота_Д1"</span>:
+                    cadVar.Value = (<span class="highlight-keyword">double</span>)<span class="highlight-number">250</span>;
+                    <span class="highlight-keyword">break</span>;
+            }
+        }
+
+        <span class="highlight-keyword">bool</span> result = variables.Save(); <span class="highlight-comment">// Сохраняем изменения в списке переменных</span>
+
+        document.Close(<span class="highlight-keyword">true</span>); <span class="highlight-comment">// Закрываем документ, сохраняя его     </span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="9047C8F0.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LSTADEA4E52_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CadDocumentProvider</a>
+          </div>
+          <div>
+            <a href="77B9F1C3.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LSTADEA4E52_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ExportContext</a>
+          </div>
+          <div>
+            <a href="13D564EA.htm">TFlex.DOCs.Model.FilePreview.CADService<span id="LSTADEA4E52_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>CadDocument</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,561 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Работа с объектами</title>
+    <meta name="Microsoft.Help.Id" content="663e0b41-ed90-4985-bdca-da4741702f3e" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Объект является единицей хранения данных. Создание и поиск объектов осуществляются средствами справочника и описаны в разделе «Справочники» Ниже приводятся примеры работы с объектами посредством API T-FLEX DOCs." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Работа с объектами</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Объект является единицей хранения данных. Создание и поиск объектов осуществляются средствами справочника и описаны в разделе <a href="DEFD0FA1-83E9-4812-B789-104DB96CC5F6.htm">«Справочники»</a><br />
+				Ниже приводятся примеры работы с объектами посредством API T-FLEX DOCs.
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion" id="EditObjectSection">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Редактирование объектов</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					В начале необходимо взять объект на редактирование (созданный объект с незафиксированными изменениями не нужно брать на редактирование).<br />
+					В процессе редактирования можно задавать параметры и связи.<br />
+					По окончании редактирования необходимо сохранить объект или отменить произведенные изменения.
+				</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						При редактировании объектов справочника важно соблюдать парность вызовов методов взятия на редактирование и сохранения (отмены изменений).<br />
+						Созданные объекты справочника уже находятся в состоянии редактирования. Вызов метода взятия на редактирование для них потребует еще одного сохранения.<br />
+						Необходимость в парных вызовах обусловлена передачей данных между макросами. Объект справочника может быть передан из одного макроса в другой, где также содержится код по его редактированию.<br />
+						Так как каждый макрос может независимо редактировать объект, система фиксирует и проверяет, чтобы каждому взятию на редактирование соответствовал свой вызов сохранения или отмены.
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="IDCBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ReferenceObject changingObject = Context.ReferenceObject; <span class="highlight-comment">// Получаем редактируемый объект</span>
+
+<span class="highlight-keyword">if</span> (!changingObject.CanEdit) <span class="highlight-comment">// Проверяем возможность редактирования объекта</span>
+    <span class="highlight-keyword">return</span>;
+
+changingObject.BeginChanges(); <span class="highlight-comment">// Переводим объект в состояние редактирования</span>
+<span class="highlight-comment">// Если объект только что загружен, можно использовать перегрузку BeginChanges(false), чтобы не перезагружать объект </span>
+
+<span class="highlight-keyword">try</span>
+{
+    <span class="highlight-comment">// В коде ниже необходимо заменить пустые глобальные идентификаторы (Guid.Empty) на конкретные идентификаторы параметров и связей</span>
+
+    changingObject[Guid.Empty].Value = <span class="highlight-number">123</span>; <span class="highlight-comment">// Присваиваем значение параметру</span>
+    <span class="highlight-keyword">object</span> <span class="highlight-keyword">value</span> = changingObject[Guid.Empty].Value; <span class="highlight-comment">// Получаем значение параметра</span>
+
+    <span class="highlight-comment">// Мы можем получить значение конкретного типа:</span>
+    <span class="highlight-keyword">bool</span> flag = changingObject[Guid.Empty].GetBoolean();
+
+    ReferenceObject linkedObject = <span class="highlight-keyword">null</span>; <span class="highlight-comment">// Объект по связи</span>
+    changingObject.SetLinkedObject(Guid.Empty, linkedObject); <span class="highlight-comment">// Подключаем объект по связи 1:1 или N:1</span>
+    changingObject.SetLinkedObject(Guid.Empty, <span class="highlight-keyword">null</span>); <span class="highlight-comment">// Отключаем объект по связи 1:1 или N:1</span>
+
+    changingObject.AddLinkedObject(Guid.Empty, linkedObject); <span class="highlight-comment">// Подключаем объект по связи 1:N, N:N, на любой справочник</span>
+    changingObject.RemoveLinkedObject(Guid.Empty, linkedObject); <span class="highlight-comment">// Отключаем объект по связи 1:N, N:N, на любой справочник</span>
+
+    List&lt;ReferenceObject&gt; linkedObjects = changingObject.GetObjects(Guid.Empty); <span class="highlight-comment">// Получаем объекты списка или объекты по связи 1:N, N:N, на любой справочник</span>
+    ReferenceObject linkedObjectByLinkToOne = changingObject.GetObject(Guid.Empty); <span class="highlight-comment">// Получаем объект по связи 1:1 или N:1</span>
+
+    _ = changingObject.EndChanges(); <span class="highlight-comment">// Фиксируем окончание изменений</span>
+}
+<span class="highlight-keyword">catch</span>
+{
+    <span class="highlight-comment">// При возникновении исключения отменяем изменения объекта в случае, если объект был взят на редактирование</span>
+    <span class="highlight-keyword">if</span> (changingObject.Changing)
+        changingObject.CancelChanges();
+
+    <span class="highlight-keyword">throw</span>;
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LSTF68E6408_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion" id="ModifyObjectSection">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Упрощенное редактирование объектов</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+					API T-FLEX DOCs предоставляет упрощенную реализацию редактирования объектов при помощи метода <a href="6751894D.htm">Modify</a>. В котором уже реализована отмена изменений в случае возникновения исключения.<br />
+					Помимо этого, метод автоматически переводит объект в состояние редактирования и сохраняет его при условии, что объект не был взят на редактирование до вызова метода.<br />
+					Следующие аргументы влияют на описанное на поведение метода:<br />
+					 - cancelOnError - автоматическая отмена изменений в случае возникновения исключения<br />
+					 - reload - отвечает за перезагрузку объекта при взятии на редактирование<br />
+					 - applyChanges - определяет, нужно ли применять изменения, оставив объект в редактировании		
+				</p>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ReferenceObject changingObject = Context.ReferenceObject; <span class="highlight-comment">// Получаем редактируемый объект</span>
+
+<span class="highlight-keyword">if</span> (!changingObject.CanEdit) <span class="highlight-comment">// Проверяем возможность редактирования объекта</span>
+    <span class="highlight-keyword">return</span>;
+
+changingObject.BeginChanges(); <span class="highlight-comment">// Переводим объект в состояние редактирования</span>
+<span class="highlight-comment">// Если объект только что загружен, можно использовать перегрузку BeginChanges(false), чтобы не перезагружать объект </span>
+
+<span class="highlight-keyword">try</span>
+{
+    <span class="highlight-comment">// В коде ниже необходимо заменить пустые глобальные идентификаторы (Guid.Empty) на конкретные идентификаторы параметров и связей</span>
+
+    changingObject[Guid.Empty].Value = <span class="highlight-number">123</span>; <span class="highlight-comment">// Присваиваем значение параметру</span>
+    <span class="highlight-keyword">object</span> <span class="highlight-keyword">value</span> = changingObject[Guid.Empty].Value; <span class="highlight-comment">// Получаем значение параметра</span>
+
+    <span class="highlight-comment">// Мы можем получить значение конкретного типа:</span>
+    <span class="highlight-keyword">bool</span> flag = changingObject[Guid.Empty].GetBoolean();
+
+    ReferenceObject linkedObject = <span class="highlight-keyword">null</span>; <span class="highlight-comment">// Объект по связи</span>
+    changingObject.SetLinkedObject(Guid.Empty, linkedObject); <span class="highlight-comment">// Подключаем объект по связи 1:1 или N:1</span>
+    changingObject.SetLinkedObject(Guid.Empty, <span class="highlight-keyword">null</span>); <span class="highlight-comment">// Отключаем объект по связи 1:1 или N:1</span>
+
+    changingObject.AddLinkedObject(Guid.Empty, linkedObject); <span class="highlight-comment">// Подключаем объект по связи 1:N, N:N, на любой справочник</span>
+    changingObject.RemoveLinkedObject(Guid.Empty, linkedObject); <span class="highlight-comment">// Отключаем объект по связи 1:N, N:N, на любой справочник</span>
+
+    List&lt;ReferenceObject&gt; linkedObjects = changingObject.GetObjects(Guid.Empty); <span class="highlight-comment">// Получаем объекты списка или объекты по связи 1:N, N:N, на любой справочник</span>
+    ReferenceObject linkedObjectByLinkToOne = changingObject.GetObject(Guid.Empty); <span class="highlight-comment">// Получаем объект по связи 1:1 или N:1</span>
+
+    _ = changingObject.EndChanges(); <span class="highlight-comment">// Фиксируем окончание изменений</span>
+}
+<span class="highlight-keyword">catch</span>
+{
+    <span class="highlight-comment">// При возникновении исключения отменяем изменения объекта в случае, если объект был взят на редактирование</span>
+    <span class="highlight-keyword">if</span> (changingObject.Changing)
+        changingObject.CancelChanges();
+
+    <span class="highlight-keyword">throw</span>;
+}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>Метод Modify не учитывает поддержку справочником истории изменений. Методы, связанные с рабочим столом, необходимо вызывать явно в коде</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LSTF68E6408_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Получение объектов по обратным связям</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div class="mediaNear">
+            <div class="caption">Обратные связи</div>
+            <img alt="Swapped Links" src="../media/SwappedLinks.png" />
+          </div>
+          <div id="IDBBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ReferenceObject currentObject = Context.ReferenceObject; <span class="highlight-comment">// Получаем текущий объект</span>
+
+        <span class="highlight-keyword">if</span> (currentObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> swappedToOneLink = currentObject.Links.SwappedToOne[Guid.Empty]; <span class="highlight-comment">// Находим обратную связь к 1 по Guid'у</span>
+        ReferenceObject linkedObject = swappedToOneLink?.LinkedObject; <span class="highlight-comment">// Получаем объект по связи</span>
+
+        <span class="highlight-keyword">var</span> swappedToManyLink = Context.ReferenceObject.Links.SwappedToMany[Guid.Empty]; <span class="highlight-comment">// // Находим обратную связь к N по Guid'у</span>
+
+        <span class="highlight-keyword">if</span> (swappedToManyLink <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+        {
+            <span class="highlight-comment">// Изначально объекты по связи не загружены, можно либо загрузить явно, либо объекты будут загружены при обращению к перечислителю</span>
+            <span class="highlight-comment">// swappedToManyLink.Objects.Load();</span>
+
+            <span class="highlight-keyword">foreach</span> (ReferenceObject referenceObject <span class="highlight-keyword">in</span> swappedToManyLink.Objects)
+            {
+                <span class="highlight-comment">// Действия над объектами...</span>
+            }
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Получение подключений по связям</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <div id="IDABEAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABEAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABEAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABEAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABEAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ComplexHierarchyLink linkedComplexHierarchyLink = Context.ReferenceObject.GetLinkedComplexLink(Guid.Empty); <span class="highlight-comment">// Для текущего объекта получаем связанное подключение по связи 1:1 или N:1</span>
+IReadOnlyCollection&lt;ComplexHierarchyLink&gt; linkedComplexHierarchyLinks = Context.ReferenceObject.GetLinkedComplexLinks(Guid.Empty); <span class="highlight-comment">// Для текущего объекта получаем подключения по связи 1:N или N:N</span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion" id="ChangeTypeSection">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDFAB')" onkeypress="SectionExpandCollapse_CheckKey('IDFAB', event)" tabindex="0">
+            <img id="IDFABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Изменение типа объекта</span>
+        </div>
+        <div id="IDFABSection" class="collapsibleSection">
+          <p>
+					Для изменения типа необходимо перевести объект в состояние редактирования, указав новый тип.<br />
+					Метод <a href="FC4543AF.htm">BeginChanges()</a>, принимающий в качестве аргумента новый тип, возвращает объект с уже измененным типом.<br />
+					Последующие операции (изменение параметров и связей, применение изменений) необходимо проводить над объектом, возвращенным из метода.
+				</p>
+          <div id="IDBBFAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBFAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBFAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBFAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBFAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Tasks;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        TasksReference tasksReference = <span class="highlight-keyword">new</span> TasksReference(Context.Connection); <span class="highlight-comment">// Создаем экземпляр справочника "Темы и задачи"</span>
+        ReferenceObject task = tasksReference.FindOne(TasksReferenceObject.FieldKeys.Name, <span class="highlight-literal">"Задача 1"</span>);  <span class="highlight-comment">// Находим задачу по имени</span>
+        <span class="highlight-keyword">if</span> (task <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Метод BeginChanges возвращает объект с новым типом, поэтому дальнейшее взаимодействие необходимо осуществлять с возвращенным объектом</span>
+        <span class="highlight-keyword">var</span> theme = task.BeginChanges(tasksReference.Classes.Theme) <span class="highlight-keyword">as</span> ThemeObject; <span class="highlight-comment">// Переводим объект в состояние редактирования с указанием нового типа</span>
+        theme.Name.Value = <span class="highlight-literal">"Тема 1"</span>;
+        theme.EndChanges();
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LSTF68E6408_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+            <br />
+            <a href="B9901E82.htm">TFlex.DOCs.Model.References.Tasks<span id="LSTF68E6408_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>TasksReference</a>
+            <br />
+            <a href="AE5FAE58.htm">TFlex.DOCs.Model.References.Tasks<span id="LSTF68E6408_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ThemeObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDGAB')" onkeypress="SectionExpandCollapse_CheckKey('IDGAB', event)" tabindex="0">
+            <img id="IDGABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Удаление</span>
+        </div>
+        <div id="IDGABSection" class="collapsibleSection">
+          <p>
+					Для удаления объекта предназначен метод Delete:
+				</p>
+          <div id="IDBBGAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBGAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBGAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBGAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBGAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Удаление объекта с предварительной проверкой возможности удаления объекта</span>
+<span class="highlight-keyword">if</span> (referenceObject.CanDelete)
+    referenceObject.Delete();
+
+<span class="highlight-comment">// Если справочник поддерживает корзину, можем удалить объект из нее</span>
+<span class="highlight-keyword">if</span> (referenceObject.Reference.ParameterGroup.SupportsRecycleBin)
+    TFlex.DOCs.Model.Desktop.Desktop.ClearRecycleBin(referenceObject);</pre>
+              </div>
+            </div>
+          </div>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Обратите внимание, что данный метод действителен только для удаления неверсионных объектов.<br />
+						Удаление версионных объектов описано в разделе <a href="4203a7d7-dff0-4821-b59e-b0e8073a2839.htm">'Работа с версионными объектами'</a></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LSTF68E6408_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDHAB')" onkeypress="SectionExpandCollapse_CheckKey('IDHAB', event)" tabindex="0">
+            <img id="IDHABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Разблокировка</span>
+        </div>
+        <div id="IDHABSection" class="collapsibleSection">
+          <p>
+					Для разблокировки объекта предназначен метод <a href="F48118D.htm">ReferenceObject.Unlock()</a></p>
+          <div id="IDBBHAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBHAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBHAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBHAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBHAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (Context.ReferenceObject.CanUnlock) <span class="highlight-comment">// Проверяем, возможно ли разблокировать объект</span>
+    Context.ReferenceObject.Unlock(); <span class="highlight-comment">// Разблокировываем</span></pre>
+              </div>
+            </div>
+          </div>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Обратите внимание, что данный метод действителен только для разблокировки неверсионных объектов.<br />
+				        Для разблокировки версионных объектов необходимо произвести отмену изменений при помощи метода <a href="E4FFFF71.htm">ReferenceObject.UndoCheckOut()</a>
+					    , пример доступен в разделе <a href="4203a7d7-dff0-4821-b59e-b0e8073a2839.htm">'Работа с версионными объектами'</a></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LSTF68E6408_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDIAB')" onkeypress="SectionExpandCollapse_CheckKey('IDIAB', event)" tabindex="0">
+            <img id="IDIABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Установка владельца</span>
+        </div>
+        <div id="IDIABSection" class="collapsibleSection">
+          <p>
+					Для установки владельца объекта можно воспользоваться методом <a href="BD855EC0.htm">SetOwnerUser</a>.<br />
+					Также, в API доступна пакетная установка владельца (см. <a href="DEFD0FA1-83E9-4812-B789-104DB96CC5F6.htm#SetObjectsOwner">«Установка владельца для списка объектов справочника»</a>).
+				</p>
+          <div id="IDBBIAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBIAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBIAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBIAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBIAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ReferenceObject currentObject = Context.ReferenceObject; <span class="highlight-comment">// Получаем текущий объект</span>
+        <span class="highlight-keyword">if</span> (currentObject <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        User currentUser = Context.Connection.ClientView.GetUser(); <span class="highlight-comment">// Получаем текущего пользователя</span>
+        <span class="highlight-keyword">if</span> (currentObject.Reference.ParameterGroup.SupportsOwner <span class="highlight-comment">// Проверяем, что справочник, которому принадлежит объект, поддерживает параметр "Владелец"</span>
+            &amp;&amp; currentObject.SystemFields.Owner != currentUser) <span class="highlight-comment">// и что текущий пользователь не является владельцем объекта</span>
+        {
+            currentObject.SetOwnerUser(currentUser); <span class="highlight-comment">// Устанавливаем в качестве владельца текущего пользователя</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LSTF68E6408_7" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+            <br />
+            <a href="DAC89B56.htm">TFlex.DOCs.Model.References.Users<span id="LSTF68E6408_8" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>User</a>
+            <br />
+            <a href="D21FC415.htm">ParameterGroup<span id="LSTF68E6408_9" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>SupportsOwner</a>
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDJAB')" onkeypress="SectionExpandCollapse_CheckKey('IDJAB', event)" tabindex="0">
+            <img id="IDJABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Свойства объектов</span>
+        </div>
+        <div id="IDJABSection" class="collapsibleSection">
+          <p>
+            <a href="1A02C5FE.htm">ReferenceObject.IsNew</a>
+					- возвращает значение, указывающее, является ли объект добавленным (с момента создания к объекту не применялись изменения).
+					Данное свойство удобно использовать в обработчиках событий
+				</p>
+          <p>
+            <a href="BD256107.htm">ReferenceObject.Class</a>
+					- возвращает тип объекта
+				</p>
+          <p>
+            <a href="D798DEFA.htm">ReferenceObject.HasChildren</a>
+					- возвращает значение, указывающее, имеются ли у объекта дочерние объекты.
+				</p>
+          <p>
+            <a href="580FAB5A.htm">ReferenceObject.Parent</a>
+					- возвращает родительский объект. Работа с иерархией описана в разделе <a href="2152c584-1690-4920-a990-71a3b6876dfb.htm">'Работа с иерархией'</a></p>
+          <p>
+            <a href="E5D97BCD.htm">ReferenceObject.NewParent</a>
+					- возвращает новый родительский объект, к которому подключается текущий объект в справочнике с простой иерархией (иерархия объектов "Дерево")
+				</p>
+          <p>
+            <a href="CF0C5A3F.htm">ReferenceObject.Children</a>
+					- возвращает коллекцию дочерних объектов. Работа с иерархией описана в разделе <a href="2152c584-1690-4920-a990-71a3b6876dfb.htm">'Работа с иерархией'</a></p>
+          <p>
+            <a href="5B9A45AD.htm">ReferenceObject.IsInRecycleBin</a>
+					- возвращает значение, указывающее, находится ли объект в корзине
+				</p>
+          <p>
+            <a href="52FFDF23.htm">ReferenceObject.CanUnlock</a>
+					- возвращает значение, указывающее, возможно ли разблокировать объект
+				</p>
+          <p>
+            <a href="B5DB8E3E.htm">ReferenceObject.CanDelete</a>
+					- возвращает значение, указывающее, возможно ли удаление объекта
+				</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Свойство CanDelete может использоваться для версионных объектов только если к ним ни разу не были применены изменения. В остальных случаях необходимо использовать CanCheckOut
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

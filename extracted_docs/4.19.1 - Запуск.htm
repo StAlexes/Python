@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Запуск</title>
+    <meta name="Microsoft.Help.Id" content="D3E5B47B-413B-4C43-8A73-8000A02CB3F4" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Запуск</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример запуска правила обмена с описанием настроек запуска и результата</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+TFlex.DOCs.SynchronizerReference.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Search;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+<span class="highlight-keyword">using</span> TFlex.DOCs.References.MasterDataBindings;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Synchronization.SyncData;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Synchronization.SyncData.MasterServer;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-comment">/// &lt;summary&gt;Запуск правила обмена данными между серверами&lt;/summary&gt;</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> RunExchangeWithServer()
+    {
+        <span class="highlight-keyword">var</span> masterDataBinding = <span class="highlight-keyword">new</span> MasterDataBindingsReference(Context.Connection)
+            .Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid правила"</span>)) <span class="highlight-keyword">as</span> MasterServerExchangeDataRuleReferenceObject; <span class="highlight-comment">// Находим правило обмена данными</span>
+
+        <span class="highlight-keyword">var</span> masterDataTransfer = masterDataBinding.MasterDataServers.AsList.FirstOrDefault(s =&gt; s.Name == <span class="highlight-literal">"ServerName"</span>); <span class="highlight-comment">// Находим сервер по наименованию</span>
+
+        <span class="highlight-comment">// Задаем настройки для сервера, на который будем передавать данные</span>
+        <span class="highlight-keyword">var</span> externalData = <span class="highlight-keyword">new</span> MasterServerData(masterDataTransfer)
+        {
+            MaxAttemps = <span class="highlight-number">3</span>, <span class="highlight-comment">// Максимальное количество попыток отправки сообщения по сети, в случае потери соединения</span>
+            WaitTime = TimeSpan.FromSeconds(<span class="highlight-number">5</span>), <span class="highlight-comment">// Время между попытками отправки сообщения по сети, в случае потери соединения</span>
+        };
+
+        <span class="highlight-comment">// Задаем фильтр для входящих объектов</span>
+        <span class="highlight-keyword">var</span> referenceInfo = Context.Connection.ReferenceCatalog.Find(SpecialReference.Units);
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> filter = <span class="highlight-keyword">new</span> Filter(referenceInfo);
+        filter.Terms.AddTerm(referenceInfo.Description[SystemParameterType.ObjectId], ComparisonOperator.GreaterThanOrEqual, <span class="highlight-number">250</span>);
+
+        <span class="highlight-comment">// Задаем настройки запуска</span>
+        <span class="highlight-keyword">var</span> settings = masterDataBinding.CreateDefaultSettings();
+        settings.ExchangeDataMode = ExchangeDataMode.Export;
+        settings.AddFilter(filter); <span class="highlight-comment">// Выбираем входящие объекты</span>
+        settings.ExternalData = externalData;
+
+        <span class="highlight-keyword">var</span> results = masterDataBinding.Run(settings); <span class="highlight-comment">// Запускаем</span>
+        results.ThrowIfCancelled();
+    }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Запуск правила обмена данными с Xml&lt;/summary&gt;</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> RunExchangeWithXml()
+    {
+        <span class="highlight-keyword">var</span> диалог = СоздатьДиалогСохраненияФайла();
+        диалог.Фильтр = <span class="highlight-literal">"Файл Xml|*.xml"</span>;
+
+        <span class="highlight-keyword">if</span> (!диалог.Показать())
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> masterDataBinding = <span class="highlight-keyword">new</span> MasterDataBindingsReference(Context.Connection).Find(<span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid правила"</span>)); <span class="highlight-comment">// Находим правило обмена данными</span>
+
+        <span class="highlight-comment">// Находим входящие объекты по идентификаторам</span>
+        <span class="highlight-keyword">var</span> referenceInfo = Context.Connection.ReferenceCatalog.Find(SpecialReference.Nomenclature);
+        <span class="highlight-keyword">var</span> objects = referenceInfo.CreateReference().Find([<span class="highlight-number">5</span>, <span class="highlight-number">6</span>]);
+
+        <span class="highlight-comment">// Задаем настройки запуска</span>
+        <span class="highlight-keyword">var</span> settings = masterDataBinding.CreateDefaultSettings();
+        settings.ExchangeDataMode = ExchangeDataMode.Export;
+        settings.ExternalFilePath = диалог.ИмяФайла; <span class="highlight-comment">// Путь до файла, куда сохраняем</span>
+        settings.AddObjects(objects); <span class="highlight-comment">// Выбираем входящие объекты</span>
+        settings.AdvancedLogging = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Ведение журналирования об обмене данными с записью в файл</span>
+        settings.EntityLoading = <span class="highlight-keyword">false</span>; <span class="highlight-comment">// Загружать объекты источника в упрощённом виде</span>
+        settings.AllowReferenceObjectProcessingList = <span class="highlight-keyword">true</span>; <span class="highlight-comment">// Ведение списка обработанных объектов справочника</span>
+
+        <span class="highlight-keyword">var</span> results = masterDataBinding.Run(settings); <span class="highlight-comment">// Запускаем</span>
+        results.ThrowIfCancelled();
+
+        Сообщение(
+            results.FilePath,
+            $<span class="highlight-literal">"Длительность выполнения: {results.Duration}"</span> + Environment.NewLine
+            + <span class="highlight-literal">"Обработанные объекты:"</span> + Environment.NewLine
+            + String.Join(Environment.NewLine, results.ReferenceObjectActionList.Select(a =&gt; $<span class="highlight-literal">"[{a.Action}] {a.DataObject.SourceObject}"</span>))
+            );
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

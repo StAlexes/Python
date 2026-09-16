@@ -1,0 +1,354 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Окна, элементы управления</title>
+    <meta name="Microsoft.Help.Id" content="ED8F724A-0EDD-4959-B45D-32130BD3D850" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.MacroProvider.ОткрытьОкноСправочника(System.String,System.String,TFlex.DOCs.Model.Macros.ObjectModel.Объект,System.String,System." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Окна, элементы управления</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для работы с окнами</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="89127852.htm">ОткрытьОкноСправочника(справочник[, фильтр, корневой объект, вид, папка каталога])</a>
+					- открывает окно справочника
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> сборочнаяЕдиница = НайтиОбъект(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"[ID] = '1'"</span>); <span class="highlight-comment">// Находим корневой объект</span>
+
+<span class="highlight-keyword">if</span> (сборочнаяЕдиница <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+    <span class="highlight-keyword">return</span>;
+
+ОткрытьОкноСправочника(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"Тип = 'Деталь'"</span>, сборочнаяЕдиница, <span class="highlight-literal">"Для классификатора"</span>); <span class="highlight-comment">// Открываем справочник с заданным фильтром, корневым объектом и видом</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="5EECB3A9.htm">ОткрытьОкноПросмотра(файл)</a>
+					- открывает окно просмотра с указанным файлом
+				</p>
+          <div id="IDEBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> файл = НайтиОбъект(<span class="highlight-literal">"Файлы"</span>, <span class="highlight-literal">"Относительный путь"</span>, <span class="highlight-literal">"Изображения\\TopSystems.png"</span>); <span class="highlight-comment">// Находим файл</span>
+
+<span class="highlight-keyword">if</span> (файл <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+    ОткрытьОкноПросмотра(файл); <span class="highlight-comment">// Открываем окно просмотра с указанным файлом</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="12713D76.htm">ОткрытьРабочуюСтраницу(наименование или Guid РС)</a>
+					- открывает рабочую страницу
+				</p>
+          <div id="IDHBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ОткрытьРабочуюСтраницу(<span class="highlight-literal">"АРМ Технолога"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="B84D1026.htm">УправлениеПроектами.ОткрытьРедакторПроектов(проекты[, вид, стиль])</a>
+					- открывает редактор проектов с возможностью указания вида и стиля
+				</p>
+          <div id="IDKBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDKBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDKBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDKBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDKBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объекты проекты = НайтиОбъекты(<span class="highlight-literal">"Управление проектами"</span>, Условие(<span class="highlight-literal">"ID"</span>, <span class="highlight-literal">"Входит в список"</span>, <span class="highlight-keyword">new</span> <span class="highlight-keyword">int</span>[] { <span class="highlight-number">1</span>, <span class="highlight-number">3</span> }));
+
+<span class="highlight-keyword">if</span> (проекты.Count &gt; <span class="highlight-number">0</span>)
+    УправлениеПроектами.ОткрытьРедакторПроектов(проекты, <span class="highlight-literal">"Основной"</span>, <span class="highlight-literal">"Стиль 1"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="82C4C925.htm">УправлениеПроектами.ОткрытьИспользованиеРабот(проект[, вид, стиль])</a>
+					- открывает окно использования работ проекта с возможностью указания вида и стиля
+				</p>
+          <div id="IDNBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDNBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDNBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDNBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDNBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект проект = НайтиОбъект(<span class="highlight-literal">"Управление проектами"</span>, Условие(<span class="highlight-literal">"ID"</span>, <span class="highlight-literal">"="</span>, <span class="highlight-number">1</span>));
+
+<span class="highlight-keyword">if</span> (проект <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+    УправлениеПроектами.ОткрытьИспользованиеРабот(проект, <span class="highlight-literal">"Основной"</span>, <span class="highlight-literal">"Стиль 1"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="3BCB24CC.htm">УправлениеПроектами.ОткрытьИспользованиеРесурсов([проекты, ресурс, вид, стиль])</a>
+					- открывает окно использования ресурсов с возможностью указания конкретного ресурса/проекта, вида и стиля
+				</p>
+          <div id="IDQBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDQBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDQBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDQBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDQBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект проект = НайтиОбъект(<span class="highlight-literal">"Управление проектами"</span>, Условие(<span class="highlight-literal">"ID"</span>, <span class="highlight-literal">"="</span>, <span class="highlight-number">1</span>));
+Объект ресурс = проект?.СвязанныеОбъекты[<span class="highlight-literal">"Ресурс"</span>].FirstOrDefault();
+
+<span class="highlight-keyword">if</span> (ресурс <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+    УправлениеПроектами.ОткрытьИспользованиеРесурсов(<span class="highlight-keyword">null</span>, ресурс, <span class="highlight-literal">"Основной"</span>, <span class="highlight-literal">"Стиль 1"</span>);
+
+<span class="highlight-comment">// Передаваемые в метод ресурс и проект являются взаимоисключающими.</span>
+<span class="highlight-comment">// Можно передать в метод проект, тогда ресурс будет проигнорирован. Пример с проектом:</span>
+<span class="highlight-comment">// if (проект is not null)</span>
+<span class="highlight-comment">//    УправлениеПроектами.ОткрытьИспользованиеРесурсов(проект, null, "Основной", "Стиль 1");</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="ADE99EA4.htm">ОбновитьОкноСправочника()</a>
+					- обновляет окно текущего справочника
+				</p>
+          <div id="IDTBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDTBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDTBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDTBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDTBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> деталь = СоздатьОбъект(<span class="highlight-literal">"Документы"</span>, <span class="highlight-literal">"Деталь"</span>); <span class="highlight-comment">// Создаем объект в справочнике "Документы"</span>
+деталь[<span class="highlight-literal">"Наименование"</span>] = <span class="highlight-literal">"тестовая деталь"</span>;
+деталь[<span class="highlight-literal">"Обозначение"</span>] = <span class="highlight-literal">"Д1"</span>;
+деталь.Сохранить();
+
+ОбновитьОкноСправочника(); <span class="highlight-comment">// Обновляем окно справочника</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="DF576939.htm">ТекущееОкно</a>
+					- возвращает текущее окно (в контексте которого выполняется макрос). Например, диалог свойств или рабочая страница
+				</p>
+          <p>
+            <a href="F5413342.htm">Окно.Обновить()</a>
+					- обновляет данные окна
+				</p>
+          <p>
+            <a href="8173B8B2.htm">Окно.ОбновитьЭлементУправления(наименование ЭУ)</a>
+					- обновляет элемент управления
+				</p>
+          <p>
+            <a href="88BA5A14.htm">Окно.Наименование</a>
+					- возвращает наименование окна
+				</p>
+          <p>
+            <a href="67A388F8.htm">Окно.НайтиЭлементУправления(наименование ЭУ)</a>
+					- выполняет поиск элемента управления в окне по наименованию. Возвращает ЭУ или null, если ЭУ не найден
+				</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для работы с элементами управления</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+            <a href="9C54A9ED.htm">ЭлементУправления.Наименование</a>
+					- возвращает наименование ЭУ
+				</p>
+          <p>
+            <a href="5F65598A.htm">ЭлементУправления.ВыбранныеОбъекты</a>
+					- возвращает выбранные в ЭУ объекты
+				</p>
+          <p>
+            <a href="AFF6174D.htm">ЭлементУправления.ВыбранныеПодключения</a>
+					- возвращает выбранные в ЭУ подключения
+				</p>
+          <p>
+            <a href="897C4560.htm">ЭлементУправления.Обновить()</a>
+					- обновляет данные ЭУ
+				</p>
+          <p>
+            <a href="98CC74E4.htm">ЭлементУправления.ПоддерживаетВиды</a>
+					- возвращает значение, указывающее, поддерживает ли элемент управления работу с видами
+				</p>
+          <p>
+            <a href="982EB34F.htm">ЭлементУправления.ПолучитьВиды()</a>
+					- возвращает доступные виды для ЭУ
+				</p>
+          <p>
+            <a href="AFADEC46.htm">ЭлементУправления.ПолучитьТекущийВид()</a>
+					- возвращает текущий вид ЭУ
+				</p>
+          <p>
+            <a href="F5C87FE5.htm">ЭлементУправления.ПрименитьВид(Guid вида)</a>
+            <br />
+            <a href="9ED0C7C1.htm">ЭлементУправления.ПрименитьВид(наименование вида)</a>
+            <br />
+            <a href="9ED1C7C1.htm">ЭлементУправления.ПрименитьВид((наименование, Guid) вид)</a>
+            <br />
+					- применяет вид к ЭУ
+				</p>
+          <p>
+            <a href="115D0540.htm">ЭлементУправления.ПоддерживаетФильтрацию</a>
+					- возвращает значение, указывающее, поддерживает ли элемент управления работу с фильтрами
+				</p>
+          <p>
+            <a href="37EA1631.htm">ЭлементУправления.УстановитьТекущийФильтр(условия)</a>
+            <br />
+            <a href="37EA1632.htm">ЭлементУправления.УстановитьТекущийФильтр(условие)</a>
+            <br />
+            <a href="37EA162B.htm">ЭлементУправления.УстановитьТекущийФильтр(объект справочника 'Поисковые запросы')</a>
+            <br />
+            <a href="37EA162C.htm">ЭлементУправления.УстановитьТекущийФильтр(параметр, значение)</a>
+            <br />
+            <a href="37EA162D.htm">ЭлементУправления.УстановитьТекущийФильтр(фильтр)</a>
+            <br />
+            <a href="D1F5B4A8.htm">ЭлементУправления.УстановитьТекущийФильтр(Guid объекта справочника 'Поисковые запросы')</a>
+            <br />					
+					- устанавливает текущий фильтр
+				</p>
+          <p>
+            <a href="9993FC4E.htm">ЭлементУправления.ВключитьФильтр()</a>
+            <br />
+            <a href="A8835E07.htm">ЭлементУправления.ОтключитьФильтр()</a>
+            <br />
+					- включает или отключает фильтр (программный вызов команды "Найти")
+				</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с окнами и элементами управления</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div id="IDABDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel.Layout; <span class="highlight-comment">// Для работы с окнами и ЭУ необходимо подключить данное пространство</span>
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        Окно текущееОкно = ТекущееОкно; <span class="highlight-comment">// Получаем текущее окно</span>
+        <span class="highlight-keyword">if</span> (текущееОкно == <span class="highlight-keyword">null</span>)
+            <span class="highlight-keyword">return</span>;
+
+        текущееОкно.Обновить(); <span class="highlight-comment">// Обновляем данные в текущем окне</span>
+        <span class="highlight-keyword">string</span> наименованиеОкна = текущееОкно.Наименование;
+
+        ЭлементУправления эу = текущееОкно.НайтиЭлементУправления(<span class="highlight-literal">"item1"</span>); <span class="highlight-comment">// Находим определенный ЭУ по имени</span>
+        <span class="highlight-keyword">if</span> (эу != <span class="highlight-keyword">null</span>)
+        {
+            эу.Обновить(); <span class="highlight-comment">// Обновляем данные ЭУ</span>
+            <span class="highlight-keyword">string</span> наименованиеЭУ = эу.Наименование;
+            Объекты выбранныеОбъекты = эу.ВыбранныеОбъекты; <span class="highlight-comment">// Если ЭУ содержит объекты, то получаем выбранные</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

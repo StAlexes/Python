@@ -1,0 +1,183 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Работа с серверными задачами</title>
+    <meta name="Microsoft.Help.Id" content="9cea58a3-ff78-4413-917c-dd1f69550d76" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Работа с серверными задачами</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Создание серверной задачи</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p />
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Notification.ServerTasks;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Notification.ServerTasks.Handlers;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Notification.ServerTasks.Triggers;
+
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Время начала выполнения действия</span>
+        DateTime startDate = DateTime.Now.AddHours(<span class="highlight-number">1</span>);
+
+        ServerTask serverTask = <span class="highlight-keyword">new</span> ServerTask(Context.Connection)
+        {
+            Name = <span class="highlight-literal">"Тестовая задача"</span>,
+            <span class="highlight-comment">// Триггер для указания времени начала выполнения действия</span>
+            Trigger = <span class="highlight-keyword">new</span> TimeTrigger { StartTime = startDate },
+            <span class="highlight-comment">// Выполняемое действие. В данном случае - выполнение макроса</span>
+            Action = <span class="highlight-keyword">new</span> MacroTaskAction(Context.Connection, Guid.Empty, <span class="highlight-literal">"Run"</span>)
+        };
+
+        <span class="highlight-comment">// Сохраняем задачу</span>
+        serverTask.Save();
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Примечание:</span>
+            <br />
+          Возможно использование следующих триггеров: <br /><a href="990C20C.htm">TimeTrigger</a> - триггер "Однократно". <br /><a href="A278D67F.htm">DayTrigger</a> - триггер "Ежедневно". <br /><a href="AEB94836.htm">WeekTrigger</a> - триггер "Еженедельно". <br /><a href="96000DC2.htm">MonthTrigger</a> - триггер "Ежемесячно".
+        </p>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LST90611734_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+            <br />
+            <a href="FBAE736E.htm">TFlex.DOCs.Model.Macros<span id="LST90611734_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroContext</a>
+            <br />
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LST90611734_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+            <br />
+            <a href="2A38AAC.htm">TFlex.DOCs.Model.Notification.ServerTasks<span id="LST90611734_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerTask</a>
+            <br />
+          </p>
+        </div>
+        <p>&nbsp;</p>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример удаления отключенных задач пользователя</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <p />
+          <div id="IDBBDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Notification.ServerTasks;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Получаем текущего пользователя</span>
+        User currentUser = Context.Connection.ClientView.GetUser();
+        <span class="highlight-comment">// Получаем список задач</span>
+        List&lt;ServerTask&gt; tasks = <span class="highlight-keyword">new</span> ServerTaskManager(Context.Connection).GetTasks();
+
+        <span class="highlight-comment">// Находим отключенные задачи текущего пользователя</span>
+        List&lt;ServerTask&gt; enabledUserTasks =
+            tasks.Where(task =&gt; !task.IsDeleted &amp;&amp; !task.Enabled &amp;&amp; task.User == currentUser).ToList();
+
+        <span class="highlight-keyword">if</span> (enabledUserTasks.Count == <span class="highlight-number">0</span>)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Удаляем задачи</span>
+        enabledUserTasks.ForEach(userTask =&gt; userTask.Delete());
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LST90611734_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+            <br />
+            <a href="FBAE736E.htm">TFlex.DOCs.Model.Macros<span id="LST90611734_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroContext</a>
+            <br />
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LST90611734_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+            <br />
+            <a href="34572F8E.htm">TFlex.DOCs.Model<span id="LST90611734_7" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ClientView</a>
+            <br />
+            <a href="DAC89B56.htm">TFlex.DOCs.Model.References.Users<span id="LST90611734_8" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>User</a>
+            <br />
+            <a href="4418CDBF.htm">TFlex.DOCs.Model.Notification.ServerTasks<span id="LST90611734_9" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerTaskManager</a>
+            <br />
+            <a href="2A38AAC.htm">TFlex.DOCs.Model.Notification.ServerTasks<span id="LST90611734_10" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerTask</a>
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

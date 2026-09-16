@@ -1,0 +1,134 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Пример 1</title>
+    <meta name="Microsoft.Help.Id" content="815773ce-6e5b-44d8-9248-dbbbdc9b4b0a" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена работа со стандартным классом фильтра DOCs T:TFlex.DOCs.Model.Search." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Пример 1</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с фильтром</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					В данном примере рассмотрена работа со стандартным классом фильтра DOCs
+					<a href="9E5EA472.htm">TFlex.DOCs.Model.Search<span id="LSTCC28363B_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Filter</a><br />
+					Ниже показано, как создать экземпляр данного класса и воспользоваться им для фильтрации объектов стандартного справочника "Единицы измерения" по типу
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> System.Text;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Classes;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Units;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Search;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> WorkWithFilter : MacroProvider
+{
+    <span class="highlight-keyword">public</span> WorkWithFilter(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        UnitReference unitReference = Context.Connection.References.Units; <span class="highlight-comment">// Создаем экземпляр справочника «Единицы измерения»</span>
+        ClassObject typeLength = unitReference.Classes.Length; <span class="highlight-comment">// Находим тип «Длина»</span>
+
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> filter = <span class="highlight-keyword">new</span> Filter(unitReference.ParameterGroup); <span class="highlight-comment">// Создаем фильтр</span>
+        <span class="highlight-comment">//Добавляем условие поиска - «Тип = Длина»</span>
+        filter.Terms.AddTerm(unitReference.ParameterGroup[SystemParameterType.Class],
+            ComparisonOperator.Equal, typeLength);
+
+        <span class="highlight-comment">// Получаем список объектов (в качестве условия поиска - сформированный фильтр) и приводим к типу «Единицы измерения»        </span>
+        List&lt;Unit&gt; units = unitReference.Find(filter).OfType&lt;Unit&gt;().ToList();
+        <span class="highlight-comment">// Выводим наименования</span>
+        <span class="highlight-keyword">var</span> strBuilder = <span class="highlight-keyword">new</span> StringBuilder();
+
+        <span class="highlight-keyword">foreach</span> (Unit unit <span class="highlight-keyword">in</span> units)
+        {
+            strBuilder.AppendLine(unit.Name);
+        }
+
+        Сообщение(<span class="highlight-literal">"Работа с фильтром"</span>, strBuilder.ToString());
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="mediaNear">
+            <div class="caption">Результат:</div>
+            <img alt="Work With Filter Result" src="../media/WorkWithFilterResult.png" />
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LSTCC28363B_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+          </div>
+          <div>
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LSTCC28363B_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+          </div>
+          <div>
+            <a href="D99B90CD.htm">TFlex.DOCs.Model<span id="LSTCC28363B_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceInfo</a>
+          </div>
+          <div>
+            <a href="26AE86E6.htm">TFlex.DOCs.Model.References<span id="LSTCC28363B_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Reference</a>
+          </div>
+          <div>
+            <a href="828E76B1.htm">TFlex.DOCs.Model.Classes<span id="LSTCC28363B_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ClassObject</a>
+          </div>
+          <div>
+            <a href="9E5EA472.htm">TFlex.DOCs.Model.Search<span id="LSTCC28363B_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Filter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Объекты списка</title>
+    <meta name="Microsoft.Help.Id" content="E65D566E-66C0-4983-88A8-887B068BD3AD" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Список объектов является аналогом связи внутри объекта. Изменение параметров и связей объекта списка аналогично объекту справочника (см. «Редактирование объектов»)." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Объекты списка</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Список объектов является аналогом связи внутри объекта. Изменение параметров и связей объекта списка аналогично объекту справочника (см. <a href="663e0b41-ed90-4985-bdca-da4741702f3e.htm#EditObjectSection">«Редактирование объектов»</a>).
+			</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					При работе с объектами списка необходимо учитывать следующую информацию:
+				</p>
+          <ul>
+            <li>
+              <p>
+							Объект списка создается от владельца (при помощи метода
+							<a href="32603F7F.htm">ReferenceObject.CreateListObject()</a>
+							, см. пример), а не от справочника
+						</p>
+            </li>
+            <li>
+              <p>Идентификатор (Id) созданного объекта списка равен нулю до сохранения владельца</p>
+            </li>
+            <li>
+              <p>Объект списка можно создавать и редактировать только если владелец взят на редактирование</p>
+            </li>
+            <li>
+              <p>Применить изменения к объекту списка нужно до сохранения владельца</p>
+            </li>
+            <li>
+              <p>
+							Для получения объекта справочника, которому принадлежит объект списка, т.е. владельца, необходимо обратиться к свойству
+							<a href="ADE22359.htm">ReferenceObject.MasterObject</a>
+							объекта списка
+						</p>
+            </li>
+          </ul>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Алгоритм внесения изменений в объект списка</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <ul>
+            <li>
+              <p>
+							Создание или перевод в состояние редактирования объекта справочника (владельца). Созданный объект не нужно брать на редактирование
+						</p>
+              <ul>
+                <li>
+                  <p>Создание или перевод в состояние редактирования объекта списка. Созданный объект не нужно брать на редактирование</p>
+                </li>
+                <li>
+                  <p>Редактирование объекта списка (изменение параметров, связей и т.д.)</p>
+                </li>
+                <li>
+                  <p>Фиксирование окончания изменений или отмена изменений для объекта списка</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Фиксирование окончания изменений или отмена изменений для объекта справочника</p>
+            </li>
+          </ul>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример создания и редактирования объектов списка</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div id="IDABDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> System.Linq;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// В коде необходимо пустые значения глобальных идентификаторов (Guid.Empty) заменить на реальные</span>
+
+        <span class="highlight-keyword">var</span> referenceObject = Context.ReferenceObject;
+
+        <span class="highlight-keyword">if</span> (!referenceObject.CanEdit) <span class="highlight-comment">// Проверяем возможность редактирования текущего объекта</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> editableListObjects = <span class="highlight-keyword">new</span> List&lt;ReferenceObject&gt;(<span class="highlight-number">2</span>); <span class="highlight-comment">// Коллекция для хранения редактируемых объектов списка</span>
+        <span class="highlight-keyword">try</span>
+        {
+            <span class="highlight-keyword">if</span> (!referenceObject.Changing)
+                referenceObject.BeginChanges(); <span class="highlight-comment">// Переводим в состояние редактирования объект справочника</span>
+
+            <span class="highlight-keyword">var</span> listObjects = referenceObject.GetObjects(Guid.Empty); <span class="highlight-comment">// Получаем объекты списка</span>
+            <span class="highlight-keyword">var</span> listObject1 = listObjects.FirstOrDefault(); <span class="highlight-comment">// Берем первый</span>
+
+            <span class="highlight-keyword">if</span> (listObject1 <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+            {
+                listObject1.BeginChanges(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Переводим в состояние редактирования объект списка. Т.к. объект списка только что получен по связи, то передаем в метод false, тем самым не перезагружаем объект</span>
+                listObject1[Guid.Empty].Value = <span class="highlight-number">1</span>; <span class="highlight-comment">// Устанавливаем значение параметра</span>
+                editableListObjects.Add(listObject1);
+            }
+
+            <span class="highlight-comment">// Удаляем объект списка</span>
+            <span class="highlight-keyword">if</span> (listObjects.Count &gt; <span class="highlight-number">1</span>)
+            {
+                <span class="highlight-keyword">var</span> deletedListObject = listObjects.Last();
+                deletedListObject.Delete();
+            }
+
+            <span class="highlight-comment">// Создаем объект списка. Брать на редактирование не нужно! Созданный объект уже в состоянии редактирования</span>
+            <span class="highlight-keyword">var</span> newistObject = referenceObject.CreateListObject(Guid.Empty, Guid.Empty);
+            newistObject[Guid.Empty].Value = <span class="highlight-number">1</span>;
+            editableListObjects.Add(newistObject);
+
+
+
+            <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> listObject <span class="highlight-keyword">in</span> editableListObjects)
+                listObject.EndChanges(); <span class="highlight-comment">// Фиксируем изменения для всех редактируемых объектов списка</span>
+
+            referenceObject.EndChanges(); <span class="highlight-comment">// Фиксируем изменения для объекта справочника</span>
+        }
+        <span class="highlight-keyword">catch</span>
+        {
+            <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> listObject <span class="highlight-keyword">in</span> editableListObjects.Where(lo =&gt; lo.Changing)) <span class="highlight-comment">// Отменяем изменения для редактируемых объектов списка</span>
+                listObject.CancelChanges();
+
+            <span class="highlight-comment">// Отменяем изменения для редактируемого объекта справочника</span>
+            <span class="highlight-keyword">if</span> (referenceObject.Changing)
+                referenceObject.CancelChanges();
+
+            <span class="highlight-keyword">throw</span>;
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST415BA155_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

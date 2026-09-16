@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Завершение изменения параметра объекта</title>
+    <meta name="Microsoft.Help.Id" content="72c6f9f1-cbc7-47aa-ae76-a2baa20107c8" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена обработка события &quot;Завершение изменения параметра объекта&quot;, возникающего после изменения значения параметра" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Завершение изменения параметра объекта</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В данном примере рассмотрена обработка события "Завершение изменения параметра объекта", возникающего после изменения значения параметра
+			</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDAABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDAABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDAABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDAABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDAABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> ChangedParameterEventHandler : MacroProvider
+{
+    <span class="highlight-keyword">private</span> Guid _fullName = <span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"bf5febb9-3478-4a78-b5d6-cc3101c4af04"</span>); <span class="highlight-comment">// "ФИО"</span>
+    <span class="highlight-keyword">private</span> Guid _nameGuid = <span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"581ce731-39c3-4fb4-ae3f-6a6ecbf30185"</span>); <span class="highlight-comment">// "Имя"</span>
+    <span class="highlight-keyword">private</span> Guid _patronymicGuid = <span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"b3071029-5c5b-459e-8125-851fcb729476"</span>); <span class="highlight-comment">// "Фамилия"</span>
+    <span class="highlight-keyword">private</span> Guid _surnameGuid = <span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"1aa4aa20-a9f7-4760-b46c-a72e0b9f3dab"</span>); <span class="highlight-comment">// "Отчество"</span>
+
+    <span class="highlight-keyword">public</span> ChangedParameterEventHandler(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-comment">// Обработчик события "Завершение изменения параметра объекта"</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">if</span> (Context.ModelChangedArgs <span class="highlight-keyword">is</span> not ObjectParameterChangedEventArgs args) <span class="highlight-comment">// Проверяем, является ли макрос обработчиком события "Завершение изменения параметра объекта"</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> fullNameParameters = <span class="highlight-keyword">new</span>[] { _nameGuid, _patronymicGuid, _surnameGuid };
+        <span class="highlight-keyword">if</span> (!fullNameParameters.Contains(args.Parameter.ParameterInfo.Guid)) <span class="highlight-comment">// Если изменяется параметр, не относящийся к ФИО, выходим</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">string</span> name = Context.ReferenceObject[_nameGuid].GetString();
+        <span class="highlight-keyword">string</span> patronymic = Context.ReferenceObject[_patronymicGuid].GetString();
+        <span class="highlight-keyword">string</span> surname = Context.ReferenceObject[_surnameGuid].GetString();
+
+        <span class="highlight-keyword">var</span> previousValue = args.OldValue; <span class="highlight-comment">// Если необходимо получить предыдущее значение</span>
+
+        Context.ReferenceObject[_fullName].Value = String.Format(<span class="highlight-literal">"{0} {1} {2}"</span>, name, patronymic, surname);
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LST4426D212_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+            <br />
+            <a href="FBAE736E.htm">TFlex.DOCs.Model.Macros<span id="LST4426D212_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroContext</a>
+            <br />
+            <a href="26AE86E6.htm">TFlex.DOCs.Model.References<span id="LST4426D212_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Reference</a>
+            <br />
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST4426D212_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+            <br />
+            <a href="868FB99A.htm">TFlex.DOCs.Model.Parameters<span id="LST4426D212_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ParameterCollection</a>
+            <br />
+            <a href="E103A72D.htm">TFlex.DOCs.Model.Structure<span id="LST4426D212_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ParameterInfo</a>
+            <br />
+            <a href="44D033B1.htm">TFlex.DOCs.Model.References<span id="LST4426D212_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ObjectParameterChangedEventArgs</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

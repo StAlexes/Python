@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Почта</title>
+    <meta name="Microsoft.Help.Id" content="35078e1d-b9b5-4b16-8a94-0878324e6c9c" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена работа с почтой в T-FLEX DOCs. Ниже показано, как использовать типы пространства имен N:TFlex.DOCs.Model.Mail для получения/отправки сообщений." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Почта</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с почтой</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+          В данном примере рассмотрена работа с почтой в T-FLEX DOCs.<br />
+          Ниже показано, как использовать типы пространства имен <a href="CAA88176.htm">TFlex.DOCs.Model.Mail</a>
+          для получения/отправки сообщений.
+        </p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Text;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.IO;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Mail;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Users;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Documents;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-comment">// Объекты типа "Пользователь" справочника "Группы и пользователи"</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">readonly</span> User _employee; <span class="highlight-comment">// Сотрудник</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">readonly</span> User _administrator; <span class="highlight-comment">// Администратор</span>
+
+    <span class="highlight-keyword">public</span> Macro(MacroContext context)
+        : <span class="highlight-keyword">base</span>(context)
+    {
+        _employee = Context.Connection.References.Users.FindUser(<span class="highlight-literal">"Сотрудник"</span>);
+        _administrator = Context.Connection.References.Users.FindUser(<span class="highlight-literal">"Администратор"</span>);
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ПолучитьСообщения();
+        ОтправитьСообщение();
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> ПолучитьСообщения()
+    {
+        <span class="highlight-comment">// Получаем три сообщения</span>
+        List&lt;MailMessage&gt; messages = Context.Connection.Mail.DOCsAccount.Inbox.GetMessages(<span class="highlight-number">3</span>);
+        Сообщение(<span class="highlight-literal">"Входящие сообщения"</span>, <span class="highlight-keyword">string</span>.Join(Environment.NewLine, messages.Select(GetMailItemString)));
+    }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> ОтправитьСообщение()
+    {
+        <span class="highlight-comment">// Создаем новое сообщение</span>
+        MailMessage message = <span class="highlight-keyword">new</span> MailMessage(Context.Connection.Mail.DOCsAccount)
+        {
+            Subject = <span class="highlight-literal">"Заголовок"</span>,
+            Body = <span class="highlight-literal">"Текст"</span>
+        };
+
+        <span class="highlight-comment">// Добавляем адресатов сообщения</span>
+        message.To.Add(<span class="highlight-keyword">new</span> EMailAddress(<span class="highlight-literal">"Name@DomainName"</span>));
+        message.To.Add(<span class="highlight-keyword">new</span> MailUser(_administrator));
+        message.Copy.Add(<span class="highlight-keyword">new</span> MailUser(_employee));
+
+        <span class="highlight-comment">// Прикрепляем к сообщению файл</span>
+        <span class="highlight-keyword">string</span> filePath = <span class="highlight-literal">@"C:\testFile.grb"</span>;
+
+        <span class="highlight-keyword">if</span> (File.Exists(filePath))
+            message.Attachments.Add(<span class="highlight-keyword">new</span> FileAttachment(filePath));
+
+        <span class="highlight-comment">// Прикрепляем к сообщению объект справочника</span>
+        ReferenceObject refObj = <span class="highlight-keyword">new</span> DocumentReference(Context.Connection).Objects[<span class="highlight-number">0</span>];
+        <span class="highlight-keyword">if</span> (refObj != <span class="highlight-keyword">null</span>)
+            message.Attachments.Add(<span class="highlight-keyword">new</span> ObjectAttachment(refObj));
+
+        <span class="highlight-comment">// Отправляем сообщение</span>
+        message.Send();
+    }
+
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">string</span> GetMailItemString(MailItem item)
+    {
+        StringBuilder sb = <span class="highlight-keyword">new</span> StringBuilder();
+        sb.AppendLine(<span class="highlight-literal">"Заголовок: "</span> + item.Subject);
+        sb.AppendLine(<span class="highlight-literal">"Дата отправки: "</span> + item.SentDate);
+        sb.AppendLine(<span class="highlight-literal">"От: "</span> + item.From);
+        sb.AppendLine(<span class="highlight-literal">"Текст: "</span> + (item.Body.Length &gt; <span class="highlight-number">15</span> ? item.Body.Substring(<span class="highlight-number">0</span>, <span class="highlight-number">15</span>) + <span class="highlight-literal">"..."</span> : item.Body));
+        <span class="highlight-keyword">return</span> sb.ToString();
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LST8A077890_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+          </div>
+          <div>
+            <a href="EAA7893.htm">TFlex.DOCs.Model<span id="LST8A077890_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ServerConnection</a>
+          </div>
+          <div>
+            <a href="33DB6994.htm">TFlex.DOCs.Model<span id="LST8A077890_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>SystemReferences</a>
+          </div>
+          <div>
+            <a href="DAC89B56.htm">TFlex.DOCs.Model.References.Users<span id="LST8A077890_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>User</a>
+          </div>
+          <div>
+            <a href="68465662.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MailService</a>
+          </div>
+          <div>
+            <a href="B5801A73.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>DOCsAccount</a>
+          </div>
+          <div>
+            <a href="23391EBD.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MailMessage</a>
+          </div>
+          <div>
+            <a href="6BEE0BB4.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_7" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MailAddress</a>
+          </div>
+          <div>
+            <a href="1CABF4EF.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_8" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MailAddressCollection</a>
+          </div>
+          <div>
+            <a href="53DE98F6.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_9" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>EMailAddress</a>
+          </div>
+          <div>
+            <a href="5F5DD724.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_10" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MailUser</a>
+          </div>
+          <div>
+            <a href="534325A2.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_11" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>FileAttachment</a>
+          </div>
+          <div>
+            <a href="E67A9C1B.htm">TFlex.DOCs.Model.References.Documents<span id="LST8A077890_12" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>DocumentReference</a>
+          </div>
+          <div>
+            <a href="A81673F0.htm">TFlex.DOCs.Model.References<span id="LST8A077890_13" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObjectCollection<span id="LST8A077890_14" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST8A077890_15" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a>
+          </div>
+          <div>
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST8A077890_16" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </div>
+          <div>
+            <a href="888909A8.htm">TFlex.DOCs.Model.Mail<span id="LST8A077890_17" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ObjectAttachment</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

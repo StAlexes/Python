@@ -1,0 +1,244 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Обработка событий</title>
+    <meta name="Microsoft.Help.Id" content="4D29D69A-34E1-44D8-A992-B86804402A95" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Если действие в системе направлено на объект или подключение в целом, то для обработки события достаточно информации о текущем объекте или подключении, которую можно получить из контекста выполнения макроса T:TFlex.DOCs.Model.Macros." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Обработка событий</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Если действие в системе направлено на объект или подключение в целом, то для обработки события достаточно информации о текущем объекте или подключении, которую можно получить из контекста выполнения макроса
+				<a href="FBAE736E.htm">MacroContext</a>:
+			</p>
+          <div id="IDBAAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBAAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBAAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBAAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBAAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ReferenceObject currentObject = Context.ReferenceObject; <span class="highlight-comment">// Получаем текущий объект</span>
+ComplexHierarchyLink hierarchyLink = Context.HierarchyLink; <span class="highlight-comment">// Получаем текущее подключение</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>
+				К таким события относятся: «Удаление объекта», «Создание объекта», «Сохранение объекта», «Завершение сохранения объекта», «Создание подключения», «Удаление подключения».
+			</p>
+          <p>
+				Для ряда событий контекст выполнения макроса предоставляет возможность получения аргументов событий через свойство
+				<a href="162B83B8.htm">ModelChangedArgs</a>.
+				<br />
+				Аргументы событий позволяют получить данные, связанные с инициированными событиями.
+			</p>
+          <div id="IDEAAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEAAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEAAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEAAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEAAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ModelEventArgs modelEventArgs = Context.ModelChangedArgs; <span class="highlight-comment">// Получаем аргументы события изменения в модели</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>
+				Класс ModelEventArgs является базовым типом для всех классов аргументов событий.
+				В зависимости от обрабатываемого события необходимо привести свойство <a href="162B83B8.htm">ModelChangedArgs</a> к нужному типу для получения аргументов.<br />
+				Типы и аргументы, соответствующие конкретному событию, описаны далее
+			</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertNote.png" alt="Примечание" />&nbsp;&nbsp;Примечание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+					Незавершенные действия («Удаление объекта», «Сохранение объекта» и т.д.) можно отменить.
+					Для этого необходимо вызвать команду макроязыка <a href="497C970C.htm">Отменить()</a> или сгенерировать соответствующее исключение: <a href="695F657A.htm">throw new MacroException(true)</a>.
+					<br /><br />
+					Пример с отменой действия: <a href="2D30B162-AE9D-4B91-8D30-29004B83000E.htm">«Изменение связи объекта»</a></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Аргументы событий «Изменение параметра объекта» и «Завершение изменения параметра объекта»</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="6D6CA146.htm">ObjectParameterChangingEventArgs</a>
+					- аргументы события изменения параметра объекта справочника
+				</p>
+          <p>
+            <a href="44D033B1.htm">ObjectParameterChangedEventArgs</a>
+					- аргументы события завершения изменения параметра объекта справочника
+				</p>
+          <p>
+					ObjectParameterChangedEventArgs и ObjectParameterChangingEventArgs предоставляют информацию об изменяемом параметре через свойство <a href="F524E329.htm">Parameter</a>,
+					а также позволяют узнать предыдущее значение параметра через свойство <a href="DADFB057.htm">OldValue</a>
+					и новое значение через свойство <a href="446AA71.htm">NewValue</a><br /><br />
+					Пример работы с данными аргументами событий: <a href="72c6f9f1-cbc7-47aa-ae76-a2baa20107c8.htm">«Завершение изменения параметра объекта»</a></p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Аргументы событий «Изменение связи объекта» и «Завершение изменения связи объекта»</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+            <a href="BF1F5E29.htm">ObjectLinkChangingEventArgs</a>
+					- аргументы события изменения связи объекта справочника
+				</p>
+          <p>
+            <a href="80309CC9.htm">ObjectLinkChangedEventArgs</a>
+					- аргументы события завершения изменения связи объекта справочника
+				</p>
+          <p>
+					ObjectLinkChangedEventArgs и ObjectLinkChangingEventArgs предоставляют информацию об изменяемой связи через свойство <a href="9E0B55C1.htm">Link</a>,
+					а также позволяют узнать какой объект был подключен через свойство <a href="E7B2C775.htm">AddedObject</a>
+					или отключен - <span class="noLink">RemovedObject</span><br /><br />
+					Пример работы с данными аргументами событий: <a href="2D30B162-AE9D-4B91-8D30-29004B83000E.htm">«Изменение связи объекта»</a></p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Аргументы событий «Изменение стадии объекта» и «Завершение изменения стадии объекта»</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <p>
+            <a href="8218D83F.htm">ObjectStageChangingEventArgs</a>
+					- аргументы события изменения стадии объекта справочника
+				</p>
+          <p>
+            <a href="E4FD453.htm">ObjectStageChangedEventArgs</a>
+					- аргументы события завершения изменения стадии объекта справочника
+				</p>
+          <p>
+					ObjectStageChangedEventArgs и ObjectStageChangingEventArgs позволяют получить информацию о предыдущей стадии через свойство <a href="3E74FC73.htm">OldStage</a>
+					и о новой стадиии через свойство <a href="9C7482B5.htm">NewStage</a></p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Аргументы события «Изменение порядкового номера объекта»</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <p>
+            <a href="D90E8E6D.htm">ObjectOrderChangedEventArgs</a>
+					- аргументы события изменения порядкового номера объекта справочника
+				</p>
+          <p>
+					ObjectOrderChangedEventArgs позволяет получить информацию о старом значении номера через свойство <a href="EEB183D3.htm">OldOrder</a>
+					и о новом значении номера через свойство <a href="C15B39EB.htm">NewOrder</a><br /><br />
+					Пример работы с данными аргументами событий: <a href="B8F45BD2-EBFF-44BC-91C5-8642B8114E3F.htm">«Изменение порядкового номера объекта»</a></p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDFAB')" onkeypress="SectionExpandCollapse_CheckKey('IDFAB', event)" tabindex="0">
+            <img id="IDFABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Аргументы событий «Завершение применения изменений» и «Применение изменений»</span>
+        </div>
+        <div id="IDFABSection" class="collapsibleSection">
+          <p>
+            <a href="74F1B6B0.htm">ObjectDesktopCheckingInEventArgs</a>
+					- аргументы события применения изменений объекта справочника
+				</p>
+          <p>
+            <a href="DAA53C80.htm">ObjectDesktopCheckInEventArgs</a>
+					- аргументы события завершения применения изменений объекта справочника
+				</p>
+          <p>
+					ObjectDesktopCheckingInEventArgs и ObjectDesktopCheckInEventArgs позволяют получить описание операции рабочего стола через свойство <a href="1B94BAA2.htm">Operation</a>.
+					Описание операции рабочего стола содержит тип операции (<a href="C1AD10E8.htm">Type</a>);
+					список объектов, для которых выполняется операция (<a href="E30BEE19.htm">Items</a>);
+					комментарий (<a href="E715E786.htm">Comment</a>);
+					флаг, отвечающий за необходимость оставить объект в работе (<a href="A0A81436.htm">KeepCheckedOut</a>)
+					<br /><br />
+					Пример работы с данными аргументами событий: <a href="B7EDC662-324B-4243-9E58-C73A88A34BF3.htm">«Операции с рабочим столом»</a></p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDGAB')" onkeypress="SectionExpandCollapse_CheckKey('IDGAB', event)" tabindex="0">
+            <img id="IDGABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Аргументы события «Изменение подписи объекта»</span>
+        </div>
+        <div id="IDGABSection" class="collapsibleSection">
+          <p>
+            <a href="2C069FEE.htm">ObjectSignatureChangedEventArgs</a>
+					- аргументы события изменения подписи объекта справочника
+				</p>
+          <p>
+					ObjectSignatureChangedEventArgs позволяет получить подпись через свойство <a href="78DEBBED.htm">Signature</a>
+					и тип операции, производимой с подписью (добавление, удаление, редактирование, обновление), при помощи свойства <a href="65157E4C.htm">OperationType</a><br /><br />
+					Пример: <a href="14dcfd2d-2986-4903-9284-2230a19112ff.htm">«Изменение подписи»</a></p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDHAB')" onkeypress="SectionExpandCollapse_CheckKey('IDHAB', event)" tabindex="0">
+            <img id="IDHABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Аргументы события сервера</span>
+        </div>
+        <div id="IDHABSection" class="collapsibleSection">
+          <p>
+            <a href="FD2A2CFF.htm">ServerEventArgs</a>
+					- аргументы события сервера
+				</p>
+          <p>
+					ServerEventArgs позволяет получить обработчик события через свойство <a href="E0E9CDFD.htm">ServerEventHandler</a><br /><br />
+					Пример: <a href="B81843BD-E7E5-4F8C-B47F-6780538447FA.htm">«Событие сервера»</a></p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="E9A25D72.htm">TFlex.DOCs.Model.Macros<span id="LST2167F2A3_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroProvider</a>
+          </div>
+          <div>
+            <a href="FBAE736E.htm">TFlex.DOCs.Model.Macros<span id="LST2167F2A3_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MacroContext</a>
+          </div>
+          <div>
+            <a href="162B83B8.htm">MacroContext<span id="LST2167F2A3_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ModelChangedArgs</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

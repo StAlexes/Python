@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Транзакционное сохранение</title>
+    <meta name="Microsoft.Help.Id" content="6A089901-02E3-4061-A7F8-477360E7ACA6" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Транзакционное сохранение гарантирует, что объекты справочника будут сохранены целиком либо операция будет полностью отменена в случае возникновения ошибки. Такое сохранение можно осуществить при помощи набора объектов справочника для сохранения (T:TFlex." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Транзакционное сохранение</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Транзакционное сохранение гарантирует, что объекты справочника будут сохранены целиком либо операция будет полностью отменена в случае возникновения ошибки.<br />
+				Такое сохранение можно осуществить при помощи набора объектов справочника для сохранения (<a href="78449F61.htm">ReferenceObjectSaveSet</a>)
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с набором объектов справочника для сохранения</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        Reference testReference = Context.Reference;
+
+        <span class="highlight-keyword">var</span> editableObjects = testReference.Find([<span class="highlight-number">1</span>, <span class="highlight-number">2</span>]); <span class="highlight-comment">// Находим существующие объекты справочника</span>
+        <span class="highlight-keyword">int</span> createdObjectsNumber = <span class="highlight-number">2</span>;
+        List&lt;ReferenceObject&gt; saveableObjects = <span class="highlight-keyword">new</span> List&lt;ReferenceObject&gt;(editableObjects.Count + createdObjectsNumber);
+        Guid param = <span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid параметра"</span>);
+
+        <span class="highlight-comment">// Редактируем найденные объекты</span>
+        <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> editableObject <span class="highlight-keyword">in</span> editableObjects)
+        {
+            editableObject.BeginChanges(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Переводим объект в состояние редактирования без перезагрузки</span>
+            editableObject[param].Value = <span class="highlight-number">1</span>;
+
+            saveableObjects.Add(editableObject);
+        }
+
+        <span class="highlight-comment">// Создаем новые объекты</span>
+        <span class="highlight-keyword">for</span> (<span class="highlight-keyword">int</span> i = <span class="highlight-number">0</span>; i &lt; createdObjectsNumber; i++)
+        {
+            <span class="highlight-keyword">var</span> newObject = testReference.CreateReferenceObject();
+            newObject[param].Value = <span class="highlight-number">1</span>;
+
+            saveableObjects.Add(newObject);
+        }
+
+        <span class="highlight-comment">// Создаем набор объектов справочника для атомарного сохранения</span>
+        <span class="highlight-comment">// В случае возникновения исключения using гарантирует вызов Dispose и откат незавершенных изменений</span>
+        <span class="highlight-keyword">using</span> <span class="highlight-keyword">var</span> saveSet = <span class="highlight-keyword">new</span> ReferenceObjectSaveSet();
+        saveSet.AddRange(saveableObjects); <span class="highlight-comment">// Добавляем объекты в набор</span>
+        saveSet.EndChanges(); <span class="highlight-comment">// Завершаем редактирование</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="78449F61.htm">TFlex.DOCs.Model.References<span id="LST4FF6E51_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObjectSaveSet</a>
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

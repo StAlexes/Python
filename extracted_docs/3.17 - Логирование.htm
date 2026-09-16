@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Логирование</title>
+    <meta name="Microsoft.Help.Id" content="850FCBC4-22F7-471C-B515-1FE6F3CB58BA" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Логирование &mdash; это автоматическая запись информации о событиях, происходящих внутри программного обеспечения. Макроязык позволяет добавлять информацию в специальный журнал ошибок (меню «?» > пункт «Журнал ошибок...»)." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Логирование</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				Логирование &mdash; это автоматическая запись информации о событиях, происходящих внутри программного обеспечения.<br />
+				Макроязык позволяет добавлять информацию в специальный журнал ошибок (меню <strong>«?»</strong> > пункт <strong>«Журнал ошибок...»</strong>).
+			</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="FB077BF9.htm">ЗаписатьВЛогСообщение(сообщение, тип записи журнала)</a>
+					- записывает в «Журнал ошибок» сообщение с указанием типа
+				</p>
+          <div id="IDBABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ЗаписатьВЛогСообщение(<span class="highlight-literal">"Информация"</span>, ТипЗаписиЖурнала.Информационное);
+ЗаписатьВЛогСообщение(<span class="highlight-literal">"Ошибка"</span>, ТипЗаписиЖурнала.Ошибка);
+ЗаписатьВЛогСообщение(<span class="highlight-literal">"Предупреждение"</span>, ТипЗаписиЖурнала.Предупреждение);</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <a href="30EFF63E.htm">ЗаписатьВЛогТекст(текст)</a>
+					- записывает текст в «Журнал ошибок»
+				</p>
+          <div id="IDDABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDDABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDDABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDDABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDDABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ЗаписатьВЛогТекст(<span class="highlight-literal">"Обработка завершена"</span>);</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

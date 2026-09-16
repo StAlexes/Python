@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Иерархия</title>
+    <meta name="Microsoft.Help.Id" content="1F1EF1C4-E9D3-42EA-BBEF-CF4DEACF0986" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном разделе описываются иерархические отношения между объектами справочников с типами иерархии объектов «Дерево» и «Сложная иерархия». Иерархия формируется за счет подключения одних объектов к другим." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Иерархия</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В данном разделе описываются иерархические отношения между объектами справочников с типами иерархии объектов «Дерево» и «Сложная иерархия».<br />
+				Иерархия формируется за счет подключения одних объектов к другим. В случае справочника со сложной иерархией объект может подключаться к нескольким родительским объектам.<br />
+				В справочниках со сложной иерархией взаимодействие между объектами в иерархии выделено в отдельную сущность (объект) - <a href="F8466936.htm">'Подключение'</a>,
+				что позволяет настраивать взаимодействие при помощи параметров.<br />
+				Работа с подключениями описывается в разделе <a href="7FE4FF20-560E-44D9-B98F-DFAF8B9613F6.htm">«Подключения»</a>.<br />
+				Для того чтобы получить конкретный родительский объект для выделенного объекта в справочнике со сложной иерархией, необходимо воспользоваться UI API - <a href="46D386C6-26F1-4DB3-A0AB-6FFD9021FA94.htm#GetParentFromUI">«Получение родительского объекта»</a>.
+			</p>
+          <p>&nbsp;</p>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="FDE5269A.htm">Объект.РодительскийОбъект</a>
+					- возвращает или устанавливает родителя объекта. <br />
+					Если родительских объектов несколько (справочник со сложной иерархией), то вернет первого.<br />
+					Родительский объект можно установить только для объекта справочника с простой иерархией (иерархия объектов "Дерево")
+				</p>
+          <div id="IDBABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> родительскийОбъект = ТекущийОбъект.РодительскийОбъект; <span class="highlight-comment">// Получение родительского объекта</span>
+Объект папка = НайтиОбъект(<span class="highlight-literal">"Файлы"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Моя папка"</span>); <span class="highlight-comment">// Установка родительского объекта</span>
+ТекущийОбъект.РодительскийОбъект = папка;
+ТекущийОбъект.Сохранить();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="84982726.htm">Объект.РодительскиеОбъекты</a>
+					- возвращает список родителей объекта. <br />
+					Список родительских объектов можно получить только для объекта справочника со сложной иерархией, в противном случае будет сгенерировано исключение
+				</p>
+          <div id="IDEABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> родительскиеОбъекты = ТекущийОбъект.РодительскиеОбъекты;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="A41EAE9B.htm">Объект.ДочерниеОбъекты</a>
+					- возвращает список дочерних объектов
+				</p>
+          <div id="IDHABAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHABAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHABAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHABAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHABAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">var</span> дочерниеОбъекты = ТекущийОбъект.ДочерниеОбъекты;</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

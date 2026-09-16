@@ -1,0 +1,532 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Пользовательский генератор отчётов</title>
+    <meta name="Microsoft.Help.Id" content="1c639c0e-5819-45ee-b4a0-979ea88c6626" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрен способ реализации пользовательского генератора отчётов. Для создания пользовательского генератора отчётов необходимо: 1) Создать dll - сборку, в которой нужно реализовать интерфейс T:TFlex.Reporting.IReportGenerator или T:TFlex." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Пользовательский генератор отчётов</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+        В данном примере рассмотрен способ реализации пользовательского генератора отчётов.<br />
+        Для создания пользовательского генератора отчётов необходимо: <br />
+        1) Создать dll - сборку, в которой нужно реализовать интерфейс <a href="91136537.htm">IReportGenerator</a> или <a href="5AB62F09.htm">ICustomizableReportGenerator</a>.<br />
+        2) Скопировать полученную сборку 'ВашаСборка.dll' в каталог - место установки клиента T-FLEX DOCs.<br />
+        3) Создать пользовательский генератор отчетов в справочнике "Генераторы отчётов" T-FLEX DOCs.<br />
+        4) Создать новый отчёт и выбрать в качестве генератора созданный генератор отчётов.<br />
+        5) Добавить шаблон к отчёту, который будет заполняться пользовательским генератором отчётов.
+      </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример реализации интерфейса ICustomizableReportGenerator для пользовательского генератора отчётов</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.IO;
+<span class="highlight-keyword">using</span> System.Windows.Forms;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Reporting;
+<span class="highlight-keyword">using</span> TFlex.Reporting;
+
+
+<span class="highlight-keyword">namespace</span> CustomReporting
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> CustomReportGenerator : ICustomizableReportGenerator
+    {
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> DefaultReportFileExtension =&gt; <span class="highlight-literal">"txt"</span>;
+
+        <span class="highlight-comment">// Генерировать отчёт</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> Generate(IReportGenerationContext context)
+        {
+            <span class="highlight-comment">// Получаем путь к файлу отчёта</span>
+            <span class="highlight-keyword">string</span> reportFilePath = context.ReportFilePath;
+            <span class="highlight-comment">// Получаем путь к файлу - шаблону</span>
+            <span class="highlight-keyword">string</span> templateFilePath = context.TemplateFilePath;
+
+            <span class="highlight-keyword">if</span> (!File.Exists(templateFilePath))
+                <span class="highlight-keyword">throw</span> <span class="highlight-keyword">new</span> Exception(<span class="highlight-literal">"Не найден путь к шаблону"</span>);
+
+            <span class="highlight-comment">// Получаем содержимое в файле - шаблоне</span>
+            <span class="highlight-keyword">string</span> contentTemplate = File.ReadAllText(templateFilePath);
+
+            <span class="highlight-keyword">if</span> (<span class="highlight-keyword">string</span>.IsNullOrEmpty(contentTemplate))
+                <span class="highlight-keyword">throw</span> <span class="highlight-keyword">new</span> Exception($<span class="highlight-literal">"Пустой шаблон {Path.GetFileName(templateFilePath)}"</span>);
+
+            <span class="highlight-comment">// Приведем объект интерфейса  IReportGenerationContext к ReportGenerationContext</span>
+            <span class="highlight-comment">// для возможности получения его параметров </span>
+            ReportGenerationContext rgc = (ReportGenerationContext)context;
+
+            <span class="highlight-comment">/*
+             * Заполняем содержимое шаблона для вывода в отчёт
+            */</span>
+
+            <span class="highlight-comment">// Путь к файлу отчёта</span>
+            SetValueInReport(<span class="highlight-literal">"ReportFilePath"</span>, rgc.ReportFilePath, <span class="highlight-keyword">ref</span> contentTemplate);
+            <span class="highlight-comment">// Путь к файлу - шаблону</span>
+            SetValueInReport(<span class="highlight-literal">"TemplateFilePath"</span>, rgc.TemplateFilePath, <span class="highlight-keyword">ref</span> contentTemplate);
+            <span class="highlight-comment">// Каталог по умолчанию</span>
+            SetValueInReport(<span class="highlight-literal">"DefaultFolder"</span>, rgc.DefaultFolder, <span class="highlight-keyword">ref</span> contentTemplate);
+            <span class="highlight-comment">// Id справочника</span>
+            SetValueInReport(<span class="highlight-literal">"ReferenceId"</span>, rgc.ReferenceId, <span class="highlight-keyword">ref</span> contentTemplate);
+            <span class="highlight-comment">// Id корневого объекта</span>
+            SetValueInReport(<span class="highlight-literal">"RootObjectId"</span>, rgc.ReferenceId, <span class="highlight-keyword">ref</span> contentTemplate);
+            <span class="highlight-comment">// Путь к файлу программы генератора</span>
+            SetValueInReport(<span class="highlight-literal">"GeneratorProgramFilePath"</span>, rgc.GeneratorProgramFilePath, <span class="highlight-keyword">ref</span> contentTemplate);
+            <span class="highlight-comment">// Данные параметров подключения</span>
+            SetValueInReport(<span class="highlight-literal">"ConnectionParametersData"</span>, rgc.ConnectionParametersData, <span class="highlight-keyword">ref</span> contentTemplate);
+
+            <span class="highlight-comment">// Информация об авторе отчета</span>
+            <span class="highlight-keyword">if</span> (rgc.AuthorInfo != <span class="highlight-keyword">null</span>)
+            {
+                IAuthorInfo ai = rgc.AuthorInfo;
+
+                <span class="highlight-comment">// Имя автора</span>
+                SetValueInReport(<span class="highlight-literal">"AuthorFirstName"</span>, ai.AuthorFirstName, <span class="highlight-keyword">ref</span> contentTemplate);
+                <span class="highlight-comment">// Фамилия автора</span>
+                SetValueInReport(<span class="highlight-literal">"AuthorLastName"</span>, ai.AuthorLastName, <span class="highlight-keyword">ref</span> contentTemplate);
+                <span class="highlight-comment">// Отчество автора</span>
+                SetValueInReport(<span class="highlight-literal">"AuthorPatronymic"</span>, ai.AuthorPatronymic, <span class="highlight-keyword">ref</span> contentTemplate);
+                <span class="highlight-comment">// Короткое имя автора</span>
+                SetValueInReport(<span class="highlight-literal">"AuthorShortName"</span>, ai.AuthorShortName, <span class="highlight-keyword">ref</span> contentTemplate);
+                <span class="highlight-comment">// Полное имя автора</span>
+                SetValueInReport(<span class="highlight-literal">"AuthorFullName"</span>, ai.AuthorFullName, <span class="highlight-keyword">ref</span> contentTemplate);
+            }
+
+            <span class="highlight-comment">// Информация о справочнике отчёта</span>
+            <span class="highlight-keyword">if</span> (rgc.Reference != <span class="highlight-keyword">null</span>)
+            {
+                <span class="highlight-keyword">var</span> rf = rgc.Reference;
+
+                <span class="highlight-comment">// Id справочника</span>
+                SetValueInReport(<span class="highlight-literal">"Id"</span>, rf.Id, <span class="highlight-keyword">ref</span> contentTemplate);
+                <span class="highlight-comment">// Наименование справочника</span>
+                SetValueInReport(<span class="highlight-literal">"Name"</span>, rf.Name, <span class="highlight-keyword">ref</span> contentTemplate);
+            }
+
+            <span class="highlight-comment">// Шаблонная маркировка для заполнения контента отчёта данными из справочника</span>
+            <span class="highlight-keyword">string</span> contentReport = <span class="highlight-literal">"ContentReport"</span>;
+
+            <span class="highlight-comment">// Выбор данных из справочника на основе режима 'Состав отчёта'</span>
+            <span class="highlight-keyword">switch</span> (rgc.ContentType)
+            {
+                <span class="highlight-keyword">case</span> ReportContentType.Default:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "По умолчанию"</span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.Default - 'По умолчанию'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.Reference:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "Весь справочник"</span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.Reference - 'Весь справочник'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.SingleObject:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "Один объект"</span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.SingleObject - 'Один объект'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.ObjectList:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "Выбранные объекты" </span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.ObjectList - 'Выбранные объекты'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.ObjectHierarchy:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "Выбранные объекты с иерархией" </span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.ObjectHierarchy - 'Выбранные объекты с иерархией'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.InludedObjects:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "Выбранные и входящие объекты" </span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.InludedObjects - 'Выбранные и входящие объекты'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.FirstLevelInludedObjects:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "Выбранные и входящие объекты первого уровня" </span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.FirstLevelInludedObjects - 'Выбранные и входящие объекты первого уровня'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.ObjectHierarchyOnly:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "Только иерархия объектов" </span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.ObjectHierarchyOnly - 'Только иерархия объектов'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.InludedObjectsOnly:
+                    <span class="highlight-comment">// Реализация настроечного параметра "InludedObjectsOnly" </span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.InludedObjectsOnly - 'Только входящие объекты'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReportContentType.FirstLevelInludedObjectsOnly:
+                    <span class="highlight-comment">// Реализация настроечного параметра - Состав отчёта: -&gt; "Выбранные и входящие объекты первого уровня" </span>
+                    SetValueInReport(contentReport,
+                        <span class="highlight-literal">"ReportContentType.FirstLevelInludedObjects - 'Выбранные и входящие объекты первого уровня'"</span>, <span class="highlight-keyword">ref</span> contentTemplate);
+                    <span class="highlight-keyword">break</span>;
+            }
+
+            <span class="highlight-comment">// Записать содержимое в файл отчёта</span>
+            File.WriteAllText(reportFilePath, contentTemplate);
+        }
+
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">bool</span> EditTemplateProperties(<span class="highlight-keyword">ref</span> <span class="highlight-keyword">byte</span>[] data, IReportGenerationContext context, IWin32Window owner)
+        {
+            <span class="highlight-keyword">throw</span> <span class="highlight-keyword">new</span> NotImplementedException();
+        }
+
+        <span class="highlight-comment">// Установить значение в содержимое отчёта</span>
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> SetValueInReport(<span class="highlight-keyword">string</span> templateMark, <span class="highlight-keyword">object</span> <span class="highlight-keyword">value</span>, <span class="highlight-keyword">ref</span> <span class="highlight-keyword">string</span> contentReport)
+        {
+            <span class="highlight-keyword">if</span> (<span class="highlight-keyword">value</span> == <span class="highlight-keyword">null</span>)
+                contentReport = contentReport.Replace(<span class="highlight-literal">"{{"</span> + templateMark + <span class="highlight-literal">"}}"</span>, <span class="highlight-literal">"NULL"</span>);
+            <span class="highlight-keyword">else</span>
+                contentReport = contentReport.Replace(<span class="highlight-literal">"{{"</span> + templateMark + <span class="highlight-literal">"}}"</span>, <span class="highlight-keyword">value</span>.ToString());
+        }
+
+        <span class="highlight-comment">// Редактировать шаблон отчёта в форме</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">bool</span> CustomizeDesign(<span class="highlight-keyword">ref</span> <span class="highlight-keyword">byte</span>[] data, IReportGenerationContext context, IWin32Window owner)
+        {
+            <span class="highlight-comment">// Получаем путь к файлу - шаблону</span>
+            <span class="highlight-keyword">string</span> templateFilePath = context.TemplateFilePath;
+
+            <span class="highlight-keyword">if</span> (!File.Exists(templateFilePath))
+                <span class="highlight-keyword">throw</span> <span class="highlight-keyword">new</span> Exception(<span class="highlight-literal">"Не найден путь к шаблону"</span>);
+
+            <span class="highlight-comment">// Получаем содержимое в файле - шаблоне</span>
+            <span class="highlight-keyword">string</span> contentTemplate = File.ReadAllText(templateFilePath);
+
+            <span class="highlight-keyword">if</span> (<span class="highlight-keyword">string</span>.IsNullOrEmpty(contentTemplate))
+                <span class="highlight-keyword">throw</span> <span class="highlight-keyword">new</span> Exception($<span class="highlight-literal">"Пустой шаблон {Path.GetFileName(templateFilePath)}"</span>);
+
+            <span class="highlight-comment">// Вызвать форму редактора</span>
+            <span class="highlight-keyword">using</span> (<span class="highlight-keyword">var</span> editor = <span class="highlight-keyword">new</span> CustomReportGeneratorEditor())
+            {
+                <span class="highlight-comment">// Установить текст редактора</span>
+                editor.EditorText = contentTemplate;
+                <span class="highlight-comment">// Заполнить список шаблонными маркировками</span>
+                editor.SetMarkList(<span class="highlight-keyword">new</span>[]
+                {
+                    <span class="highlight-literal">"{{ReportFilePath}}"</span>, <span class="highlight-comment">// Путь к файлу отчёта</span>
+                    <span class="highlight-literal">"{{TemplateFilePath}}"</span>, <span class="highlight-comment">// Путь к файлу - шаблону</span>
+                    <span class="highlight-literal">"{{DefaultFolder}}"</span>, <span class="highlight-comment">// Каталог по умолчанию</span>
+                    <span class="highlight-literal">"{{ReferenceId}}"</span>, <span class="highlight-comment">// Id справочника</span>
+                    <span class="highlight-literal">"{{RootObjectId}}"</span>, <span class="highlight-comment">// Id корневого объекта</span>
+                    <span class="highlight-literal">"{{GeneratorProgramFilePath}}"</span>,  <span class="highlight-comment">// Путь к файлу программы генератора</span>
+                    <span class="highlight-literal">"{{ConnectionParametersData}}"</span>, <span class="highlight-comment">// Данные параметров подключения</span>
+                    <span class="highlight-literal">"{{AuthorFirstName}}"</span>, <span class="highlight-comment">// Имя автора</span>
+                    <span class="highlight-literal">"{{AuthorLastName}}"</span>, <span class="highlight-comment">// Фамилия автора</span>
+                    <span class="highlight-literal">"{{AuthorPatronymic}}"</span>, <span class="highlight-comment">// Отчество автора</span>
+                    <span class="highlight-literal">"{{AuthorShortName}}"</span>, <span class="highlight-comment">// Короткое имя автора</span>
+                    <span class="highlight-literal">"{{AuthorFullName}}"</span>, <span class="highlight-comment">// Полное имя автора</span>
+                    <span class="highlight-literal">"{{Id}}"</span>, <span class="highlight-comment">// Id справочника</span>
+                    <span class="highlight-literal">"{{Name}}"</span> <span class="highlight-comment">// Наименование справочника</span>
+                });
+
+                <span class="highlight-keyword">if</span> (editor.ShowDialog(owner) != DialogResult.OK)
+                    <span class="highlight-keyword">return</span> <span class="highlight-keyword">false</span>;
+
+                <span class="highlight-comment">// Записать содержимое в файл отчёта</span>
+                File.WriteAllText(templateFilePath, editor.EditorText);
+            }
+
+            <span class="highlight-keyword">return</span> <span class="highlight-keyword">true</span>;
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="91136537.htm">TFlex.Reporting<span id="LST4FE75B_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>IReportGenerator</a>
+            <a href="5AB62F09.htm">TFlex.Reporting<span id="LST4FE75B_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ICustomizableReportGenerator</a>
+            <br />
+            <a href="FF9A1C6F.htm">TFlex.Reporting<span id="LST4FE75B_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>IAuthorInfo</a>
+            <br />
+            <a href="FDD27C59.htm">TFlex.DOCs.Model.References.Reporting<span id="LST4FE75B_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReportGenerationContext</a>
+            <br />
+            <a href="26AE86E6.htm">TFlex.DOCs.Model.References<span id="LST4FE75B_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Reference</a>
+          </p>
+        </div>
+        <p>&nbsp;</p>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDEAB')" onkeypress="SectionExpandCollapse_CheckKey('IDEAB', event)" tabindex="0">
+            <img id="IDEABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример кода редактора шаблонов для пользовательского генератора отчётов</span>
+        </div>
+        <div id="IDEABSection" class="collapsibleSection">
+          <div id="IDABEAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABEAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABEAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABEAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABEAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System.Windows.Forms;
+
+
+<span class="highlight-keyword">namespace</span> CustomReporting
+{
+    <span class="highlight-comment">// Редактор для пользовательского генератора отчётов</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> CustomReportGeneratorEditor : Form
+    {
+        <span class="highlight-keyword">private</span> Button _okButton;
+        <span class="highlight-keyword">private</span> TextBox _editorTextBox;
+        <span class="highlight-keyword">private</span> ListBox _markListBox;
+        <span class="highlight-keyword">private</span> Label _markListLabel;
+        <span class="highlight-keyword">private</span> Label _editorLabel;
+        <span class="highlight-keyword">private</span> Button _cancelButton;
+
+        <span class="highlight-keyword">public</span> CustomReportGeneratorEditor()
+        {
+            InitializeComponent();
+        }
+
+        <span class="highlight-comment">// Текст редактора</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">string</span> EditorText
+        {
+            <span class="highlight-keyword">get</span> { <span class="highlight-keyword">return</span> _editorTextBox.Text; }
+            <span class="highlight-keyword">set</span> { _editorTextBox.Text = <span class="highlight-keyword">value</span>; }
+        }
+
+        <span class="highlight-comment">// Список шаблонных маркировок</span>
+        <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> SetMarkList(<span class="highlight-keyword">string</span>[] markList)
+        {
+            _markListBox.Items.Clear();
+
+            <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> mark <span class="highlight-keyword">in</span> markList)
+            {
+                _markListBox.Items.Add(mark);
+            }
+        }
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> InitializeComponent()
+        {
+            <span class="highlight-keyword">this</span>._okButton = <span class="highlight-keyword">new</span> System.Windows.Forms.Button();
+            <span class="highlight-keyword">this</span>._cancelButton = <span class="highlight-keyword">new</span> System.Windows.Forms.Button();
+            <span class="highlight-keyword">this</span>._editorTextBox = <span class="highlight-keyword">new</span> System.Windows.Forms.TextBox();
+            <span class="highlight-keyword">this</span>._markListBox = <span class="highlight-keyword">new</span> System.Windows.Forms.ListBox();
+            <span class="highlight-keyword">this</span>._markListLabel = <span class="highlight-keyword">new</span> System.Windows.Forms.Label();
+            <span class="highlight-keyword">this</span>._editorLabel = <span class="highlight-keyword">new</span> System.Windows.Forms.Label();
+            <span class="highlight-keyword">this</span>.SuspendLayout();
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// Ok_button</span>
+            <span class="highlight-comment">// </span>
+            <span class="highlight-keyword">this</span>._okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            <span class="highlight-keyword">this</span>._okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            <span class="highlight-keyword">this</span>._okButton.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">456</span>, <span class="highlight-number">406</span>);
+            <span class="highlight-keyword">this</span>._okButton.Name = <span class="highlight-literal">"_okButton"</span>;
+            <span class="highlight-keyword">this</span>._okButton.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">80</span>, <span class="highlight-number">23</span>);
+            <span class="highlight-keyword">this</span>._okButton.TabIndex = <span class="highlight-number">0</span>;
+            <span class="highlight-keyword">this</span>._okButton.Text = <span class="highlight-literal">"OK"</span>;
+            <span class="highlight-keyword">this</span>._okButton.UseVisualStyleBackColor = <span class="highlight-keyword">true</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// Cancel_button</span>
+            <span class="highlight-comment">// </span>
+            <span class="highlight-keyword">this</span>._cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            <span class="highlight-keyword">this</span>._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            <span class="highlight-keyword">this</span>._cancelButton.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">545</span>, <span class="highlight-number">406</span>);
+            <span class="highlight-keyword">this</span>._cancelButton.Name = <span class="highlight-literal">"_cancelButton"</span>;
+            <span class="highlight-keyword">this</span>._cancelButton.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">80</span>, <span class="highlight-number">23</span>);
+            <span class="highlight-keyword">this</span>._cancelButton.TabIndex = <span class="highlight-number">1</span>;
+            <span class="highlight-keyword">this</span>._cancelButton.Text = <span class="highlight-literal">"Отмена"</span>;
+            <span class="highlight-keyword">this</span>._cancelButton.UseVisualStyleBackColor = <span class="highlight-keyword">true</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// Editor_textBox</span>
+            <span class="highlight-comment">// </span>
+            <span class="highlight-keyword">this</span>._editorTextBox.AcceptsReturn = <span class="highlight-keyword">true</span>;
+            <span class="highlight-keyword">this</span>._editorTextBox.AcceptsTab = <span class="highlight-keyword">true</span>;
+            <span class="highlight-keyword">this</span>._editorTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            <span class="highlight-keyword">this</span>._editorTextBox.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">12</span>, <span class="highlight-number">38</span>);
+            <span class="highlight-keyword">this</span>._editorTextBox.Multiline = <span class="highlight-keyword">true</span>;
+            <span class="highlight-keyword">this</span>._editorTextBox.Name = <span class="highlight-literal">"_editorTextBox"</span>;
+            <span class="highlight-keyword">this</span>._editorTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            <span class="highlight-keyword">this</span>._editorTextBox.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">435</span>, <span class="highlight-number">355</span>);
+            <span class="highlight-keyword">this</span>._editorTextBox.TabIndex = <span class="highlight-number">2</span>;
+            <span class="highlight-keyword">this</span>._editorTextBox.WordWrap = <span class="highlight-keyword">false</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// Mark_listBox</span>
+            <span class="highlight-comment">// </span>
+            <span class="highlight-keyword">this</span>._markListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            <span class="highlight-keyword">this</span>._markListBox.FormattingEnabled = <span class="highlight-keyword">true</span>;
+            <span class="highlight-keyword">this</span>._markListBox.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">456</span>, <span class="highlight-number">38</span>);
+            <span class="highlight-keyword">this</span>._markListBox.Name = <span class="highlight-literal">"_markListBox"</span>;
+            <span class="highlight-keyword">this</span>._markListBox.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">169</span>, <span class="highlight-number">355</span>);
+            <span class="highlight-keyword">this</span>._markListBox.TabIndex = <span class="highlight-number">3</span>;
+            <span class="highlight-keyword">this</span>._markListBox.Click += <span class="highlight-keyword">new</span> System.EventHandler(<span class="highlight-keyword">this</span>.Mark_listBox_Click);
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// MarkList_label</span>
+            <span class="highlight-comment">// </span>
+            <span class="highlight-keyword">this</span>._markListLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            <span class="highlight-keyword">this</span>._markListLabel.AutoSize = <span class="highlight-keyword">true</span>;
+            <span class="highlight-keyword">this</span>._markListLabel.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">453</span>, <span class="highlight-number">19</span>);
+            <span class="highlight-keyword">this</span>._markListLabel.Name = <span class="highlight-literal">"_markListLabel"</span>;
+            <span class="highlight-keyword">this</span>._markListLabel.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">172</span>, <span class="highlight-number">13</span>);
+            <span class="highlight-keyword">this</span>._markListLabel.TabIndex = <span class="highlight-number">4</span>;
+            <span class="highlight-keyword">this</span>._markListLabel.Text = <span class="highlight-literal">"Список шаблонных маркировок:"</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// Editor_label</span>
+            <span class="highlight-comment">// </span>
+            <span class="highlight-keyword">this</span>._editorLabel.AutoSize = <span class="highlight-keyword">true</span>;
+            <span class="highlight-keyword">this</span>._editorLabel.Location = <span class="highlight-keyword">new</span> System.Drawing.Point(<span class="highlight-number">13</span>, <span class="highlight-number">19</span>);
+            <span class="highlight-keyword">this</span>._editorLabel.Name = <span class="highlight-literal">"_editorLabel"</span>;
+            <span class="highlight-keyword">this</span>._editorLabel.Size = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">58</span>, <span class="highlight-number">13</span>);
+            <span class="highlight-keyword">this</span>._editorLabel.TabIndex = <span class="highlight-number">5</span>;
+            <span class="highlight-keyword">this</span>._editorLabel.Text = <span class="highlight-literal">"Редактор:"</span>;
+            <span class="highlight-comment">// </span>
+            <span class="highlight-comment">// CustomReportGeneratorEditor</span>
+            <span class="highlight-comment">// </span>
+            <span class="highlight-keyword">this</span>.AcceptButton = <span class="highlight-keyword">this</span>._okButton;
+            <span class="highlight-keyword">this</span>.CancelButton = <span class="highlight-keyword">this</span>._cancelButton;
+            <span class="highlight-keyword">this</span>.ClientSize = <span class="highlight-keyword">new</span> System.Drawing.Size(<span class="highlight-number">634</span>, <span class="highlight-number">441</span>);
+            <span class="highlight-keyword">this</span>.Controls.Add(<span class="highlight-keyword">this</span>._editorLabel);
+            <span class="highlight-keyword">this</span>.Controls.Add(<span class="highlight-keyword">this</span>._markListLabel);
+            <span class="highlight-keyword">this</span>.Controls.Add(<span class="highlight-keyword">this</span>._markListBox);
+            <span class="highlight-keyword">this</span>.Controls.Add(<span class="highlight-keyword">this</span>._editorTextBox);
+            <span class="highlight-keyword">this</span>.Controls.Add(<span class="highlight-keyword">this</span>._cancelButton);
+            <span class="highlight-keyword">this</span>.Controls.Add(<span class="highlight-keyword">this</span>._okButton);
+            <span class="highlight-keyword">this</span>.Name = <span class="highlight-literal">"CustomReportGeneratorEditor"</span>;
+            <span class="highlight-keyword">this</span>.ShowIcon = <span class="highlight-keyword">false</span>;
+            <span class="highlight-keyword">this</span>.Text = <span class="highlight-literal">"Редактор шаблона"</span>;
+            <span class="highlight-keyword">this</span>.ResumeLayout(<span class="highlight-keyword">false</span>);
+            <span class="highlight-keyword">this</span>.PerformLayout();
+
+        }
+
+        <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> Mark_listBox_Click(<span class="highlight-keyword">object</span> sender, System.EventArgs e)
+        {
+            <span class="highlight-comment">// индекс в координатах</span>
+            <span class="highlight-keyword">int</span> index = _markListBox.IndexFromPoint(((MouseEventArgs)e).Location);
+
+            <span class="highlight-keyword">if</span> (index &lt;= <span class="highlight-number">0</span>) <span class="highlight-keyword">return</span>;
+
+            _editorTextBox.SelectedText = _markListBox.Items[index].ToString();
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="mediaNear">
+            <div class="caption">Окно редактора шаблонов отчета для пользовательского генератора отчётов</div>
+            <img alt="Custom Report Generator Editor" src="../media/CustomReportGeneratorEditor.PNG" />
+          </div>
+        </div>
+        <p>&nbsp;</p>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDGAB')" onkeypress="SectionExpandCollapse_CheckKey('IDGAB', event)" tabindex="0">
+            <img id="IDGABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример шаблона для отчёта, который будет заполняться пользовательским генератором отчётов</span>
+        </div>
+        <div id="IDGABSection" class="collapsibleSection">
+          <div id="IDABGAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABGAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABGAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABGAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABGAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Данный документ является текстовым пользовательским шаблоном-отчётом для вывода значений из:
+ReportGenerationContext; Состав отчёта;
+Для места вывода данных, используются разметка в виде шаблонной маркировки <span class="highlight-literal">"{{Шаблонная маркировка}}"</span>
+
+
+<span class="highlight-comment">// ---------------------------------------------------------------- //</span>
+<span class="highlight-comment">// ReportGenerationContext - свойства                              //</span>
+<span class="highlight-comment">// ---------------------------------------------------------------- //</span>
+<span class="highlight-comment">// Путь к файлу отчёта</span>
+ReportFilePath = {{ReportFilePath}};
+<span class="highlight-comment">// Путь к файлу - шаблону</span>
+TemplateFilePath = {{TemplateFilePath}};
+<span class="highlight-comment">// Каталог по умолчанию</span>
+DefaultFolder = {{DefaultFolder}};
+<span class="highlight-comment">// Id справочника</span>
+ReferenceId = {{ReferenceId}};
+<span class="highlight-comment">// Id корневого объекта</span>
+RootObjectId = {{RootObjectId}};
+<span class="highlight-comment">// Путь к файлу программы генератора</span>
+GeneratorProgramFilePath = {{GeneratorProgramFilePath}};
+<span class="highlight-comment">// Данные параметров подключения</span>
+ConnectionParametersData = {{ConnectionParametersData}};
+
+<span class="highlight-comment">// ---------------------------------------------------------------- //</span>
+<span class="highlight-comment">// Информация об авторе отчета ReportGenerationContext.AuthorInfo;  //</span>
+<span class="highlight-comment">// ---------------------------------------------------------------- //</span>
+<span class="highlight-comment">// Имя автора</span>
+AuthorFirstName = {{AuthorFirstName}};
+<span class="highlight-comment">// Фамилия автора</span>
+AuthorLastName = {{AuthorLastName}};
+<span class="highlight-comment">// Отчество автора</span>
+AuthorPatronymic = {{AuthorPatronymic}};
+<span class="highlight-comment">// Короткое имя автора</span>
+AuthorShortName = {{AuthorShortName}};
+<span class="highlight-comment">// Полное имя автора</span>
+AuthorFullName = {{AuthorFullName}};
+
+<span class="highlight-comment">// ----------------------------------------------------------------  //</span>
+<span class="highlight-comment">// Информация о справочнике отчёта ReportGenerationContext.Reference //</span>
+<span class="highlight-comment">// ----------------------------------------------------------------  //</span>
+<span class="highlight-comment">// Id справочника</span>
+Id = {{Id}};
+<span class="highlight-comment">// Наименование справочника</span>
+Name = {{Name}};
+
+<span class="highlight-comment">// ---------------------------------------------------------------- //</span>
+<span class="highlight-comment">// Состав отчёта                                                    //</span>
+<span class="highlight-comment">// ---------------------------------------------------------------- //</span>
+{{ContentReport}}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

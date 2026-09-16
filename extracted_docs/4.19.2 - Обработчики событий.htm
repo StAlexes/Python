@@ -1,0 +1,269 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Обработчики событий</title>
+    <meta name="Microsoft.Help.Id" content="86D50284-A6E0-4734-8F85-A06E852AE512" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В правиле обмена данными имеется возможность добавить обработчики на события процесса обработки данных." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Обработчики событий</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Обработчики событий</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					В правиле обмена данными имеется возможность добавить обработчики на события процесса обработки данных. Макрос и метод начала обработки данных добавляются во вкладке "Обработчики событий" диалога свойств правила обмена данными
+				</p>
+          <div class="mediaNear">
+            <div class="caption">Вкладка "Обработчики событий"</div>
+            <img alt="Data Exchange Event Handlers" src="../media/DataExchangeEventHandlers.png" />
+          </div>
+          <p>
+					Пример добавления обработчиков для метода начала обработки данных
+				</p>
+          <div id="IDDBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDDBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDDBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDDBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDDBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+TFlex.DOCs.SynchronizerReference.dll
+TFlex.DOCs.Model.Entities.dll
+System.Xml.Linq.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> System.Xml.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Search.Path;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Synchronization.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Synchronization.OneC;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Synchronization.SyncData;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Synchronization.SyncData.Behaviors;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Synchronization.SyncData.Xml;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Synchronization.SyncData.Xml.OneC;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro9(ExchangeDataMacroContext context) : ExchangeDataMacroProvider(context)
+{
+    <span class="highlight-comment">/// &lt;summary&gt;Метод начала обработки данных на вкладке обработчиков событий&lt;/summary&gt;</span>
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> behaviors = Context.Settings.Behaviors; <span class="highlight-comment">// Получаем действия обработки данных</span>
+
+        behaviors.Add(<span class="highlight-keyword">new</span> StartProviderBehavior(OnStart)); <span class="highlight-comment">// Добавляем действие запуска обмена данными</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> FinishProviderBehavior(OnFinish)); <span class="highlight-comment">// Добавляем действие завершения обмена данными</span>
+
+        behaviors.Add(<span class="highlight-keyword">new</span> LoadDirectionBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ModifyLoadDirection)); <span class="highlight-comment">// Добавляем изменение настроек направления загрузки</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> LoadSettingsBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ModifyLoadSettings)); <span class="highlight-comment">// Добавляем изменение настроек загрузки</span>
+
+        <span class="highlight-comment">// Добавляем параметр в настройки загрузки</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ParameterToLoadSettingsBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid параметра"</span>)));
+
+        <span class="highlight-comment">// Обработчик исключения дублей объектов справочника источника по параметрам справочника</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> InputObjectsDistinctBehavior(Context.Connection, <span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Guid параметра"</span>));
+
+        <span class="highlight-comment">// Добавляем действие после загрузки связей объектов</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> AfterLoadLinksBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, AfterLoadLinks));
+
+        <span class="highlight-comment">// Добавляем действие связи синхронизируемого объекта после чтения связи с исходного объекта</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingRelationAfterReadBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Техпроцессы"</span>, ProcessingRelationAfterRead));
+
+        <span class="highlight-comment">// Добавляем поиск объекта после того, как он не был найден</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingObjectSearchBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ProcessingObjectSearch));
+
+        <span class="highlight-comment">// Добавляем поиск объектов после того, как они не были найдены</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingObjectsSearchBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ProcessingObjectsSearch));
+
+        <span class="highlight-comment">// Добавляем действие синхронизируемого объекта при найденном реестре для другого справочника или найденных дублей реестров</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingObjectRegisterAnotherExistsBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ProcessingObjectRegisterAnotherExists));
+
+        <span class="highlight-comment">// Добавляем действие параметра синхронизируемого объекта перед конвертацией</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingParameterBeforeConversionBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Масса"</span>, ProcessingParameterBeforeConversion));
+
+        <span class="highlight-comment">// Добавляем действие синхронизируемого объекта перед конвертацией</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingObjectBeforeConversionBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ProcessingObjectBeforeConversion));
+
+        <span class="highlight-comment">// Добавляем действие связи синхронизируемого объекта перед конвертацией</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingRelationBeforeConversionBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Техпроцессы"</span>, ProcessingRelationBeforeConversion));
+
+        <span class="highlight-comment">// Добавляем замену значений синхронизируемого параметра по параметру другого справочника</span>
+        <span class="highlight-keyword">var</span> findPath = ReferencePath.Parse(<span class="highlight-literal">"[Единицы измерения].[Guid]"</span>, Context.Connection); <span class="highlight-comment">// Путь по справочнику для поиска объекта</span>
+        <span class="highlight-keyword">var</span> valuePath = ReferencePath.Parse(<span class="highlight-literal">"[Единицы измерения].[Сокращённое наименование]"</span>, Context.Connection); <span class="highlight-comment">// Путь по справочнику для значения результата</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ReplaceParameterValueBatchBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Единица измерения"</span>, findPath, valuePath));
+
+        <span class="highlight-comment">// Добавляем действие параметра синхронизируемого объекта перед установкой значения</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingParameterBeforeSetBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Масса"</span>, ProcessingParameterBeforeSet));
+
+        <span class="highlight-comment">// Добавляем действие связи синхронизируемого объекта после начала редактирования объекта</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingRelationAfterBeginChangingBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Техпроцессы"</span>, ProcessingRelationAfterBeginChanging));
+
+        <span class="highlight-comment">// Задаем файл в параметр синхронизируемого объекта</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> AttachFileParameterBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Параметр для файла"</span>, AttachFileParameter));
+
+        <span class="highlight-comment">// Добавляем проверку заполнения значения параметра по условию</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> CheckParameterBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Масса"</span>, CheckParameter));
+
+        <span class="highlight-comment">// Добавляем действие проверки удаления неиспользуемого подключения</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> CanRemoveHierarchyLinkBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, CanRemoveHierarchyLink));
+
+        <span class="highlight-comment">// Добавляем действие синхронизируемого объекта перед сохранением реестра</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingObjectRegisterConversionBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ProcessingObjectRegisterConversion));
+
+        <span class="highlight-comment">// Добавляем проверку обязательного заполнения значения параметра</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> RequiredParameterBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Масса"</span>));
+
+        <span class="highlight-comment">// Добавляем действие синхронизируемого объекта перед сохранением</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingObjectBeforeSavingBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ProcessingObjectBeforeSaving));
+
+        <span class="highlight-comment">// Добавляем действие синхронизируемого подключения перед сохранением</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingHierarchyLinkBeforeSavingBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, BeforeSavingHierarchyLink));
+
+        <span class="highlight-comment">// Добавляем действие параметра синхронизируемого объекта после конвертации</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingParameterAfterConversionBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Масса"</span>, ProcessingParameterAfterConversion));
+
+        <span class="highlight-comment">// Добавляем действие связи синхронизируемого объекта после конвертации</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingRelationAfterConversionBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, <span class="highlight-literal">"Техпроцессы"</span>, ProcessingRelationAfterConversion));
+
+        <span class="highlight-comment">// Добавляем действие синхронизируемого объекта после конвертации</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ProcessingObjectAfterConversionBehavior(<span class="highlight-literal">"Электронная структура изделий"</span>, ProcessingObjectAfterConversion));
+
+        <span class="highlight-comment">// Добавляем действие при чтении xml</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> XmlReadDataBehavior(XmlReadData));
+
+        <span class="highlight-comment">// Добавляем действие при записи xml</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> XmlWriteDataBehavior(XmlWriteData));
+
+        <span class="highlight-comment">// Добавляем действие чтения заголовка по формату обмена EnterpriseData от 1С</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> ReadEnterpriseDataBehavior(ReadEnterpriseData));
+
+        <span class="highlight-comment">// Добавляем действие записи заголовка по формату обмена EnterpriseData от 1С</span>
+        behaviors.Add(<span class="highlight-keyword">new</span> WriteEnterpriseDataBehavior(WriteEnterpriseData));
+    }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие запуска обмена данными&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> OnStart(SyncDataProvider dataProvider) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие завершения обмена данными&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> OnFinish(SyncDataProvider dataProvider) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Изменяет настройки направления загрузки&lt;/summary&gt;</span>
+    <span class="highlight-comment">/// &lt;param name="loadDirection"&gt;Направление загрузки&lt;/param&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ModifyLoadDirection(<span class="highlight-keyword">ref</span> RelationLoadSettings.RecursiveLoadDirection loadDirection) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Изменяет настройки загрузки&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ModifyLoadSettings(LoadSettings loadSettings) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие после загрузки связей объектов&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> AfterLoadLinks(SyncDataReferenceInfo dataReferenceInfo, IReadOnlyCollection&lt;ReferenceObject&gt; objects) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие связи синхронизируемого объекта после чтения связи с исходного объекта&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingRelationAfterRead(SyncDataRelation dataRelation) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Поиск объекта после того, как он не был найден&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingObjectSearch(SyncDataObject dataObject) { } <span class="highlight-comment">// Заполнить dataObject.ReceiverObject = referenceObject</span>
+
+    <span class="highlight-comment">/// &lt;summary&gt;Поиск объектов после того, как они не были найдены&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingObjectsSearch(IReadOnlyCollection&lt;SyncDataObject&gt; dataObjects) { } <span class="highlight-comment">// Заполнить dataObject.ReceiverObject = referenceObject</span>
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие синхронизируемого объекта при найденном реестре для другого справочника или найденных дублей реестров&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingObjectRegisterAnotherExists(SyncDataObject dataObject, SyncRegisterPairInfo[] registerPairs) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие параметра синхронизируемого объекта перед конвертацией&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingParameterBeforeConversion(SyncDataParameter dataParameter) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие синхронизируемого объекта перед конвертацией&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingObjectBeforeConversion(SyncDataObject dataObject) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие связи синхронизируемого объекта перед конвертацией&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingRelationBeforeConversion(SyncDataRelation dataRelation) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие параметра синхронизируемого объекта перед установкой значения&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingParameterBeforeSet(SyncDataParameter dataParameter) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие связи синхронизируемого объекта после начала редактирования объекта&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingRelationAfterBeginChanging(SyncDataRelation dataRelation) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Задание файла в параметр синхронизируемого объекта&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> SyncDataFileInfo AttachFileParameter(SyncDataObject dataObject) =&gt; <span class="highlight-keyword">new</span>(<span class="highlight-literal">@"C:\Test.csv"</span>);
+
+    <span class="highlight-comment">/// &lt;summary&gt;Проверка заполнения значения параметра по условию&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">string</span> CheckParameter(SyncDataParameter dataParameter) =&gt; <span class="highlight-keyword">null</span>; <span class="highlight-comment">// Сообщение ошибки</span>
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие проверки удаления неиспользуемого подключения&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">bool</span> CanRemoveHierarchyLink(SyncDataObject dataObject, ComplexHierarchyLink hierarchyLink) =&gt; <span class="highlight-keyword">true</span>;
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие синхронизируемого объекта перед сохранением реестра&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingObjectRegisterConversion(SyncDataObject dataObject) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие синхронизируемого объекта перед сохранением&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingObjectBeforeSaving(SyncDataObject dataObject) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие синхронизируемого подключения перед сохранением&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> BeforeSavingHierarchyLink(SyncDataHierarchyLink dataHierarchyLink) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие параметра синхронизируемого объекта после конвертации&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingParameterAfterConversion(SyncDataParameter dataParameter) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие связи синхронизируемого объекта после конвертации&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingRelationAfterConversion(SyncDataRelation dataRelation) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие синхронизируемого объекта после конвертации&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ProcessingObjectAfterConversion(SyncDataObject dataObject) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие при чтении xml&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> XmlReadData(XDocument xDocument) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие при записи xml&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> XmlWriteData(XDocument xDocument) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие чтения заголовка по формату обмена EnterpriseData от 1С&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> ReadEnterpriseData(EnterpriseDataHeader header) { }
+
+    <span class="highlight-comment">/// &lt;summary&gt;Действие записи заголовка по формату обмена EnterpriseData от 1С&lt;/summary&gt;</span>
+    <span class="highlight-keyword">private</span> EnterpriseDataHeader WriteEnterpriseData() =&gt; <span class="highlight-keyword">new</span>();
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

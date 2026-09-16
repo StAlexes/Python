@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Перемещение файлов из текущей папки</title>
+    <meta name="Microsoft.Help.Id" content="c2764d42-19c7-4c4c-8474-3e5502fc0539" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрен способ перемещения файлов в текущей папке" />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Перемещение файлов из текущей папки</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>В данном примере рассмотрен способ перемещения файлов в текущей папке</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример перемещения файлов в текущей папке</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Files;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">if</span> (Context.ReferenceObject <span class="highlight-keyword">is</span> not FolderObject sourceFolder) <span class="highlight-comment">// Проверяем, что текущий объект является папкой</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> fileReference = <span class="highlight-keyword">new</span> FileReference(Context.Connection);
+
+        <span class="highlight-comment">// Поиск папки, в которую нужно переместить файл</span>
+        <span class="highlight-keyword">if</span> (fileReference.Find(<span class="highlight-comment">/*Здесь указываем Guid папки*/</span>Guid.Empty) <span class="highlight-keyword">is</span> not FolderObject destinationFolder)
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> children = sourceFolder.Children.AsList;
+
+        <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> child <span class="highlight-keyword">in</span> children.ToList())
+        {
+            MoveTo(child, destinationFolder);
+        }
+    }
+
+    <span class="highlight-keyword">private</span> <span class="highlight-keyword">void</span> MoveTo(FileReferenceObject fileReferenceObject, FolderObject destinationFolder)
+    {
+        <span class="highlight-keyword">if</span> (fileReferenceObject.IsFile)
+        {
+            <span class="highlight-keyword">if</span> (fileReferenceObject <span class="highlight-keyword">is</span> not FileObject file)
+                <span class="highlight-keyword">return</span>;
+
+            <span class="highlight-keyword">if</span> (!file.IsCheckedOutByCurrentUser)
+            {
+                <span class="highlight-keyword">if</span> (file.CanCheckOut)
+                    file.CheckOut(<span class="highlight-keyword">false</span>);
+                <span class="highlight-keyword">else</span>
+                    <span class="highlight-keyword">return</span>;
+            }
+
+            file.BeginChanges(<span class="highlight-keyword">false</span>);
+            _ = file.SetParent(destinationFolder); <span class="highlight-comment">// Перемещаем файл  </span>
+            file.EndChanges();
+
+            file.CheckIn(<span class="highlight-literal">"Перемещение файла"</span>); <span class="highlight-comment">// Если необходимо скрыть окно с применением изменений, то можно так:</span>
+            <span class="highlight-comment">// TFlex.DOCs.Model.Desktop.Desktop.CheckIn(file, "Перемещение файла", false);</span>
+        }
+        <span class="highlight-keyword">else</span>
+        {
+            <span class="highlight-keyword">var</span> folder = (FolderObject)fileReferenceObject;
+            folder.MoveTo(destinationFolder); <span class="highlight-comment">// Перемещаем папку</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

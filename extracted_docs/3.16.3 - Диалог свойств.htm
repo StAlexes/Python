@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Диалог свойств</title>
+    <meta name="Microsoft.Help.Id" content="f3d32c2b-2bdc-43ef-bc6e-6884ec4a5bfa" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.MacroProvider.ПоказатьДиалогСвойств(TFlex.DOCs.Model.Macros.ObjectModel.Объект,System.Boolean) - Отображает диалог свойств указанного объекта." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Диалог свойств</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример вызова диалога свойств для объекта</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="320F3DFB.htm">ПоказатьДиалогСвойств(Объект, false)</a>
+          - Отображает диалог свойств указанного объекта. Возвращает значение true, если в диалоге нажата кнопка "OK" или false, если нажата кнопка "Отмена".
+        </p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">bool</span> результат = ПоказатьДиалогСвойств(ТекущийОбъект, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Если свойства объекта необходимо открыть в новом окне (новая вкладка), то второй аргумент должен быть true</span>
+Сообщение(<span class="highlight-literal">"Сообщение"</span>, <span class="highlight-literal">"Нажата кнопка \"{0}\""</span>, результат ? <span class="highlight-literal">"OK"</span> : <span class="highlight-literal">"Отмена"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion" id="Section2">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример вызова диалога свойств для задания</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <p>
+            <a href="DDB2C6A1.htm">ПоказатьДиалогСвойств(Задание)</a>
+          - Отображает диалог свойств указанного задания. Возвращает значение true, если в диалоге нажата кнопка "OK" или false, если нажата кнопка "Отмена".
+        </p>
+          <div id="IDBBCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Задание задание = СоздатьЗадание();
+ПоказатьДиалогСвойств(задание);
+
+<span class="highlight-comment">// Или</span>
+
+ЗаданиеКанцелярии заданиеКанцелярии = Канцелярия.СоздатьЗадание();
+ПоказатьДиалогСвойств(заданиеКанцелярии);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <div class="mediaNear">
+            <div class="caption">Результат:</div>
+            <img alt="Property Email Task Dialog" src="../media/PropertyEmailTaskDialog.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

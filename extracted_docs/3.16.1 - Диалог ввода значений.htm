@@ -1,0 +1,927 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Диалог ввода значений</title>
+    <meta name="Microsoft.Help.Id" content="dac41397-28d2-4d1d-905b-809d54640591" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="M:TFlex.DOCs.Model.Macros.MacroProvider.СоздатьДиалогВвода(System.String) - создает диалог ввода значений, возвращает объект T:TFlex.DOCs.Model.Macros.ObjectModel.ДиалогВвода." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Диалог ввода значений</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Команды для работы с диалогом ввода значений.</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+            <a href="7515468B.htm">СоздатьДиалогВвода(Заголовок диалога)</a>
+					- создает диалог ввода значений, возвращает объект
+					<a href="DE5512D5.htm">ДиалогВвода</a>.
+				</p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ДиалогВвода диалог = СоздатьДиалогВвода(<span class="highlight-literal">"Введите значения"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="C0A2B80.htm">ДиалогВвода.ДобавитьГруппу(Имя группы)</a>
+					- добавляет группу-разделитель
+				</p>
+          <div id="IDEBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDEBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDEBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDEBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDEBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьГруппу(<span class="highlight-literal">"текст"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="13482A15.htm">ДиалогВвода.ДобавитьЦелое(Имя поля ввода, значение [, обязательное])</a>
+					- добавляет поле ввода целых значений
+				</p>
+          <div id="IDHBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDHBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDHBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDHBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDHBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьЦелое(<span class="highlight-literal">"Целое значение"</span>, <span class="highlight-number">10</span>);
+диалог.ДобавитьЦелое(<span class="highlight-literal">"Обязательное целое значение"</span>, <span class="highlight-number">10</span>, <span class="highlight-keyword">true</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <a href="39FE7D40.htm">ДиалогВвода.ДобавитьДействительное(Имя поля ввода, значение [, точность, обязательное])</a>
+					- добавляет поле ввода вещественных значений
+				</p>
+          <div id="IDJBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDJBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDJBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDJBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDJBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьДействительное(<span class="highlight-literal">"Действительное значение"</span>, <span class="highlight-number">5.5</span>, <span class="highlight-number">2</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="FBDFDA51.htm">ДиалогВвода.ДобавитьСтроковое(Имя поля ввода, значение [, многострочное, обязательное])</a>
+					- добавляет поле ввода текстовых значений
+				</p>
+          <div id="IDMBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDMBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDMBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDMBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDMBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьСтроковое(<span class="highlight-literal">"Строка"</span>, <span class="highlight-literal">"пример"</span>);
+диалог.ДобавитьСтроковое(<span class="highlight-literal">"Текст"</span>, <span class="highlight-literal">"пример текста"</span>, <span class="highlight-keyword">true</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="C5423355.htm">ДиалогВвода.ДобавитьДату(Имя поля ввода, значение[, обязательное])</a>
+					- добавляет поле ввода даты
+				</p>
+          <div id="IDPBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDPBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDPBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDPBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDPBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьДату(<span class="highlight-literal">"Дата"</span>, DateTime.Now);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="2C395637.htm">ДиалогВвода.ДобавитьФлаг(Имя поля ввода, значение[, обязательное])</a>
+					- добавляет флаг
+				</p>
+          <div id="IDSBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDSBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDSBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDSBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDSBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьФлаг(<span class="highlight-literal">"Флаг"</span>, <span class="highlight-keyword">true</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="3C4938C0.htm">ДиалогВвода.ДобавитьВыборИзСписка(Имя поля ввода, значение[, значение])</a>
+            <br />
+            <a href="3C4938C0.htm">ДиалогВвода.ДобавитьВыборИзСписка(Имя поля ввода, значение, обязательное, значение[, значение])</a>
+            <br />
+					- добавляет поле для выбора из списка значений
+				</p>
+          <div id="IDVBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDVBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDVBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDVBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDVBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьВыборИзСписка(<span class="highlight-literal">"СписокЗначений"</span>, <span class="highlight-literal">"Первое значение"</span>, <span class="highlight-literal">"Второе значение"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="44578E19.htm">ДиалогВвода.ДобавитьВыборИзСправочника(Имя поля ввода, имя справочника[, имя параметра, значение, обязательное, корневой объект])</a>
+            <br />
+            <a href="44578E19.htm">ДиалогВвода.ДобавитьВыборИзСправочника(Имя поля ввода, имя справочника[, имя параметра, значение, обязательное, фильтр, корневой объект])</a>
+            <br />
+            <a href="44578E19.htm">ДиалогВвода.ДобавитьВыборИзСправочника(Имя поля ввода, имя справочника[, имя параметра, значение, обязательное, генератор фильтра, корневой объект])</a>
+            <br />
+					- добавляет поле для выбора объекта или значения параметра объекта из справочника
+				</p>
+          <div id="IDYBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDYBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDYBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDYBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDYBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект группаСотрудники = НайтиОбъект(<span class="highlight-literal">"Группы и пользователи"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"Сотрудники"</span>);
+диалог.ДобавитьВыборИзСправочника(<span class="highlight-literal">"Выбор объекта"</span>, <span class="highlight-literal">"Группы и пользователи"</span>, корневойОбъект: группаСотрудники.ГлобальныйИдентификатор);
+диалог.ДобавитьВыборИзСправочника(<span class="highlight-literal">"Выбор значения параметра"</span>, <span class="highlight-literal">"Группы и пользователи"</span>, <span class="highlight-literal">"ID"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="5534A32E.htm">ДиалогВвода.ДобавитьПодборОбъекта(Имя поля ввода, имя справочника[, имя параметра, контекст релевантности, значение, обязательное, использовать фильтр 'Содержит'])</a>
+            <br />
+            <a href="5534A32E.htm">ДиалогВвода.ДобавитьПодборОбъекта(Имя поля ввода, имя справочника, имя параметра, контекст релевантности, значение, обязательное, генератор фильтра[, вид, использовать фильтр 'Содержит'])</a>
+            <br />
+            <a href="5534A32E.htm">ДиалогВвода.ДобавитьПодборОбъекта(Имя поля ввода, имя справочника, имя параметра, контекст релевантности, значение, обязательное, фильтр[, вид, использовать фильтр 'Содержит'])</a>
+            <br />
+					- добавляет поле ввода выбора объекта из справочника
+				</p>
+          <div id="ID2BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID2BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID2BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID2BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID2BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалогВвода.ДобавитьПодборОбъекта(<span class="highlight-literal">"Выбор объекта"</span>, <span class="highlight-literal">"Группы и пользователи"</span>, <span class="highlight-literal">"Наименование"</span>, $<span class="highlight-literal">"return \"TestDialog^{ТекущийПользователь["</span>ID<span class="highlight-literal">"]}\";"</span>);
+диалогВвода.ДобавитьПодборОбъекта(<span class="highlight-literal">"Выбор объекта"</span>, <span class="highlight-literal">"Группы и пользователи"</span>, <span class="highlight-literal">"Наименование"</span>, <span class="highlight-literal">"return \"TestDialog\";"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Заданный 'Контекст релевантности' отвечает за отображение в начале списка наиболее часто выбираемых объектов.<br />
+						Контекст представляет собой ключ, по которому в системе хранится информация о частоте выбора объекта.<br />
+						Для установки контекста необходимо передать формулу, возвращающую строковое значение, которое и будет являться ключом.<br />
+						Один и тот же контекст можно использовать в нескольких диалогах.<br />
+						Контекст может быть персональным, к примеру, если будет содержать уникальное для текущего пользователя значение (Guid или Id).<br /><br />
+						Аргумент 'использовать фильтр 'Содержит' отвечает за способ подбора объектов. По умолчанию (если значение аргумента false) используется фильтр, содержащий условие 'Начинается c'.<br />
+						Если необходимо, чтобы подбор осуществлялся по строке, содержащейся в значении параметра, то необходимо передать true.
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            <a href="97BC648E.htm">ДиалогВвода.ДобавитьКомментарий(Имя поля ввода, Текст комментария)</a>
+					- добавляет комментарий к полю ввода
+				</p>
+          <div id="ID6BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID6BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID6BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID6BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID6BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьКомментарий(<span class="highlight-literal">"Имя поля"</span>, <span class="highlight-literal">"Текст комментарий"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="3CAA09E9.htm">ДиалогВвода.ДобавитьИзображение(Имя связи, количество строк)</a>
+					- добавляет в диалог связанное с текущим объектом изображение <br /><a href="3CAA09E9.htm">ДиалогВвода.ДобавитьИзображение(Объект справочника файлов, количество строк)</a>
+					- добавляет в диалог изображение из справочника файлов <br /><a href="3CAA09E9.htm">ДиалогВвода.ДобавитьИзображение(Объект справочника, путь к изображению, количество строк)</a>
+					- добавляет в диалог изображение, полученное по указанному пути от объекта <br /><a href="F3B46D1C.htm">ДиалогВвода.ИзменитьИзображение(Индекс, объект справочника[, путь к изображению])</a>
+					- заменяет изображение по его индексу
+				</p>
+          <div id="ID0CB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0CB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0CB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0CB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0CB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">int</span> индексИзображения = диалог.ДобавитьИзображение(<span class="highlight-literal">"Файл"</span>, <span class="highlight-number">10</span>);
+
+диалог.ДобавитьКнопку(<span class="highlight-literal">"Обновить изображение"</span>, (<span class="highlight-keyword">string</span> имя) =&gt;
+{
+    Объект новоеИзображение = НайтиОбъект(<span class="highlight-literal">"Изображения"</span>, <span class="highlight-literal">"[ID] = 515"</span>);
+    диалог.ИзменитьИзображение(индексИзображения, новоеИзображение, <span class="highlight-literal">"Изображение"</span>);
+}, <span class="highlight-keyword">true</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="5586AE0C.htm">ДиалогВвода.ДобавитьИконку(Объект справочника файлов[, количество строк])</a>
+					- добавляет в диалог иконку из справочника файлов <br /><a href="5586AE0C.htm">ДиалогВвода.ДобавитьИконку(Объект справочника, путь к изображению[, количество строк])</a>
+					- добавляет в диалог иконку, полученную по указанному пути от объекта <br /><a href="E1334DA5.htm">ДиалогВвода.ИзменитьИконку(Индекс, объект справочника[, путь к иконке])</a>
+					- заменяет иконку по ее индексу
+				</p>
+          <div id="ID0FB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0FB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0FB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0FB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0FB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">Объект иконка = НайтиОбъект(<span class="highlight-literal">"Изображения"</span>, <span class="highlight-literal">"[ID] = 3"</span>);
+
+<span class="highlight-keyword">if</span> (иконка <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span>)
+    <span class="highlight-keyword">return</span>;
+
+<span class="highlight-keyword">int</span> индексИконки = диалог.ДобавитьИконку(иконка, <span class="highlight-literal">"Иконка"</span>, <span class="highlight-number">2</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="24DC32D1.htm">ДиалогВвода.ДобавитьТекст(Текст, Количество строк)</a>
+					- добавляет в диалог указанное количество строк текста
+				</p>
+          <div id="ID0IB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0IB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0IB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0IB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0IB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьТекст(<span class="highlight-literal">"Текст"</span>, <span class="highlight-number">1</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="AD41797F.htm">ДиалогВвода.ДобавитьМаску("(Имя поля ввода)", ["(Значение)"], ["(Маска)"], [(Обязательное)])</a>
+					- Добавляет поле ввода строки с маской. Работа с маской ввода описана в разделе <a href="34BF1B80-5A19-4A7B-87BA-5C05D739DB06.htm">«Маска ввода»</a></p>
+          <div id="ID0LB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0LB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0LB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0LB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0LB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьМаску(<span class="highlight-literal">"Маска"</span>, <span class="highlight-literal">""</span>, <span class="highlight-literal">"999"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="AD41797F.htm">ДиалогВвода.ДобавитьМаску("(Имя поля ввода)", "(Значение)", "(Тип маски)", ["(Значение)"], [(Обязательное)])</a>
+					- Добавляет поле ввода строки с маской заданного типа. Работа с маской ввода описана в разделе <a href="34BF1B80-5A19-4A7B-87BA-5C05D739DB06.htm">«Маска ввода»</a></p>
+          <div id="ID0OB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0OB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0OB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0OB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0OB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьМаску(<span class="highlight-literal">"Маска"</span>, <span class="highlight-literal">"##0.## $"</span>, ТипМаски.Числовая);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="356F7D21.htm">ДиалогВвода.ДобавитьВремя("(Имя поля ввода)", ["(Значение)"], [(Обязательное)])</a>
+					- добавляет поле ввода времени
+				</p>
+          <div id="ID0RB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0RB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0RB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0RB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0RB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьВремя(<span class="highlight-literal">"Время"</span>, DateTime.Now);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="164EFB39.htm">ДиалогВвода.ДобавитьДатуИВремя("(Имя поля ввода)", ["(Значение)"], [(Обязательное)], ["(Маска)"])</a>
+					- добавляет поле ввода даты и времени с возможностью использовать маску ввода
+				</p>
+          <div id="ID0UB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0UB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0UB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0UB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0UB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьДатуИВремя(<span class="highlight-literal">"Дата и время"</span>, DateTime.Now);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="7AEB4F7.htm">ДиалогВвода.ДобавитьКнопку("(Имя элемента управления)", (Обработчик события нажатия кнопки), [(Ширина кнопки)])</a>
+					- добавляет кнопку с обработчиком
+				</p>
+          <div id="ID0XB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0XB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0XB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0XB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0XB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьКнопку(<span class="highlight-literal">"Кнопка"</span>, <span class="highlight-keyword">new</span> Action&lt;<span class="highlight-keyword">string</span>&gt;((имя) =&gt;
+{
+    <span class="highlight-comment">// ...</span>
+}));</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="5E043260.htm">ДиалогВвода.Значение(Имя поля ввода)</a>
+					- возвращает значение по имени поля ввода
+				</p>
+          <div id="ID01B0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID01B0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID01B0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID01B0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID01B0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">int</span> целое = диалог.Значение(<span class="highlight-literal">"Целое значение"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="DE5512D5.htm">ДиалогВвода</a>
+            <a href="24FFDF71.htm">[Имя поля ввода]</a>
+					- возвращает или задает значение поля ввода. Также позволяет изменить список возможных значений поля ввода типа "Выбор из списка"
+				</p>
+          <div id="ID04B0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID04B0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID04B0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID04B0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID04B0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">int</span> целое = диалог[<span class="highlight-literal">"Целое значение"</span>];
+диалог[<span class="highlight-literal">"Действительное значение"</span>] = целое;
+диалог[<span class="highlight-literal">"Список значений"</span>] = <span class="highlight-keyword">new</span> <span class="highlight-keyword">string</span>[] { <span class="highlight-literal">"Третье значение"</span>, <span class="highlight-literal">"Четвертое значение"</span> };</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="48126BE6.htm">ДиалогВвода.ЗначениеИзменено</a>
+					- событие, возникающее при изменении значения поля в диалоге
+				</p>
+          <div id="ID0AC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0AC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0AC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0AC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0AC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ЗначениеИзменено += (имяПоля, староеЗначение, новоеЗначение) =&gt;
+{
+    <span class="highlight-keyword">if</span> (имяПоля != <span class="highlight-literal">"Строка"</span>)
+        диалог[<span class="highlight-literal">"Строка"</span>] = диалог[<span class="highlight-literal">"Целое"</span>]*<span class="highlight-number">2</span>;
+};</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="9B0348F3.htm">ДиалогВвода.ЗакрытиеДиалога</a>
+					- событие, возникающее при закрытии диалога
+				</p>
+          <div id="ID0DC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0DC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0DC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0DC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0DC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ЗакрытиеДиалога += (<span class="highlight-keyword">bool</span> нажатаКнопкаОк, <span class="highlight-keyword">ref</span> <span class="highlight-keyword">bool</span> закрытьДиалог) =&gt;
+{
+    <span class="highlight-keyword">if</span> (!нажатаКнопкаОк) <span class="highlight-comment">// Если диалог закрывается через отмену</span>
+        закрытьДиалог = Вопрос(<span class="highlight-literal">"Вы уверены, что хотите закрыть диалог?"</span>); <span class="highlight-comment">// При помощи вопроса определяем необходимость закрытия диалога</span>
+};</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="39BDF10.htm">ДиалогВвода.УстановитьИконку(Наименование иконки)</a>
+            <br />
+            <a href="39BDF10.htm">ДиалогВвода.УстановитьИконку(Guid иконки)</a>
+            <br />
+					- устанавливает иконку из справочника "Изображения" в качестве иконки окна
+				</p>
+          <div id="ID0GC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0GC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0GC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0GC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0GC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.УстановитьИконку(<span class="highlight-literal">"Save"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="6E9FE60E.htm">ДиалогВвода.УстановитьРазмер(Ширина, Высота)</a>
+					- изменяет размер диалога
+				</p>
+          <div id="ID0JC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0JC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0JC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0JC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0JC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.УстановитьРазмер(<span class="highlight-number">400</span>, <span class="highlight-number">100</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="ABFAF15E.htm">ДиалогВвода.ОтобразитьПолосыПрокрутки(ВертикальнаяПолосаПрокрутки[, АвтоотображениеВертикальнойПолосыПрокрутки])</a>
+					- отображает полосы прокрутки для диалога ввода. Аргумент "АвтоотображениеВертикальнойПолосыПрокрутки" позволяет постоянно отображать полосу прокрутки, либо когда панель не может отобразить все содержимое
+				</p>
+          <div id="ID0MC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0MC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0MC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0MC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0MC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ОтобразитьПолосыПрокрутки(<span class="highlight-keyword">true</span>, <span class="highlight-keyword">false</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="3CBB4BA3.htm">ДиалогВвода.УстановитьВидимостьЭлемента(Имя элемента, Видимость)</a>
+					- устанавливает видимость элемента диалога
+				</p>
+          <div id="ID0PC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0PC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0PC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0PC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0PC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.УстановитьВидимостьЭлемента(<span class="highlight-literal">"Целое"</span>, <span class="highlight-keyword">false</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="55361D18.htm">ДиалогВвода.УстановитьДоступностьЭлемента(Имя элемента, Доступность)</a>
+					- устанавливает доступность элемента диалога
+				</p>
+          <div id="ID0SC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0SC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0SC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0SC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0SC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.УстановитьДоступностьЭлемента(<span class="highlight-literal">"Дата"</span>, <span class="highlight-keyword">false</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="3D9F7D6C.htm">ДиалогВвода.УстановитьОбязательнымДляЗаполнения(Имя элемента, Обязательность заполнения)</a>
+					- устанавливает обязательным для заполнения элемент диалога
+				</p>
+          <div id="ID0VC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0VC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0VC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0VC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0VC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.УстановитьОбязательнымДляЗаполнения(<span class="highlight-literal">"Исполнитель"</span>, <span class="highlight-keyword">true</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="98376BA5.htm">ДиалогВвода.УстановитьФильтрЭлемента(Имя элемента, фильтр)</a>
+					- устанавливает фильтр для элемента по его наименованию. Фильтр можно задать для таких элементов, как "ПодборОбъекта" и "ВыборИзСправочника"
+				</p>
+          <div id="ID0YC0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0YC0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0YC0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0YC0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0YC0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.УстановитьФильтрЭлемента(<span class="highlight-literal">"Выбор объекта"</span>, <span class="highlight-literal">"[ID] &gt; '2'"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+            <a href="12026F16.htm">ДиалогВвода.ДобавитьПанель(имя панели[, заголовок, высота, вертикальная полоса прокрутки, автоотображение вертикальной полосы прокрутки])</a>
+					- добавляет панель на диалог<br /><a href="68867817.htm">ДиалогВвода.ДобавитьЭлементыНаПанель(имя панели, имена элементов)</a>
+					- добавляет элементы на указанную панель
+				</p>
+          <div id="ID02C0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID02C0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID02C0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID02C0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID02C0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.ДобавитьЦелое(<span class="highlight-literal">"Целое"</span>, <span class="highlight-number">1</span>);
+диалог.ДобавитьЦелое(<span class="highlight-literal">"Целое2"</span>, <span class="highlight-number">2</span>);
+
+диалог.ДобавитьДату(<span class="highlight-literal">"Дата"</span>, DateTime.Now);
+диалог.ДобавитьФлаг(<span class="highlight-literal">"Флаг"</span>, <span class="highlight-keyword">true</span>);
+
+<span class="highlight-comment">// Добавляем панели</span>
+диалог.ДобавитьПанель(<span class="highlight-literal">"Панель"</span>, <span class="highlight-literal">"Заголовок панели"</span>); <span class="highlight-comment">// Первая панель с отображаемым заголовком, динамической высотой и без полосы прокрутки</span>
+диалог.ДобавитьПанель(<span class="highlight-literal">"Панель2"</span>, <span class="highlight-keyword">null</span>, <span class="highlight-number">130</span>, <span class="highlight-keyword">true</span>, <span class="highlight-keyword">false</span>); <span class="highlight-comment">// Для второй панели явно задаем высоту и включаем постоянное отображение полосы прокрутки</span>
+
+<span class="highlight-comment">// Объединяем элементы на панелях</span>
+диалог.ДобавитьЭлементыНаПанель(<span class="highlight-literal">"Панель"</span>, <span class="highlight-literal">"Целое"</span>, <span class="highlight-literal">"Целое2"</span>);
+диалог.ДобавитьЭлементыНаПанель(<span class="highlight-literal">"Панель2"</span>, <span class="highlight-literal">"Дата"</span>, <span class="highlight-literal">"Флаг"</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <div class="alert">
+            <table>
+              <tr>
+                <th>
+                  <img src="../icons/AlertCaution.png" alt="Внимание" />&nbsp;&nbsp;Внимание</th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+						Сгруппировать на панели можно только те элементы, которые были добавлены на диалог последовательно, друг за другом.<br />
+						Объединить  элементы "Целое" и "Дата", из примера выше, нельзя, т.к. между ними находится элемент "Целое2". При попытке такого объединения буде выдана ошибка "Элементы панели должны располагаться по порядку"
+					</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <p>
+            <a href="71E79E9A.htm">ДиалогВвода.Показать()</a>
+					- отображает диалог ввода
+				</p>
+          <div id="ID06C0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID06C0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID06C0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID06C0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID06C0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">диалог.Показать();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример работы с диалогом ввода</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros.ObjectModel;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context) { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        ДиалогВвода диалог = СоздатьДиалогВвода(<span class="highlight-literal">"Введите значения"</span>);
+        диалог.ОтобразитьПолосыПрокрутки(<span class="highlight-keyword">true</span>, <span class="highlight-keyword">false</span>);
+
+        Объект иконка = НайтиОбъект(<span class="highlight-literal">"Изображения"</span>, <span class="highlight-literal">"[Название] = 'Application'"</span>);
+
+        <span class="highlight-keyword">if</span> (иконка <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+            диалог.ДобавитьИконку(иконка, <span class="highlight-literal">"Иконка"</span>, <span class="highlight-number">2</span>);
+
+        диалог.ДобавитьТекст(<span class="highlight-literal">"Система T-FLEX DOCs предназначена для комплексного управления инженерными данными предприятия, "</span>
+            + <span class="highlight-literal">"а также решения задач конструкторско-технологического и организационно-распорядительного документооборота"</span>, <span class="highlight-number">5</span>);
+
+        диалог.ДобавитьГруппу(<span class="highlight-literal">"Числа"</span>);
+        диалог.ДобавитьЦелое(<span class="highlight-literal">"Целое"</span>, <span class="highlight-number">1</span>);
+        диалог.ДобавитьДействительное(<span class="highlight-literal">"Действительное"</span>, <span class="highlight-number">5.5</span>, <span class="highlight-number">2</span>);
+        диалог.ДобавитьКомментарий(<span class="highlight-literal">"Целое"</span>, <span class="highlight-literal">"* введите целое число"</span>);
+
+        диалог.ДобавитьСтроковое(<span class="highlight-literal">"Строка"</span>, <span class="highlight-literal">"пример"</span>);
+        диалог.ДобавитьСтроковое(<span class="highlight-literal">"Текст"</span>, <span class="highlight-literal">"текст"</span>, <span class="highlight-keyword">true</span>, количествоСтрок: <span class="highlight-number">3</span>);
+        диалог.ДобавитьКомментарий(<span class="highlight-literal">"Строка"</span>, <span class="highlight-literal">"* введите строку"</span>);
+
+        диалог.ДобавитьПанель(<span class="highlight-literal">"Строки"</span>, <span class="highlight-literal">"Строки"</span>);
+        диалог.ДобавитьЭлементыНаПанель(<span class="highlight-literal">"Строки"</span>, <span class="highlight-literal">"Строка"</span>, <span class="highlight-literal">"Текст"</span>);
+
+        диалог.ДобавитьДату(<span class="highlight-literal">"Дата"</span>, DateTime.Now);
+        диалог.ДобавитьФлаг(<span class="highlight-literal">"Флаг"</span>, <span class="highlight-keyword">true</span>, использоватьВсюШирину: <span class="highlight-keyword">true</span>);
+        диалог.ДобавитьФлаг(<span class="highlight-literal">"Обязательный флаг"</span>, <span class="highlight-keyword">false</span>, диалог[<span class="highlight-literal">"Флаг"</span>], <span class="highlight-keyword">true</span>); <span class="highlight-comment">// Обязательный флаг, если 'Флаг' = true</span>
+        диалог.ДобавитьВыборИзСписка(<span class="highlight-literal">"Список"</span>, <span class="highlight-literal">"Первое значение"</span>, <span class="highlight-literal">"Второе значение"</span>);
+        диалог.ДобавитьВыборИзСправочника(<span class="highlight-literal">"Путь к файлу"</span>, <span class="highlight-literal">"Файлы"</span>, <span class="highlight-literal">"Относительный путь"</span>);
+        диалог.ДобавитьВыборИзСправочника(<span class="highlight-literal">"Пользователь"</span>, <span class="highlight-literal">"Группы и пользователи"</span>, <span class="highlight-keyword">null</span>, ТекущийПользователь, <span class="highlight-keyword">false</span>, СформироватьФильтр);
+
+        диалог.ЗначениеИзменено += (имяПоля, староеЗначение, новоеЗначение) =&gt;
+        {
+            <span class="highlight-keyword">if</span> (имяПоля == <span class="highlight-literal">"Пользователь"</span>)
+            {
+                диалог.УстановитьВидимостьЭлемента(<span class="highlight-literal">"Целое"</span>, новоеЗначение <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>);
+
+                <span class="highlight-keyword">if</span> (новоеЗначение <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+                    диалог[<span class="highlight-literal">"Целое"</span>] = (<span class="highlight-keyword">int</span>)новоеЗначение[<span class="highlight-literal">"ID"</span>];
+            }
+            <span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (имяПоля == <span class="highlight-literal">"Флаг"</span>)
+            {
+                диалог.УстановитьДоступностьЭлемента(<span class="highlight-literal">"Дата"</span>, новоеЗначение);
+                диалог.УстановитьОбязательнымДляЗаполнения(<span class="highlight-literal">"Обязательный флаг"</span>, новоеЗначение);
+            }
+
+            диалог[<span class="highlight-literal">"Список"</span>] = <span class="highlight-keyword">new</span> <span class="highlight-keyword">string</span>[] { <span class="highlight-literal">"Третье значение"</span>, <span class="highlight-literal">"Четвертое значение"</span> };
+        };
+
+        диалог.ЗакрытиеДиалога += (<span class="highlight-keyword">bool</span> нажатаКнопкаОк, <span class="highlight-keyword">ref</span> <span class="highlight-keyword">bool</span> закрытьДиалог) =&gt;
+        {
+            <span class="highlight-keyword">if</span> (!нажатаКнопкаОк)
+                закрытьДиалог = Вопрос(<span class="highlight-literal">"Вы уверены, что хотите закрыть диалог?"</span>);
+        };
+
+        <span class="highlight-keyword">if</span> (диалог.Показать())
+        {
+            <span class="highlight-keyword">int</span> целое = диалог[<span class="highlight-literal">"Целое"</span>];
+            <span class="highlight-keyword">double</span> действительное = диалог[<span class="highlight-literal">"Действительное"</span>];
+            <span class="highlight-keyword">string</span> строка = диалог[<span class="highlight-literal">"Строка"</span>];
+            <span class="highlight-keyword">string</span> текст = диалог[<span class="highlight-literal">"Текст"</span>];
+            DateTime дата = диалог[<span class="highlight-literal">"Дата"</span>];
+            <span class="highlight-keyword">bool</span> флаг = диалог[<span class="highlight-literal">"Флаг"</span>];
+            <span class="highlight-keyword">bool</span> обязательныйФлаг = диалог[<span class="highlight-literal">"Обязательный флаг"</span>];
+            <span class="highlight-keyword">object</span> выборИзСписка = диалог[<span class="highlight-literal">"Список"</span>];
+            Объект пользователь = диалог[<span class="highlight-literal">"Пользователь"</span>];
+            <span class="highlight-keyword">string</span> путьКФайлу = диалог[<span class="highlight-literal">"Путь к файлу"</span>];
+
+            <span class="highlight-keyword">string</span> введенныеЗначения = $<span class="highlight-literal">""</span>"
+              Введены значения:
+                Целое: {целое}
+                Действительное: {действительное}
+                Строка: {строка}
+                Текст: {текст}
+                Дата: {дата}
+                Флаг: {флаг}
+                Обязательный флаг: {обязательныйФлаг}
+                Выбор из списка: {выборИзСписка}
+                Пользователь: {пользователь}
+                Путь к файлу: {путьКФайлу}
+              <span class="highlight-literal">""</span>";
+
+            Сообщение(<span class="highlight-literal">"Пример диалога ввода"</span>, введенныеЗначения);
+        }
+        <span class="highlight-keyword">else</span>
+        {
+            Сообщение(<span class="highlight-literal">"Пример диалога ввода"</span>, <span class="highlight-literal">"Отмена!"</span>);
+        }
+
+        <span class="highlight-keyword">string</span> СформироватьФильтр()
+        {
+            DateTime датаФильтра = DateTime.Today;
+            ДиалогВвода вводДаты = СоздатьДиалогВвода(<span class="highlight-literal">"Минимальная дата рождения"</span>);
+            вводДаты.ДобавитьДату(<span class="highlight-literal">"Минимальная дата рождения"</span>, датаФильтра);
+            вводДаты.УстановитьРазмер(<span class="highlight-number">400</span>, <span class="highlight-number">0</span>);
+            <span class="highlight-keyword">string</span> фильтр = <span class="highlight-literal">"([Тип] = 'Сотрудник')"</span>;
+
+            <span class="highlight-keyword">if</span> (вводДаты.Показать())
+            {
+                датаФильтра = вводДаты[<span class="highlight-literal">"Минимальная дата рождения"</span>];
+                фильтр += $<span class="highlight-literal">" И ([День рождения] &gt;= '{датаФильтра}')"</span>;
+            }
+
+            <span class="highlight-keyword">return</span> фильтр;
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="mediaNear">
+            <div class="caption">Результат:</div>
+            <img alt="Input Dialog Example" src="../media/InputDialogExample.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Управление справочниками</title>
+    <meta name="Microsoft.Help.Id" content="603D8E2A-9BAD-473B-9A86-79406A420914" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В данном примере рассмотрена работа с журналом событий &quot;Управление справочниками&quot;. Данный журнал содержит информацию о таких событиях, как создание и удаление справочников, изменение типов и параметров, и др." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Управление справочниками</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion" id="Section1">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример по работе с журналом событий "Управление справочниками"</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					В данном примере рассмотрена работа с журналом событий "Управление справочниками".<br />
+					Данный журнал содержит информацию о таких событиях, как создание и удаление справочников, изменение типов и параметров, и др.<br />
+					Для получения событий по конкретному справочнику необходимо, чтобы в свойствах данного справочника был активирован флаг "Поддержка журнала".<br /></p>
+          <div id="IDBBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDBBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDBBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDBBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDBBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFLex.DOCs.Data.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> System.Collections.Generic;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Logging;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Structure;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-comment">// Менеджер журнала 'Управление справочниками'</span>
+        <span class="highlight-keyword">var</span> structureLogManager = <span class="highlight-keyword">new</span> StructureLogManager(Context.Connection);
+        List&lt;StructureLog&gt; structureLogEvents = structureLogManager.Load(<span class="highlight-keyword">null</span>); <span class="highlight-comment">// Загружаем события</span>
+        List&lt;<span class="highlight-keyword">long</span>&gt; eventIds = <span class="highlight-keyword">new</span> List&lt;<span class="highlight-keyword">long</span>&gt;(structureLogEvents.Count);
+
+        <span class="highlight-keyword">foreach</span> (StructureLog structureLogEvent <span class="highlight-keyword">in</span> structureLogEvents)
+        {
+            <span class="highlight-keyword">var</span> eventId = structureLogEvent.EventId; <span class="highlight-comment">// Идентификатор события</span>
+            <span class="highlight-keyword">var</span> eventEventTime = structureLogEvent.EventTime; <span class="highlight-comment">// Время события (UTC)</span>
+            <span class="highlight-keyword">var</span> eventType = structureLogEvent.EventType; <span class="highlight-comment">// Тип события</span>
+            <span class="highlight-keyword">string</span> host = structureLogEvent.Host; <span class="highlight-comment">// Рабочая станция</span>
+            Guid referenceGuid = structureLogEvent.ReferenceGuid; <span class="highlight-comment">// Guid справочника</span>
+            <span class="highlight-keyword">int</span> userId = structureLogEvent.UserId; <span class="highlight-comment">// Идентификатор пользователя</span>
+
+            eventIds.Add(eventId);
+        }
+
+        <span class="highlight-comment">// Получаем детали событий журнала 'Управление справочниками'</span>
+        <span class="highlight-keyword">var</span> eventsDetails = structureLogManager.GetStructureLogEventDetailObjects(eventIds.ToArray());
+
+        <span class="highlight-keyword">foreach</span> (<span class="highlight-keyword">var</span> eventDetails <span class="highlight-keyword">in</span> eventsDetails)
+        {
+            StructureLogBaseLogDescription details = eventDetails.Value;
+            <span class="highlight-keyword">switch</span> (details) <span class="highlight-comment">// В зависимости от типа получаем необходимые данные из детальной информации по событию</span>
+            {
+                <span class="highlight-keyword">case</span> ReferenceCreateLinkLogDescription referenceCreateLinkLogDescription: <span class="highlight-comment">// Описание события "Создание связи"</span>
+                    ReferencePropertiesLog linkParameters = referenceCreateLinkLogDescription.ParameterProperties;
+                    LinkRequired requiredLink = referenceCreateLinkLogDescription.ParameterProperties.LinkRequired; <span class="highlight-comment">// Правило заполнения связи </span>
+                    LinkType linkType = linkParameters.LinkType; <span class="highlight-comment">// Тип связи</span>
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">case</span> ReferenceCreateLogDescription referenceCreateLogDescription: <span class="highlight-comment">// Описание события "Создание справочника"</span>
+                    ReferencePropertiesLog referenceParameters = referenceCreateLogDescription.ParameterProperties;
+                    <span class="highlight-keyword">bool</span> supportsRecycleBin = referenceParameters.SupportsRecycleBin; <span class="highlight-comment">// Поддержка корзины</span>
+                    ParameterGroupHierarchyType hierarchyType = referenceParameters.HierarchyType; <span class="highlight-comment">// Тип иерархии</span>
+                    <span class="highlight-keyword">break</span>;
+                <span class="highlight-keyword">default</span>:
+                    <span class="highlight-keyword">continue</span>;
+            }
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="652DD193.htm">TFlex.DOCs.Model.Logging<span id="LSTCAB3BFE5_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>StructureLogManager</a>
+          </div>
+          <div>
+            <a href="D8A535DC.htm">TFlex.DOCs.Model.Logging<span id="LSTCAB3BFE5_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>StructureLog</a>
+          </div>
+          <div>
+            <a href="B9AB87E4.htm">TFlex.DOCs.Model.Logging<span id="LSTCAB3BFE5_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>StructureLogBaseLogDescription</a>
+          </div>
+          <div>
+            <a href="8FA0E32F.htm">TFlex.DOCs.Model.Logging<span id="LSTCAB3BFE5_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceCreateLinkLogDescription</a>
+          </div>
+          <div>
+            <a href="B1F66E8F.htm">TFlex.DOCs.Model.Logging<span id="LSTCAB3BFE5_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferencePropertiesLog</a>
+          </div>
+          <div>
+            <a href="AB16C778.htm">TFlex.DOCs.Model.Logging<span id="LSTCAB3BFE5_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceCreateLogDescription</a>
+          </div>
+          <div>
+            <a href="8FD50B29.htm">TFlex.DOCs.Model.Structure<span id="LSTCAB3BFE5_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>LinkType</a>
+          </div>
+          <div>
+            <a href="1141AC99.htm">TFlex.DOCs.Model.Structure<span id="LSTCAB3BFE5_7" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ParameterGroupHierarchyType</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

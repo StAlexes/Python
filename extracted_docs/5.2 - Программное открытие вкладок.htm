@@ -1,0 +1,227 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Программное открытие вкладок</title>
+    <meta name="Microsoft.Help.Id" content="2D145ADD-A87F-4DCE-8789-3DE04DC03412" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Ссылки:T:TFlex.DOCs.Model.References.Nomenclature.NomenclatureReferenceT:TFlex.DOCs.UI.Client.Common.ViewModels.MDI.Descriptions.MdiReferenceDescriptionT:TFlex.DOCs.Client." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Программное открытие вкладок</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример открытия окна справочника и объекта в новом окне</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.UI.Client.dll
+TFlex.DOCs.UI.Client.Common.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System.Threading;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Client;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.References.Nomenclature;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.MDI.Descriptions;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">var</span> nomenclatureReference = <span class="highlight-keyword">new</span> NomenclatureReference(Context.Connection); <span class="highlight-comment">// Создаем экземпляр справочника "Электронная структура изделий"</span>
+        <span class="highlight-keyword">var</span> nomenclatureObject = nomenclatureReference.Find(<span class="highlight-number">1</span>); <span class="highlight-comment">// Находим объект справочника</span>
+
+        <span class="highlight-keyword">var</span> description = <span class="highlight-keyword">new</span> MdiReferenceDescription <span class="highlight-comment">// Создаем описание окна справочника</span>
+        {
+            ReferenceInfo = nomenclatureReference.ParameterGroup.ReferenceInfo, <span class="highlight-comment">// Указываем справочник</span>
+        };
+
+        <span class="highlight-comment">// Если задать корневой объект, то откроется вкладка для которой данный объект будет задан в качестве корневого. Т.е. программное выполнение команды "Открыть в новом окне"</span>
+        <span class="highlight-comment">//description.RootObject = nomenclatureObject;</span>
+
+        Context.RunOnUIThread(() =&gt; ApplicationManager.OpenView(description, Context.Connection, CancellationToken.None)); <span class="highlight-comment">// Открываем справочник в основном UI-потоке</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="5AD4E07.htm">TFlex.DOCs.Model.References.Nomenclature<span id="LST314F0E1D_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>NomenclatureReference</a>
+            <br />
+            <a href="7C702229.htm">TFlex.DOCs.UI.Client.Common.ViewModels.MDI.Descriptions<span id="LST314F0E1D_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MdiReferenceDescription</a>
+            <br />
+            <a href="2050AB9F.htm">TFlex.DOCs.Client<span id="LST314F0E1D_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ApplicationManager</a>
+            <br />
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDCAB')" onkeypress="SectionExpandCollapse_CheckKey('IDCAB', event)" tabindex="0">
+            <img id="IDCABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример открытия рабочей страницы</span>
+        </div>
+        <div id="IDCABSection" class="collapsibleSection">
+          <div id="IDABCAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABCAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABCAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABCAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABCAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.IoC.Infrastructure.dll
+TFlex.DOCs.UI.Client.dll
+TFlex.DOCs.UI.Client.Common.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Client;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Configuration.WorkingPages;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.Base;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.WorkingPages;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">if</span> (Context <span class="highlight-keyword">is</span> not UIMacroContext uiMacroContext) <span class="highlight-comment">// Проверяем, выполняется ли макрос в графическом интерфейсе пользователя</span>
+            <span class="highlight-keyword">return</span>;
+
+        WorkingPage page = WorkingPageManager.Find(Context.Connection, <span class="highlight-keyword">new</span> Guid(<span class="highlight-literal">"Guid страницы"</span>)); <span class="highlight-comment">// Находим рабочую страницу по ее Guid'у</span>
+
+        <span class="highlight-keyword">if</span> (page <span class="highlight-keyword">is</span> <span class="highlight-keyword">null</span> || !page.CanUseInCurrentConfiguration()) <span class="highlight-comment">// Если страница не найдена или не может быть использована в текущей конфигурации, то выходим</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> workingPageVm = <span class="highlight-keyword">new</span> WorkingPageViewModel(page, uiMacroContext.OwnerViewModel <span class="highlight-keyword">as</span> LayoutViewModel); <span class="highlight-comment">// Создаем модель представления рабочей страницы</span>
+        Context.RunOnUIThread(() =&gt; ApplicationManager.OpenView(workingPageVm)); <span class="highlight-comment">// Открываем страницу в основном UI-потоке</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="7C6AC4EC.htm">TFlex.DOCs.UI.Client.Common.ViewModels<span id="LST314F0E1D_3" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>UIMacroContext</a>
+            <br />
+            <a href="727C4C70.htm">TFlex.DOCs.Model.Configuration.WorkingPages<span id="LST314F0E1D_4" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>WorkingPageManager</a>
+            <br />
+            <a href="83622E58.htm">TFlex.DOCs.UI.Client.Common.ViewModels.WorkingPages<span id="LST314F0E1D_5" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>WorkingPageViewModel</a>
+            <br />
+            <a href="2050AB9F.htm">TFlex.DOCs.Client<span id="LST314F0E1D_6" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ApplicationManager</a>
+            <br />
+          </p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDDAB')" onkeypress="SectionExpandCollapse_CheckKey('IDDAB', event)" tabindex="0">
+            <img id="IDDABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример открытия проекта (редактора проектов)</span>
+        </div>
+        <div id="IDDABSection" class="collapsibleSection">
+          <div id="IDABDAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABDAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABDAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABDAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABDAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.ProjectManagement.dll
+TFlex.DOCs.UI.Client.Common.dll*/</span>
+
+<span class="highlight-keyword">using</span> System.Threading;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.References.ProjectManagement;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels.MDI.Descriptions;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro(MacroContext context) : MacroProvider(context)
+{
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">if</span> (Context.ReferenceObject <span class="highlight-keyword">is</span> not Project project) <span class="highlight-comment">// Для примера открываем окно редактора проектов для текущего объекта</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-keyword">var</span> description = <span class="highlight-keyword">new</span> MdiProjectEditorDescription <span class="highlight-comment">// Создаем описание окна редактора проектов</span>
+        {
+            ProjectIds = [project.Id]  <span class="highlight-comment">// Передаем Id проекта</span>
+        };
+
+        Context.RunOnUIThread(() =&gt; Services.MdiService.OpenView(description, Context.Connection, CancellationToken.None)); <span class="highlight-comment">// Открываем редактор проектов в основном UI-потоке</span>
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="9F1F552E.htm">TFlex.DOCs.References.ProjectManagement<span id="LST314F0E1D_7" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Project</a>
+            <br />
+            <a href="11598268.htm">TFlex.DOCs.UI.Client.Common.ViewModels.MDI.Descriptions<span id="LST314F0E1D_8" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>MdiProjectEditorDescription</a>
+            <br />
+            <a href="2050AB9F.htm">TFlex.DOCs.Client<span id="LST314F0E1D_9" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ApplicationManager</a>
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,303 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Работа с версионными объектами</title>
+    <meta name="Microsoft.Help.Id" content="4203a7d7-dff0-4821-b59e-b0e8073a2839" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="Некоторые справочники поддерживают версионные объекты." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Работа с версионными объектами</h1>
+            </td>
+          </tr>
+        </table>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Работа с версионными объектами (для справочников с поддержкой истории)</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <p>
+					Некоторые справочники поддерживают версионные объекты. Работа с такими объектами производится следующим образом:<br /></p>
+          <p>
+					Проверка поддержки истории изменения:
+				</p>
+          <div id="IDCBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDCBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDCBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDCBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDCBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">referenceObject.Reference.ParameterGroup.SupportsDesktop;</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Перед тем как перевести объект в состояние редактирования, его необходимо взять на редактирование:
+				</p>
+          <div id="IDFBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDFBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDFBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDFBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDFBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">referenceObject.CheckOut(<span class="highlight-keyword">false</span>); <span class="highlight-comment">// Берем объект на редактирование</span>
+referenceObject.BeginChanges();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Для редактирования объекта с сохранением текущих подписей в неактуальном состоянии необходимо воспользоваться одной из перегрузок метода
+					<a href="69E4CD79.htm">Desktop.CheckOut()</a>
+					, т.к. в противном случае, при отсутствии доступа на изменение объекта с сохранением подписей, подписи будут удалены<br /></p>
+          <div id="IDIBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDIBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDIBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDIBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDIBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">TFlex.DOCs.Model.Desktop.Desktop.CheckOut(referenceObject, <span class="highlight-keyword">false</span>, <span class="highlight-keyword">null</span>, <span class="highlight-keyword">true</span>); <span class="highlight-comment">// Берем объект на редактирование с сохранением подписей в неактуальном состоянии</span>
+referenceObject.BeginChanges();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Проверка возможности взятия объекта на редактирование:
+				</p>
+          <div id="IDLBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDLBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDLBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDLBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDLBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (referenceObject.CanCheckOut)
+    referenceObject.CheckOut(<span class="highlight-keyword">false</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Проверка того факта, что объект взят на редактирование:
+				</p>
+          <div id="IDOBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDOBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDOBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDOBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDOBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (referenceObject.IsCheckedOut)
+{
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Проверка того факта, что объект взят на редактирование текущим пользователем:
+				</p>
+          <div id="IDRBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDRBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDRBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDRBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDRBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (referenceObject.IsCheckedOutByCurrentUser)
+{
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Отличить только что созданный объект от объекта взятого на редактирование можно с помощью свойства LockState:
+				</p>
+          <div id="IDUBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDUBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDUBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDUBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDUBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (referenceObject.LockState == ReferenceObjectLockState.CheckedOutForAdd) <span class="highlight-comment">// Создан на рабочем столе</span>
+{
+}
+<span class="highlight-keyword">else</span> <span class="highlight-keyword">if</span> (referenceObject.LockState == ReferenceObjectLockState.CheckedOutForEdit) <span class="highlight-comment">// Взят на редактирование</span>
+{
+}</pre>
+              </div>
+            </div>
+          </div>
+          <p>
+            <span class="ui">Ссылки:</span>
+            <br />
+            <a href="26AE86E6.htm">TFlex.DOCs.Model.References<span id="LST9435D92_0" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Reference</a>
+            <br />
+          </p>
+          <p>&nbsp;</p>
+          <p>
+					После редактирования объекта необходимо применить изменения:
+				</p>
+          <div id="IDYBBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDYBBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDYBBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDYBBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDYBBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">// Действия над объектом</span>
+referenceObject.EndChanges(); <span class="highlight-comment">// Фиксируем изменения</span>
+referenceObject.CheckIn(<span class="highlight-literal">"Применяем изменения"</span>); <span class="highlight-comment">// Применяем изменения</span></pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Отмена изменений:
+				</p>
+          <div id="ID2BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID2BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID2BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID2BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID2BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-keyword">if</span> (referenceObject.Changing)
+    referenceObject.CancelChanges();
+
+referenceObject.UndoCheckOut();</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Удаление объекта:
+				</p>
+          <div id="ID5BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID5BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID5BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID5BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID5BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">referenceObject.CheckOut(<span class="highlight-keyword">true</span>);
+referenceObject.CheckIn(<span class="highlight-literal">"Удаление объекта"</span>);
+
+<span class="highlight-comment">// Если справочник поддерживает корзину, можем удалить объект из нее</span>
+<span class="highlight-keyword">if</span> (referenceObject.Reference.ParameterGroup.SupportsRecycleBin)
+    TFlex.DOCs.Model.Desktop.Desktop.ClearRecycleBin(referenceObject);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+          <p>
+					Если необходимо произвести операции над коллекцией объектов, то можно воспользоваться классом Desktop:
+				</p>
+          <div id="ID0BB0BBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="ID0BB0BBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="ID0BB0BBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('ID0BB0BBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="ID0BB0BBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve">ReferenceObject[] referenceObjects;
+<span class="highlight-comment">// Применяем изменения без отображения диалога "Применение изменений"</span>
+TFlex.DOCs.Model.Desktop.Desktop.CheckIn(referenceObjects, <span class="highlight-literal">"Применение изменений"</span>, <span class="highlight-keyword">false</span>);</pre>
+              </div>
+            </div>
+          </div>
+          <p>&nbsp;</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('seeAlso')" onkeypress="SectionExpandCollapse_CheckKey('seeAlso', event)" tabindex="0">
+            <img id="seeAlsoToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />См. также</span>
+        </div>
+        <div id="seeAlsoSection" class="collapsibleSection">
+          <h4>Ссылки</h4>
+          <div>
+            <a href="85856F0C.htm">TFlex.DOCs.Model.References<span id="LST9435D92_1" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>ReferenceObject</a>
+          </div>
+          <div>
+            <a href="A5514964.htm">TFlex.DOCs.Model.Desktop<span id="LST9435D92_2" data-languageSpecificText="cs=.|vb=.|cpp=::|nu=.|fs=."></span>Desktop</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; CHARSET=Windows-1251" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Language" content="ru-ru" />
+    <meta name="Microsoft.Help.Locale" content="ru-ru" />
+    <meta name="Microsoft.Help.TopicLocale" content="ru-ru" />
+    <link rel="shortcut icon" href="../icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/branding-ru-RU.css" />
+    <script type="text/javascript" src="../scripts/branding.js"></script>
+    <title>Формирование списка команд</title>
+    <meta name="Microsoft.Help.Id" content="557cd7c3-8cf1-45fd-8652-f4bc86f40dbc" />
+    <meta name="Microsoft.Help.ContentType" content="Concepts" />
+    <meta name="Microsoft.Help.Category" content="CSharp" />
+    <meta name="Description" content="В примере рассмотрена обработка события, возникающего во время формирования списка команд справочника. В обработчике имеется возможность получить и отредактировать данный список." />
+    <link type="text/css" rel="stylesheet" href="../styles/highlight.css" />
+    <script type="text/javascript" src="../scripts/highlight.js"> </script>
+    <link rel="stylesheet" type="text/css" href="../styles/branding-Help1.css" />
+  </head>
+  <body onload="SetDefaultLanguage('cs');">
+    <input type="hidden" id="userDataCache" class="userDataStyle" />
+    <div id="PageHeader" class="pageHeader">Руководство по T-FLEX DOCs Open API</div>
+    <div class="pageBody">
+      <div id="TopicContent" class="topicContent">
+        <table class="titleTable">
+          <tr>
+            <td class="titleColumn">
+              <h1>Формирование списка команд</h1>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <p>
+				В примере рассмотрена обработка события, возникающего во время формирования списка команд справочника.<br />
+				В обработчике имеется возможность получить и отредактировать данный список.
+			</p>
+        </div>
+        <div class="collapsibleAreaRegion">
+          <span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('IDBAB')" onkeypress="SectionExpandCollapse_CheckKey('IDBAB', event)" tabindex="0">
+            <img id="IDBABToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Пример обработчика события "Формирование списка команд".</span>
+        </div>
+        <div id="IDBABSection" class="collapsibleSection">
+          <div id="IDABBAB" class="codeSnippetContainer">
+            <div class="codeSnippetContainerTabs">
+              <div id="IDABBAB_tab1" class="codeSnippetContainerTabSingle">C#</div>
+            </div>
+            <div class="codeSnippetContainerCodeContainer">
+              <div class="codeSnippetToolBar">
+                <div class="codeSnippetToolBarText">
+                  <a id="IDABBAB_copyCode" href="#" class="copyCodeSnippet" onclick="CopyToClipboard('IDABBAB');return false;" title="Копировать">Копировать</a>
+                </div>
+              </div>
+              <div id="IDABBAB_code_Div1" class="codeSnippetContainerCode" style="display: block">
+                <pre xml:space="preserve"><span class="highlight-comment">/*
+Ссылки:
+TFlex.DOCs.IoC.Infrastructure.dll
+TFlex.DOCs.UI.Client.dll
+TFlex.DOCs.UI.Client.Common.dll*/</span>
+
+
+<span class="highlight-keyword">using</span> System.Linq;
+<span class="highlight-keyword">using</span> TFlex.DOCs.Model.Macros;
+<span class="highlight-keyword">using</span> TFlex.DOCs.UI.Client.Common.ViewModels;
+
+<span class="highlight-keyword">public</span> <span class="highlight-keyword">class</span> Macro : MacroProvider
+{
+    <span class="highlight-keyword">public</span> Macro(MacroContext context) : <span class="highlight-keyword">base</span>(context)
+    { }
+
+    <span class="highlight-keyword">public</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> Run()
+    {
+        <span class="highlight-keyword">if</span> (Context <span class="highlight-keyword">is</span> not UIMacroContext uiMacroContext) <span class="highlight-comment">// Если макрос выполняется вне контекста графического интерфейса пользователя, выходим</span>
+            <span class="highlight-keyword">return</span>;
+
+        <span class="highlight-comment">// Проверяем, что в контексте графического интерфейса имеется информация о командах</span>
+        <span class="highlight-keyword">var</span> currentCommands = uiMacroContext.GetCommands();
+
+        <span class="highlight-keyword">if</span> (currentCommands.Count &gt; <span class="highlight-number">0</span>)
+        {
+            <span class="highlight-keyword">var</span> printAndExportCommand = currentCommands.FirstOrDefault(command =&gt; command.Caption == <span class="highlight-literal">"Печать и экспорт"</span>); <span class="highlight-comment">// Находим команду по наименованию</span>
+            <span class="highlight-comment">//var printAndExportCommand = currentCommands.FirstOrDefault(command =&gt; command is PrintAndExportCommand); // Команду можно найти по типу</span>
+
+            <span class="highlight-keyword">if</span> (printAndExportCommand <span class="highlight-keyword">is</span> not <span class="highlight-keyword">null</span>)
+                currentCommands.Remove(printAndExportCommand); <span class="highlight-comment">// Удаляем из списка команд</span>
+        }
+    }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageFooter" class="pageFooter">
+      <p>
+        <a href="http://www.tflex.ru/" target="_blank" rel="noopener noreferrer">Авторское право &copy; 1989-2026 АО "Топ Системы". Все права защищены.</a>
+      </p>
+    </div>
+  </body>
+</html>
